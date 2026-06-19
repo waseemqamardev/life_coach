@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Life Coach</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Life Coach</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+
+	<!-- Supported orientations.
+	     The Flutter app locks to portrait at runtime in main.dart via
+	     SystemChrome.setPreferredOrientations. We still declare iPhone as
+	     portrait-only here; iPad allows all orientations so the app passes
+	     iPad review (Apple expects iPad apps to rotate). Flutter's runtime lock
+	     keeps the UI portrait regardless. -->
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+
+	<!-- The app locks to portrait at runtime. Declaring full-screen opts the
+	     iPad build out of Split View / Slide Over multitasking, which would
+	     otherwise require supporting all orientations and resizable windows.
+	     This keeps iPad review clean for a portrait-first phone UI. -->
+	<key>UIRequiresFullScreen</key>
+	<true/>
+
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+
+	<!-- Status bar: let Flutter control it so it adapts to light/dark themes. -->
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+
+	<key>NSCameraUsageDescription</key>
+	<string>Life Coach uses the camera so you can set a profile photo.</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Life Coach needs photo access so you can choose a profile picture.</string>
+
+	<!-- =====================================================================
+	     PRIVACY USAGE DESCRIPTIONS
+	     =====================================================================
+	     IMPORTANT (App Store Guideline 5.1.1): Only declare a usage string for
+	     a capability you ACTUALLY use in code. Declaring an unused permission
+	     is a common rejection reason.
+
+	     The current app uses ONLY local storage (Hive + SharedPreferences),
+	     which lives in the app sandbox and needs NO permission string. So no
+	     privacy keys are required for the app as it stands today.
+
+	     When you implement a feature below, UNCOMMENT the matching key and give
+	     it an honest, specific description (vague strings also get rejected).
+
+	     <key>NSCameraUsageDescription</key>
+	     <string>Life Coach uses the camera so you can set a profile photo.</string>
+
+	     <key>NSPhotoLibraryUsageDescription</key>
+	     <string>Life Coach needs photo access so you can choose a profile picture.</string>
+
+	     <key>NSPhotoLibraryAddUsageDescription</key>
+	     <string>Life Coach saves exported reports to your photo library.</string>
+
+	     <key>NSLocationWhenInUseUsageDescription</key>
+	     <string>Life Coach uses your location to give location-aware suggestions.</string>
+
+	     <key>NSUserTrackingUsageDescription</key>
+	     <string>This identifier will be used to deliver a more relevant experience.</string>
+
+	     For push notifications you do NOT need a usage string; you need the
+	     "Push Notifications" capability + APNs entitlement added in Xcode and a
+	     remote-notification background mode (see commented UIBackgroundModes
+	     block below).
+
+	     <key>UIBackgroundModes</key>
+	     <array>
+	       <string>remote-notification</string>
+	     </array>
+	===================================================================== -->
+
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<!-- google_fonts and cached_network_image fetch over HTTPS only, so we
+		     keep ATS fully enabled (no arbitrary loads). This is the
+		     App-Store-preferred secure default. -->
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+	</dict>
+</dict>
+</plist>

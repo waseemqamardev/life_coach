@@ -1,0 +1,14 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    use_super_parameters: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    avoid_print: true
+    sized_box_for_whitespace: true
+
+analyzer:
+  errors:
+    # Demote a few rules so missing illustration assets don't break the build.
+    asset_does_not_exist: warning

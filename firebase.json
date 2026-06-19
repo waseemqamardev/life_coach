@@ -1,0 +1,30 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "life-coach-8e291",
+          "appId": "1:147488428165:android:8a0fce2ddb381551d619ec",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "life-coach-8e291",
+          "appId": "1:147488428165:ios:d972188088b683bbd619ec",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "life-coach-8e291",
+          "configurations": {
+            "android": "1:147488428165:android:8a0fce2ddb381551d619ec",
+            "ios": "1:147488428165:ios:d972188088b683bbd619ec"
+          }
+        }
+      }
+    }
+  }
+}

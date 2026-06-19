@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "147488428165",
+    "project_id": "life-coach-8e291",
+    "storage_bucket": "life-coach-8e291.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147488428165:android:8a0fce2ddb381551d619ec",
+        "android_client_info": {
+          "package_name": "com.lifecoach.habits.goalplanner.focus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147488428165-0eveq5osblr177r00bprndgu4ol79ki3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lifecoach.habits.goalplanner.focus",
+            "certificate_hash": "75d3e46d4d43f9daf97aeadd560b3d5ca6b6078e"
+          }
+        },
+        {
+          "client_id": "147488428165-cr4q368v14m96si0qcrht5k2ps558ige.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuhAG8NyU6W-e3jTs_2ygm9Re1Q4rtzi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147488428165-cr4q368v14m96si0qcrht5k2ps558ige.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "147488428165-tk89ndo4d6u5rjabo5dioth1fd3lmgub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lifecoach.habits.goalplanner.focus"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

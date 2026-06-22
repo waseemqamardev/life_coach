@@ -235,7 +235,7 @@ class _ProblemScreenState extends ConsumerState<ProblemScreen> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Container(
-          color: Colors.white,
+          color: AppColors.cardColor(context),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
           child: Row(
             children: <Widget>[
@@ -313,9 +313,11 @@ class _ProblemScreenState extends ConsumerState<ProblemScreen> {
         color: AppColors.selectedFillColor(context),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.add_rounded,
-                color: AppColors.primaryPurple,
+                color: AppColors.isLight(context)
+                    ? AppColors.primaryPurple
+                    : AppColors.accentPurple,
                 size: 16,
               ),
             ),
@@ -323,7 +325,9 @@ class _ProblemScreenState extends ConsumerState<ProblemScreen> {
             Text(
               l10n.addAnotherOption,
               style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.primaryPurple,
+                color: AppColors.isLight(context)
+                    ? AppColors.primaryPurple
+                    : AppColors.accentPurple,
                 fontWeight: FontWeight.w600,
                 fontSize: 12,
               ),

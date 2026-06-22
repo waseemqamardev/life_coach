@@ -2586,4 +2586,145 @@ class AppLocalizationsDe extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'Ihr Gesamtrisikoniveau beträgt $label ($score %). Sehen Sie sich die nachstehende Aufschlüsselung an, um zu verstehen, was zu dieser Bewertung führt.';
   }
+
+  @override
+  String get urgencyNoRushSub =>
+      'Nehmen Sie sich Zeit für Recherche und Vergleich.';
+
+  @override
+  String get urgencyNoRushTag => 'Flexibler Zeitplan';
+
+  @override
+  String get urgencyModerateSub => 'Entscheidung in den nächsten Wochen.';
+
+  @override
+  String get urgencyModerateTag => 'Wenige Wochen';
+
+  @override
+  String get urgencyUrgentSub =>
+      'Entscheidung innerhalb von Tagen erforderlich.';
+
+  @override
+  String get urgencyUrgentTag => 'In wenigen Tagen';
+
+  @override
+  String get urgencyCriticalSub => 'Sofortiges Handeln erforderlich.';
+
+  @override
+  String get urgencyCriticalTag => 'Sofort';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'Die Dringlichkeit beeinflusst, welche Faktoren die KI stärker gewichtet – schnelle Entscheidungen und klarer Signale.';
+
+  @override
+  String get budgetRange1 => '1.000 €-5.000 €';
+
+  @override
+  String get budgetRange2 => '5.000 €-20.000 €';
+
+  @override
+  String get budgetRange3 => '20.000 €-50.000 €';
+
+  @override
+  String get budgetRange4 => '50.000 €+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'Ihr Budget hilft der KI, Optionen zu bewerten und kostengünstige Lösungen für Sie zu empfehlen.';
+
+  @override
+  String get riskToleranceLowSub =>
+      'Bevorzugt stabile, vorhersehbare Ergebnisse.';
+
+  @override
+  String get riskToleranceLowTag => 'Stabil & sicher';
+
+  @override
+  String get riskToleranceModerateSub => 'Akzeptiert ausgewogene Kompromisse.';
+
+  @override
+  String get riskToleranceModerateTag => 'Ausgewogenes Risiko';
+
+  @override
+  String get riskToleranceHighSub =>
+      'Offen für größere Schwankungen für mehr Rendite.';
+
+  @override
+  String get riskToleranceHighTag => 'Wachstumsorientiert';
+
+  @override
+  String get riskToleranceVeryHighSub => 'Komfortabel mit großer Unsicherheit.';
+
+  @override
+  String get riskToleranceVeryHighTag => 'Maximale Rendite';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'Die Risikotoleranz hilft der KI, potenzielle Chancen gegen mögliche Risiken abzuwägen.';
+
+  @override
+  String get experienceBeginnerSub =>
+      'Neu in diesem Bereich; baut noch Wissen auf.';
+
+  @override
+  String get experienceBeginnerTag => 'Bestens zum Lernen';
+
+  @override
+  String get experienceIntermediateSub =>
+      'Einige relevante Erfahrungen und Kontext.';
+
+  @override
+  String get experienceIntermediateTag => 'Ausgewogene Optionen';
+
+  @override
+  String get experienceAdvancedSub => 'Starker Hintergrund in diesem Bereich.';
+
+  @override
+  String get experienceAdvancedTag => 'Wachstumsorientiert';
+
+  @override
+  String get experienceExpertSub =>
+      'Tiefe Expertise und nachgewiesene Erfolge.';
+
+  @override
+  String get experienceExpertTag => 'Maximale Ergebnisse';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'Ihre Erfahrung hilft der KI, Komplexität und Tiefe der Empfehlungen anzupassen.';
+
+  @override
+  String get timeVeryLimitedSub => 'Nur wenige Stunden pro Woche verfügbar.';
+
+  @override
+  String get timeVeryLimitedTag => 'Minimale Stunden';
+
+  @override
+  String get timeLimitedSub => 'Einige Abende oder Wochenenden frei.';
+
+  @override
+  String get timeLimitedTag => 'Teilzeit-Fokus';
+
+  @override
+  String get timeModerateAvailSub => 'Eine stetige Zeitmenge pro Woche.';
+
+  @override
+  String get timeModerateAvailTag => 'Regelmäßiges Engagement';
+
+  @override
+  String get timeHighAvailSub => 'Kann wöchentlich viel Zeit widmen.';
+
+  @override
+  String get timeHighAvailTag => 'Starke Verfügbarkeit';
+
+  @override
+  String get timeVeryHighSub => 'Dies kann jetzt Ihr Hauptfokus sein.';
+
+  @override
+  String get timeVeryHighTag => 'Voller Fokus';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'Ihre Zeitverfügbarkeit hilft der KI, realistische Pläne zu empfehlen, die Sie einhalten können.';
 }

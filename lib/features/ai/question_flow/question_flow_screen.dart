@@ -28,9 +28,6 @@ class QuestionFlowScreen extends ConsumerStatefulWidget {
 }
 
 class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
-  static const Color _selectedFill = Color(0xFFEEEDFD);
-  static const Color _optionFill = Color(0xFFffffff);
-
   int _step = 0;
   final Map<int, String> _answers = <int, String>{};
 
@@ -346,6 +343,8 @@ class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
     required int percent,
     required double progress,
   }) {
+    final bool isDark = !AppColors.isLight(context);
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -356,6 +355,7 @@ class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          /// HEADER
           Row(
             children: <Widget>[
               Text(
@@ -377,7 +377,10 @@ class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
               ),
             ],
           ),
+
           const SizedBox(height: 8),
+
+          /// PROGRESS BAR (already correct design system)
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: SizedBox(
@@ -399,7 +402,10 @@ class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
               ),
             ),
           ),
+
           const SizedBox(height: 20),
+
+          /// QUESTION
           Text(
             question,
             style: AppTextStyles.h4.copyWith(
@@ -409,7 +415,10 @@ class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
               height: 1.3,
             ),
           ),
+
           const SizedBox(height: 16),
+
+          /// OPTIONS
           for (int i = 0; i < options.length; i++) ...<Widget>[
             _optionRow(
               index: i + 1,
@@ -430,13 +439,20 @@ class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
     required bool selected,
     required VoidCallback onTap,
   }) {
+    final bool isDark = !AppColors.isLight(context);
+
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
-          color: selected ? _selectedFill : _optionFill,
+          gradient: selected && isDark
+              ? AppColors.primaryTwoGradient
+              : null,
+          color: selected && isDark
+              ? null
+              : AppColors.optionCardColor(context, selected: selected),
           borderRadius: BorderRadius.circular(12),
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -454,32 +470,46 @@ class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
               height: 24,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: AppColors.selectedFillColor(context),
+                color: selected && isDark
+                    ? Colors.white.withValues(alpha: 0.20)
+                    : AppColors.selectedFillColor(context),
                 shape: BoxShape.circle,
               ),
               child: Text(
                 '$index',
                 style: AppTextStyles.bodySmall.copyWith(
-                  color: AppColors.textPrimary(context),
+                  color: selected && isDark
+                      ? Colors.white
+                      : AppColors.textPrimary(context),
                   fontWeight: FontWeight.w600,
                   fontSize: 11,
                 ),
               ),
             ),
+
             const SizedBox(width: 12),
+
+            /// LABEL
             Expanded(
               child: Text(
                 label,
                 style: AppTextStyles.bodySmall.copyWith(
-                  color: selected
-                      ? AppColors.textPrimary(context)
+                  color: selected && isDark
+                      ? Colors.white
                       : AppColors.textSecondary(context),
                   fontWeight: FontWeight.w500,
                   fontSize: 12,
                 ),
               ),
             ),
-            SelectionCheckCircle(selected: selected),
+
+            /// CHECK
+            SelectionCheckCircle(
+              selected: selected,
+              borderColor: selected && isDark
+                  ? Colors.white
+                  : AppColors.primaryBlue,
+            ),
           ],
         ),
       ),
@@ -487,10 +517,24 @@ class _QuestionFlowScreenState extends ConsumerState<QuestionFlowScreen> {
   }
 
   Widget _whyThisMattersBox(AppLocalizations l10n) {
+    final bool isDark = !AppColors.isLight(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       decoration: BoxDecoration(
-        color: AppColors.selectedFillColor(context),
+        color: AppColors.greetingCardColor(context),
+
+        gradient: isDark
+            ? LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            AppColors.primaryBlue.withValues(alpha: 0.10),
+            AppColors.primaryPurple.withValues(alpha: 0.10),
+          ],
+        )
+            : null,
+        boxShadow: isDark ? AppColors.homeCardShadow(context) : null,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

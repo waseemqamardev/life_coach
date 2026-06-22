@@ -180,42 +180,42 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
 
   Widget _categoryGrid(AppLocalizations l10n) {
     final List<({String name, String label, String icon, Color color})> cats =
-        <({String name, String label, String icon, Color color})>[
+    <({String name, String label, String icon, Color color})>[
       (
-        name: 'Career',
-        label: l10n.categoryCareer,
-        icon: Assets.iconsCareerIcon,
-        color: AppColors.primaryPurple
+      name: 'Career',
+      label: l10n.categoryCareer,
+      icon: Assets.iconsCareerIcon,
+      color: AppColors.primaryPurple,
       ),
       (
-        name: 'Finance',
-        label: l10n.categoryFinance,
-        icon: Assets.iconsFinance,
-        color: AppColors.success
+      name: 'Finance',
+      label: l10n.categoryFinance,
+      icon: Assets.iconsFinance,
+      color: AppColors.success,
       ),
       (
-        name: 'Health',
-        label: l10n.categoryHealth,
-        icon: Assets.iconsHealth,
-        color: AppColors.danger
+      name: 'Health',
+      label: l10n.categoryHealth,
+      icon: Assets.iconsHealth,
+      color: AppColors.danger,
       ),
       (
-        name: 'Relations',
-        label: l10n.categoryRelations,
-        icon: Assets.iconsRelationIcon,
-        color: const Color(0xFF14B8A6)
+      name: 'Relations',
+      label: l10n.categoryRelations,
+      icon: Assets.iconsRelationIcon,
+      color: const Color(0xFF14B8A6),
       ),
       (
-        name: 'Education',
-        label: l10n.categoryEducation,
-        icon: Assets.iconsEducationIcon,
-        color: AppColors.primaryPurple
+      name: 'Education',
+      label: l10n.categoryEducation,
+      icon: Assets.iconsEducationIcon,
+      color: AppColors.primaryPurple,
       ),
       (
-        name: 'Other',
-        label: l10n.categoryOther,
-        icon: Assets.iconsOtherMenu,
-        color: AppColors.warning
+      name: 'Other',
+      label: l10n.categoryOther,
+      icon: Assets.iconsOtherMenu,
+      color: AppColors.warning,
       ),
     ];
 
@@ -231,18 +231,26 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
       ),
       itemBuilder: (BuildContext context, int i) {
         final ({String name, String label, String icon, Color color}) cat =
-            cats[i];
+        cats[i];
+
         final bool selected = _category == cat.name;
+        final bool isDark = !AppColors.isLight(context);
+
         return GestureDetector(
           onTap: () => setState(() => _category = cat.name),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 6),
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
-              // gradient: Theme.of(context).brightness == Brightness.dark?AppColors.primaryTwoGradient:null,
-              color: Theme.of(context).brightness == Brightness.dark
+              gradient: selected && isDark
+                  ? AppColors.primaryTwoGradient
+                  : null,
+              color: selected && isDark
                   ? null
-                  : AppColors.optionCardColor(context, selected: selected),
+                  : AppColors.optionCardColor(
+                context,
+                selected: selected,
+              ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
@@ -250,14 +258,16 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
                   blurRadius: 2,
                   spreadRadius: 0,
                   color: Colors.black.withValues(alpha: 0.10),
-                )
+                ),
               ],
             ),
             child: Row(
               children: <Widget>[
                 Image.asset(
                   cat.icon,
-                  color: cat.color,
+                  color: selected && isDark
+                      ? Colors.white
+                      : cat.color,
                   width: 24,
                   height: 24,
                   fit: BoxFit.contain,
@@ -266,14 +276,17 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
                 Expanded(
                   child: Text(
                     cat.label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.bodySmall.copyWith(
                       color: selected
-                          ? AppColors.textPrimary(context)
+                          ? (isDark
+                          ? Colors.white
+                          : AppColors.textPrimary(context))
                           : AppColors.textSecondary(context),
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
@@ -285,13 +298,15 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
   }
 
   Widget _importanceChip(
-    AppLocalizations l10n,
-    String value,
-    String label,
-    String sub,
-    Color color,
-  ) {
+      AppLocalizations l10n,
+      String value,
+      String label,
+      String sub,
+      Color color,
+      ) {
     final bool selected = _importance == value;
+    final bool isDark = !AppColors.isLight(context);
+
     return Expanded(
       child: GestureDetector(
         onTap: () => setState(() => _importance = value),
@@ -299,7 +314,15 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
           height: 60,
           padding: const EdgeInsets.fromLTRB(6, 12, 8, 10),
           decoration: BoxDecoration(
-            color: AppColors.optionCardColor(context, selected: selected),
+            gradient: selected && isDark
+                ? AppColors.primaryTwoGradient
+                : null,
+            color: selected && isDark
+                ? null
+                : AppColors.optionCardColor(
+              context,
+              selected: selected,
+            ),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -307,7 +330,7 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
                 blurRadius: 2,
                 spreadRadius: 0,
                 color: Colors.black.withValues(alpha: 0.10),
-              )
+              ),
             ],
           ),
           child: Column(
@@ -320,7 +343,9 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
                     width: 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: color,
+                      color: selected && isDark
+                          ? Colors.white
+                          : color,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -328,7 +353,9 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
                   Text(
                     label,
                     style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textPrimary(context),
+                      color: selected && isDark
+                          ? Colors.white
+                          : AppColors.textPrimary(context),
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
                     ),
@@ -339,7 +366,9 @@ class _StartDecisionScreenState extends ConsumerState<StartDecisionScreen> {
               Text(
                 sub,
                 style: AppTextStyles.caption.copyWith(
-                  color: AppColors.textMuted(context),
+                  color: selected && isDark
+                      ? Colors.white.withValues(alpha: 0.85)
+                      : AppColors.textMuted(context),
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   height: 1.2,

@@ -46,37 +46,29 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     size: 22,
                   ),
                   Expanded(
-                    child: ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return AppColors.primaryTwoGradient.createShader(
-                          Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-                        );
-                      },
-                      blendMode: BlendMode.srcIn,
-                      child: Text(
-                        l10n.settings,
-                        textAlign: TextAlign.center,
-                        style: AppTextStyles.h3.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
+                    child: Text(
+                      l10n.settings,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.h3.copyWith(
+                        color: AppColors.appBarTitleColor(context),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.more_vert_rounded,
-                      color: AppColors.primaryPurple,
-                      size: 20,
-                    ),
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(
-                      minWidth: 44,
-                      minHeight: 44,
-                    ),
-                  ),
+                  // IconButton(
+                  //   onPressed: () {},
+                  //   icon: const Icon(
+                  //     Icons.more_vert_rounded,
+                  //     color: AppColors.primaryPurple,
+                  //     size: 20,
+                  //   ),
+                  //   padding: EdgeInsets.zero,
+                  //   constraints: const BoxConstraints(
+                  //     minWidth: 44,
+                  //     minHeight: 44,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -530,7 +522,7 @@ class _GradientSwitch extends StatelessWidget {
             width: thumbSize,
             height: thumbSize,
             decoration: BoxDecoration(
-        color: AppColors.cardColor(context),
+        color: AppColors.lightCard,
               shape: BoxShape.circle,
               boxShadow: <BoxShadow>[
                 BoxShadow(

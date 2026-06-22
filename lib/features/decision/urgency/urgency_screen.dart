@@ -36,29 +36,35 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
         ),
       ];
 
-  static const List<({String name, String sub, String tag})> _options =
-      <({String name, String sub, String tag})>[
-    (
-      name: 'No Rush',
-      sub: 'Take time to research and compare options.',
-      tag: 'Flexible timeline',
-    ),
-    (
-      name: 'Moderate',
-      sub: 'Decide within the next few weeks.',
-      tag: 'Few Weeks',
-    ),
-    (
-      name: 'Urgent',
-      sub: 'You need a decision within days.',
-      tag: 'Within days',
-    ),
-    (
-      name: 'Critical',
-      sub: 'Immediate action is required.',
-      tag: 'Immediate',
-    ),
-  ];
+  List<({String name, String sub, String tag, String value})> _getOptions(
+      AppLocalizations l10n) {
+    return <({String name, String sub, String tag, String value})>[
+      (
+        name: l10n.urgencyNoRush,
+        sub: l10n.urgencyNoRushSub,
+        tag: l10n.urgencyNoRushTag,
+        value: 'No Rush',
+      ),
+      (
+        name: l10n.urgencyModerate,
+        sub: l10n.urgencyModerateSub,
+        tag: l10n.urgencyModerateTag,
+        value: 'Moderate',
+      ),
+      (
+        name: l10n.urgencyUrgent,
+        sub: l10n.urgencyUrgentSub,
+        tag: l10n.urgencyUrgentTag,
+        value: 'Urgent',
+      ),
+      (
+        name: l10n.urgencyCritical,
+        sub: l10n.urgencyCriticalSub,
+        tag: l10n.urgencyCriticalTag,
+        value: 'Critical',
+      ),
+    ];
+  }
 
   @override
   void initState() {
@@ -67,8 +73,7 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
       final String? existing = ref.read(draftDecisionProvider)?.urgency;
       if (existing != null &&
           existing.isNotEmpty &&
-          _options.any((({String name, String sub, String tag}) o) =>
-              o.name == existing)) {
+          <String>['No Rush', 'Moderate', 'Urgent', 'Critical'].contains(existing)) {
         setState(() => _selected = existing);
       }
     });
@@ -84,6 +89,8 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final List<({String name, String sub, String tag, String value})> options =
+        _getOptions(l10n);
     return AppScreen(
       titleLeading: l10n.stepAnalyze,
       titleAccent: l10n.problemWord,
@@ -128,9 +135,9 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          for (final ({String name, String sub, String tag}) option
-              in _options) ...<Widget>[
-            _urgencyCard(option: option, selected: _selected == option.name),
+          for (final ({String name, String sub, String tag, String value}) option
+              in options) ...<Widget>[
+            _urgencyCard(option: option, selected: _selected == option.value),
             const SizedBox(height: 10),
           ],
           const SizedBox(height: 10),
@@ -147,15 +154,22 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
   }
 
   Widget _urgencyCard({
-    required ({String name, String sub, String tag}) option,
+    required ({String name, String sub, String tag, String value}) option,
     required bool selected,
   }) {
+    final bool isDark = !AppColors.isLight(context);
+
     return GestureDetector(
-      onTap: () => setState(() => _selected = option.name),
+      onTap: () => setState(() => _selected = option.value),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.optionCardColor(context, selected: selected),
+          gradient: selected && isDark
+              ? AppColors.primaryTwoGradient
+              : null,
+          color: selected && isDark
+              ? null
+              : AppColors.optionCardColor(context, selected: selected),
           borderRadius: BorderRadius.circular(12),
           boxShadow: _cardShadow,
         ),
@@ -165,8 +179,10 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
             Container(
               width: 36,
               height: 36,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE5E7EB),
+              decoration: BoxDecoration(
+                color: selected && isDark
+                    ? Colors.white.withValues(alpha: 0.20)
+                    : const Color(0xFFE5E7EB),
                 shape: BoxShape.circle,
               ),
             ),
@@ -178,7 +194,9 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
                   Text(
                     option.name,
                     style: AppTextStyles.h4.copyWith(
-                      color: AppColors.textPrimary(context),
+                      color: selected && isDark
+                          ? Colors.white
+                          : AppColors.textPrimary(context),
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
@@ -189,7 +207,9 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textMuted(context),
+                      color: selected && isDark
+                          ? Colors.white.withValues(alpha: 0.85)
+                          : AppColors.textMuted(context),
                       fontSize: 11,
                       height: 1.4,
                     ),
@@ -201,13 +221,17 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
                       vertical: 3,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE8F5E9),
+                      color: selected && isDark
+                          ? Colors.white.withValues(alpha: 0.25)
+                          : const Color(0xFFE8F5E9),
                       borderRadius: BorderRadius.circular(23),
                     ),
                     child: Text(
                       option.tag,
                       style: AppTextStyles.caption.copyWith(
-                        color: const Color(0xFF388E3C),
+                        color: selected && isDark
+                            ? Colors.white
+                            : const Color(0xFF388E3C),
                         fontWeight: FontWeight.w500,
                         fontSize: 9,
                       ),
@@ -220,24 +244,38 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
             SelectionCheckCircle(
               selected: selected,
               size: 18,
-              borderColor: AppColors.primaryBlue,
+              borderColor: selected && isDark
+                  ? Colors.white
+                  : AppColors.primaryBlue,
             ),
           ],
         ),
       ),
     );
   }
-
   Widget _whyThisMattersBox(AppLocalizations l10n) {
+    final bool isDark = !AppColors.isLight(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       decoration: BoxDecoration(
-        color: AppColors.selectedFillColor(context),
+        color: AppColors.greetingCardColor(context),
+        gradient: isDark
+            ? LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            AppColors.primaryBlue.withValues(alpha: 0.10),
+            AppColors.primaryPurple.withValues(alpha: 0.10),
+          ],
+        )
+            : null,
+        boxShadow: isDark ? AppColors.homeCardShadow(context) : null,
         borderRadius: BorderRadius.circular(12),
+
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Image.asset(
             Assets.iconsMatter,
@@ -261,7 +299,7 @@ class _UrgencyScreenState extends ConsumerState<UrgencyScreen> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Urgency affects which factors AI weights more heavily-quick decisions and clearer signals.',
+                  l10n.urgencyWhyMattersDesc,
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,

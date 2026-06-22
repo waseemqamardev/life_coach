@@ -37,29 +37,35 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
         ),
       ];
 
-  static const List<({String name, String sub, String tag})> _options =
-      <({String name, String sub, String tag})>[
-    (
-      name: 'Beginner',
-      sub: 'New to this area; still building knowledge.',
-      tag: 'Best for learning',
-    ),
-    (
-      name: 'Intermediate',
-      sub: 'Some relevant experience and context.',
-      tag: 'Balanced options',
-    ),
-    (
-      name: 'Advanced',
-      sub: 'Strong background in this domain.',
-      tag: 'Growth focused',
-    ),
-    (
-      name: 'Expert',
-      sub: 'Deep expertise and proven track record.',
-      tag: 'Maximum outcomes',
-    ),
-  ];
+  List<({String name, String sub, String tag, String value})> _getOptions(
+      AppLocalizations l10n) {
+    return <({String name, String sub, String tag, String value})>[
+      (
+        name: l10n.experienceBeginner,
+        sub: l10n.experienceBeginnerSub,
+        tag: l10n.experienceBeginnerTag,
+        value: 'Beginner',
+      ),
+      (
+        name: l10n.experienceIntermediate,
+        sub: l10n.experienceIntermediateSub,
+        tag: l10n.experienceIntermediateTag,
+        value: 'Intermediate',
+      ),
+      (
+        name: l10n.experienceAdvanced,
+        sub: l10n.experienceAdvancedSub,
+        tag: l10n.experienceAdvancedTag,
+        value: 'Advanced',
+      ),
+      (
+        name: l10n.experienceExpert,
+        sub: l10n.experienceExpertSub,
+        tag: l10n.experienceExpertTag,
+        value: 'Expert',
+      ),
+    ];
+  }
 
   @override
   void initState() {
@@ -69,8 +75,7 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
           ref.read(draftDecisionProvider)?.experienceLevel;
       if (existing != null &&
           existing.isNotEmpty &&
-          _options.any((({String name, String sub, String tag}) o) =>
-              o.name == existing)) {
+          <String>['Beginner', 'Intermediate', 'Advanced', 'Expert'].contains(existing)) {
         setState(() => _selected = existing);
       }
     });
@@ -86,6 +91,8 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final List<({String name, String sub, String tag, String value})> options =
+        _getOptions(l10n);
     return AppScreen(
       titleLeading: l10n.stepAnalyze,
       titleAccent: l10n.problemWord,
@@ -130,9 +137,9 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          for (final ({String name, String sub, String tag}) option
-              in _options) ...<Widget>[
-            _optionCard(option: option, selected: _selected == option.name),
+          for (final ({String name, String sub, String tag, String value}) option
+              in options) ...<Widget>[
+            _optionCard(option: option, selected: _selected == option.value),
             const SizedBox(height: 10),
           ],
           const SizedBox(height: 10),
@@ -151,15 +158,22 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
   }
 
   Widget _optionCard({
-    required ({String name, String sub, String tag}) option,
+    required ({String name, String sub, String tag, String value}) option,
     required bool selected,
   }) {
+    final bool isDark = !AppColors.isLight(context);
+
     return GestureDetector(
-      onTap: () => setState(() => _selected = option.name),
+      onTap: () => setState(() => _selected = option.value),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.optionCardColor(context, selected: selected),
+          gradient: selected && isDark
+              ? AppColors.primaryTwoGradient
+              : null,
+          color: selected && isDark
+              ? null
+              : AppColors.optionCardColor(context, selected: selected),
           borderRadius: BorderRadius.circular(12),
           boxShadow: _cardShadow,
         ),
@@ -169,12 +183,16 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
             Container(
               width: 36,
               height: 36,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE5E7EB),
+              decoration: BoxDecoration(
+                color: selected && isDark
+                    ? Colors.white.withValues(alpha: 0.20)
+                    : const Color(0xFFE5E7EB),
                 shape: BoxShape.circle,
               ),
             ),
+
             const SizedBox(width: 12),
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,36 +200,48 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
                   Text(
                     option.name,
                     style: AppTextStyles.h4.copyWith(
-                      color: AppColors.textPrimary(context),
+                      color: selected && isDark
+                          ? Colors.white
+                          : AppColors.textPrimary(context),
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
                   ),
+
                   const SizedBox(height: 4),
+
                   Text(
                     option.sub,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textMuted(context),
+                      color: selected && isDark
+                          ? Colors.white.withValues(alpha: 0.85)
+                          : AppColors.textMuted(context),
                       fontSize: 11,
                       height: 1.4,
                     ),
                   ),
+
                   const SizedBox(height: 6),
+
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
                       vertical: 3,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE8F5E9),
+                      color: selected && isDark
+                          ? Colors.white.withValues(alpha: 0.25)
+                          : const Color(0xFFE8F5E9),
                       borderRadius: BorderRadius.circular(23),
                     ),
                     child: Text(
                       option.tag,
                       style: AppTextStyles.caption.copyWith(
-                        color: const Color(0xFF388E3C),
+                        color: selected && isDark
+                            ? Colors.white
+                            : const Color(0xFF388E3C),
                         fontWeight: FontWeight.w500,
                         fontSize: 9,
                       ),
@@ -220,10 +250,14 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
                 ],
               ),
             ),
+
             const SizedBox(width: 8),
+
             SelectionCheckCircle(
               selected: selected,
-              borderColor: AppColors.primaryBlue,
+              borderColor: selected && isDark
+                  ? Colors.white
+                  : AppColors.primaryBlue,
             ),
           ],
         ),
@@ -232,10 +266,24 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
   }
 
   Widget _whyThisMattersBox(AppLocalizations l10n) {
+    final bool isDark = !AppColors.isLight(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       decoration: BoxDecoration(
-        color: AppColors.selectedFillColor(context),
+        color: AppColors.greetingCardColor(context),
+
+        gradient: isDark
+            ? LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            AppColors.primaryBlue.withValues(alpha: 0.10),
+            AppColors.primaryPurple.withValues(alpha: 0.10),
+          ],
+        )
+            : null,
+        boxShadow: isDark ? AppColors.homeCardShadow(context) : null,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -263,7 +311,7 @@ class _ExperienceScreenState extends ConsumerState<ExperienceScreen> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Your experience level helps AI personalize the complexity and depth of recommendations.',
+                  l10n.experienceWhyMattersDesc,
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,

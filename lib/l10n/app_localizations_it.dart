@@ -2578,4 +2578,147 @@ class AppLocalizationsIt extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'Il tuo livello di rischio complessivo è $label ($score%). Esamina la ripartizione di seguito per comprendere cosa determina questo punteggio.';
   }
+
+  @override
+  String get urgencyNoRushSub =>
+      'Prenditi del tempo per ricercare e confrontare le opzioni.';
+
+  @override
+  String get urgencyNoRushTag => 'Tempistica flessibile';
+
+  @override
+  String get urgencyModerateSub => 'Decidi entro le prossime settimane.';
+
+  @override
+  String get urgencyModerateTag => 'Poche settimane';
+
+  @override
+  String get urgencyUrgentSub =>
+      'Hai bisogno di una decisione entro pochi giorni.';
+
+  @override
+  String get urgencyUrgentTag => 'Entro pochi giorni';
+
+  @override
+  String get urgencyCriticalSub => 'È richiesta un\'azione immediata.';
+
+  @override
+  String get urgencyCriticalTag => 'Immediato';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'L\'urgenza influisce sui fattori che l\'IA valuta maggiormente: decisioni rapide e segnali più chiari.';
+
+  @override
+  String get budgetRange1 => '1K-5K €';
+
+  @override
+  String get budgetRange2 => '5K-20K €';
+
+  @override
+  String get budgetRange3 => '20K-50K €';
+
+  @override
+  String get budgetRange4 => '50K €+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'Il tuo budget aiuta l\'IA a valutare le opzioni e consigliare soluzioni convenienti per te.';
+
+  @override
+  String get riskToleranceLowSub =>
+      'Preferisce risultati stabili e prevedibili.';
+
+  @override
+  String get riskToleranceLowTag => 'Stabile e sicuro';
+
+  @override
+  String get riskToleranceModerateSub => 'Accetta compromessi equilibrati.';
+
+  @override
+  String get riskToleranceModerateTag => 'Rischio equilibrato';
+
+  @override
+  String get riskToleranceHighSub =>
+      'Aperto a fluttuazioni maggiori per un potenziale guadagno.';
+
+  @override
+  String get riskToleranceHighTag => 'Focalizzato sulla crescita';
+
+  @override
+  String get riskToleranceVeryHighSub => 'A suo agio con una forte incertezza.';
+
+  @override
+  String get riskToleranceVeryHighTag => 'Massimo potenziale';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'La tolleranza al rischio aiuta l\'IA a bilanciare i potenziali vantaggi rispetto ai possibili svantaggi.';
+
+  @override
+  String get experienceBeginnerSub =>
+      'Nuovo in quest\'area; sta ancora acquisendo conoscenze.';
+
+  @override
+  String get experienceBeginnerTag => 'Ideale per imparare';
+
+  @override
+  String get experienceIntermediateSub =>
+      'Qualche esperienza e contesto rilevanti.';
+
+  @override
+  String get experienceIntermediateTag => 'Opzioni equilibrate';
+
+  @override
+  String get experienceAdvancedSub => 'Solida esperienza in questo campo.';
+
+  @override
+  String get experienceAdvancedTag => 'Focalizzato sulla crescita';
+
+  @override
+  String get experienceExpertSub =>
+      'Profonda competenza e comprovata esperienza.';
+
+  @override
+  String get experienceExpertTag => 'Massimi risultati';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'Il tuo livello di esperienza aiuta l\'IA a personalizzare la complessità e la profondità delle raccomandazioni.';
+
+  @override
+  String get timeVeryLimitedSub => 'Solo poche ore a settimana disponibili.';
+
+  @override
+  String get timeVeryLimitedTag => 'Ore minime';
+
+  @override
+  String get timeLimitedSub => 'Alcune sere o fine settimana liberi.';
+
+  @override
+  String get timeLimitedTag => 'Focus a tempo parziale';
+
+  @override
+  String get timeModerateAvailSub =>
+      'Una quantità costante di tempo ogni settimana.';
+
+  @override
+  String get timeModerateAvailTag => 'Impegno regolare';
+
+  @override
+  String get timeHighAvailSub => 'Può dedicare molte ore settimanali.';
+
+  @override
+  String get timeHighAvailTag => 'Forte disponibilità';
+
+  @override
+  String get timeVeryHighSub =>
+      'Questo può essere il tuo focus principale ora.';
+
+  @override
+  String get timeVeryHighTag => 'Focus totale';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'La tua disponibilità di tempo aiuta l\'IA a consigliare piani realistici a cui puoi attenerti.';
 }

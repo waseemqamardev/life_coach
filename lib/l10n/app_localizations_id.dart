@@ -2565,4 +2565,147 @@ class AppLocalizationsId extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'Tingkat risiko Anda secara keseluruhan adalah $label ($score%). Tinjau rincian di bawah untuk memahami apa yang mendorong skor ini.';
   }
+
+  @override
+  String get urgencyNoRushSub =>
+      'Luangkan waktu untuk meneliti dan membandingkan opsi.';
+
+  @override
+  String get urgencyNoRushTag => 'Linimasa fleksibel';
+
+  @override
+  String get urgencyModerateSub => 'Putuskan dalam beberapa minggu ke depan.';
+
+  @override
+  String get urgencyModerateTag => 'Beberapa Minggu';
+
+  @override
+  String get urgencyUrgentSub => 'Anda perlu keputusan dalam hitungan hari.';
+
+  @override
+  String get urgencyUrgentTag => 'Dalam hitungan hari';
+
+  @override
+  String get urgencyCriticalSub => 'Tindakan segera diperlukan.';
+
+  @override
+  String get urgencyCriticalTag => 'Segera';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'Urgensi memengaruhi faktor mana yang lebih diprioritaskan AI—keputusan cepat dan sinyal yang lebih jelas.';
+
+  @override
+  String get budgetRange1 => '\$1K-\$5K';
+
+  @override
+  String get budgetRange2 => '\$5K-\$20K';
+
+  @override
+  String get budgetRange3 => '\$20K-\$50K';
+
+  @override
+  String get budgetRange4 => '\$50K+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'Anggaran Anda membantu AI mengevaluasi opsi & merekomendasikan solusi yang hemat biaya untuk Anda.';
+
+  @override
+  String get riskToleranceLowSub =>
+      'Lebih menyukai hasil yang stabil dan dapat diprediksi.';
+
+  @override
+  String get riskToleranceLowTag => 'Stabil & aman';
+
+  @override
+  String get riskToleranceModerateSub => 'Menerima trade-off yang seimbang.';
+
+  @override
+  String get riskToleranceModerateTag => 'Risiko seimbang';
+
+  @override
+  String get riskToleranceHighSub =>
+      'Terbuka untuk fluktuasi besar demi hasil lebih tinggi.';
+
+  @override
+  String get riskToleranceHighTag => 'Fokus pertumbuhan';
+
+  @override
+  String get riskToleranceVeryHighSub => 'Nyaman dengan ketidakpastian besar.';
+
+  @override
+  String get riskToleranceVeryHighTag => 'Hasil maksimal';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'Toleransi risiko membantu AI menyeimbangkan potensi keuntungan dengan kemungkinan kerugian.';
+
+  @override
+  String get experienceBeginnerSub =>
+      'Baru di bidang ini; masih membangun pengetahuan.';
+
+  @override
+  String get experienceBeginnerTag => 'Terbaik untuk belajar';
+
+  @override
+  String get experienceIntermediateSub =>
+      'Memiliki beberapa pengalaman dan konteks yang relevan.';
+
+  @override
+  String get experienceIntermediateTag => 'Opsi seimbang';
+
+  @override
+  String get experienceAdvancedSub =>
+      'Memiliki latar belakang yang kuat di bidang ini.';
+
+  @override
+  String get experienceAdvancedTag => 'Fokus pertumbuhan';
+
+  @override
+  String get experienceExpertSub =>
+      'Keahlian mendalam dan rekam jejak yang terbukti.';
+
+  @override
+  String get experienceExpertTag => 'Hasil maksimal';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'Tingkat pengalaman Anda membantu AI mempersonalisasi kompleksitas dan kedalaman rekomendasi.';
+
+  @override
+  String get timeVeryLimitedSub => 'Hanya tersedia beberapa jam per minggu.';
+
+  @override
+  String get timeVeryLimitedTag => 'Jam minimal';
+
+  @override
+  String get timeLimitedSub =>
+      'Memiliki waktu luang di beberapa malam atau akhir pekan.';
+
+  @override
+  String get timeLimitedTag => 'Fokus paruh waktu';
+
+  @override
+  String get timeModerateAvailSub => 'Waktu yang konsisten setiap minggu.';
+
+  @override
+  String get timeModerateAvailTag => 'Komitmen rutin';
+
+  @override
+  String get timeHighAvailSub =>
+      'Dapat mendedikasikan waktu mingguan yang signifikan.';
+
+  @override
+  String get timeHighAvailTag => 'Ketersediaan tinggi';
+
+  @override
+  String get timeVeryHighSub => 'Ini bisa menjadi fokus utama Anda sekarang.';
+
+  @override
+  String get timeVeryHighTag => 'Fokus penuh';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'Ketersediaan waktu Anda membantu AI merekomendasikan rencana realistis yang dapat Anda jalankan.';
 }

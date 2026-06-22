@@ -2465,4 +2465,136 @@ class AppLocalizationsJa extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return '全体的なリスク レベルは $label ($score%) です。このスコアの原因を理解するには、以下の内訳を確認してください。';
   }
+
+  @override
+  String get urgencyNoRushSub => '時間をかけて選択肢をリサーチし、比較します。';
+
+  @override
+  String get urgencyNoRushTag => '柔軟なスケジュール';
+
+  @override
+  String get urgencyModerateSub => '数週間以内に決定します。';
+
+  @override
+  String get urgencyModerateTag => '数週間以内';
+
+  @override
+  String get urgencyUrgentSub => '数日以内に決定する必要があります。';
+
+  @override
+  String get urgencyUrgentTag => '数日以内';
+
+  @override
+  String get urgencyCriticalSub => '即時の対応が必要です。';
+
+  @override
+  String get urgencyCriticalTag => '即時';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      '緊急度は、AIがどの要因を重視するかに影響します（迅速な意思決定と明確なサイン）。';
+
+  @override
+  String get budgetRange1 => '1千-5千ドル';
+
+  @override
+  String get budgetRange2 => '5千-2万ドル';
+
+  @override
+  String get budgetRange3 => '2万-5万ドル';
+
+  @override
+  String get budgetRange4 => '5万ドル以上';
+
+  @override
+  String get budgetWhyMattersDesc => '予算を設定することで、AIは選択肢を評価し、コスト効率の高い解決策を提案します。';
+
+  @override
+  String get riskToleranceLowSub => '安定した、予測可能な結果を好みます。';
+
+  @override
+  String get riskToleranceLowTag => '安定・安全';
+
+  @override
+  String get riskToleranceModerateSub => 'バランスの取れたトレードオフを受け入れます。';
+
+  @override
+  String get riskToleranceModerateTag => 'バランスの取れたリスク';
+
+  @override
+  String get riskToleranceHighSub => 'より大きなリターンを目指して、変動を許容します。';
+
+  @override
+  String get riskToleranceHighTag => '成長志向';
+
+  @override
+  String get riskToleranceVeryHighSub => '大きな不確実性も許容できます。';
+
+  @override
+  String get riskToleranceVeryHighTag => '最大リターン';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'リスク許容度は、AIが潜在的なリターンと起こりうるリスクのバランスを取るのに役立ちます。';
+
+  @override
+  String get experienceBeginnerSub => 'この分野の初心者で、まだ知識を構築中である。';
+
+  @override
+  String get experienceBeginnerTag => '学習に最適';
+
+  @override
+  String get experienceIntermediateSub => '関連する経験やある程度の理解がある。';
+
+  @override
+  String get experienceIntermediateTag => 'バランス重視';
+
+  @override
+  String get experienceAdvancedSub => 'この分野において強固なバックグラウンドを持つ。';
+
+  @override
+  String get experienceAdvancedTag => '成長志向';
+
+  @override
+  String get experienceExpertSub => '深い専門知識と確かな実績がある。';
+
+  @override
+  String get experienceExpertTag => '成果の最大化';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      '経験レベルは、AIが推奨事項の難易度や深度をカスタマイズするのに役立ちます。';
+
+  @override
+  String get timeVeryLimitedSub => '週に数時間のみ利用可能です。';
+
+  @override
+  String get timeVeryLimitedTag => '最小限の時間';
+
+  @override
+  String get timeLimitedSub => '平日の夜や週末に少し空き時間があります。';
+
+  @override
+  String get timeLimitedTag => 'パートタイム感覚';
+
+  @override
+  String get timeModerateAvailSub => '毎週安定した時間を確保できます。';
+
+  @override
+  String get timeModerateAvailTag => '定期的な取り組み';
+
+  @override
+  String get timeHighAvailSub => '毎週かなりの時間を費やすことができます。';
+
+  @override
+  String get timeHighAvailTag => '十分な稼働時間';
+
+  @override
+  String get timeVeryHighSub => 'これを現在の最優先事項にできます。';
+
+  @override
+  String get timeVeryHighTag => 'フルコミット';
+
+  @override
+  String get timeWhyMattersDesc => '時間の余裕度を把握することで、AIは継続可能な現実的なプランを提案します。';
 }

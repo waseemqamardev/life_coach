@@ -198,12 +198,19 @@ class _GoalScreenState extends ConsumerState<GoalScreen> {
     required String goalKey,
     required bool selected,
   }) {
+    final bool isDark = !AppColors.isLight(context);
+
     return GestureDetector(
       onTap: () => _toggleGoal(goalKey),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.optionCardColor(context, selected: selected),
+          gradient: selected && isDark
+              ? AppColors.primaryTwoGradient
+              : null,
+          color: selected && isDark
+              ? null
+              : AppColors.optionCardColor(context, selected: selected),
           borderRadius: BorderRadius.circular(12),
           boxShadow: _cardShadow,
         ),
@@ -216,12 +223,17 @@ class _GoalScreenState extends ConsumerState<GoalScreen> {
                 Container(
                   width: 36,
                   height: 36,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFE5E7EB),
+                  decoration: BoxDecoration(
+                    color: selected && isDark
+                        ? Colors.white.withValues(alpha: 0.20)
+                        : const Color(0xFFE5E7EB),
                     shape: BoxShape.circle,
                   ),
                 ),
-                SelectionCheckCircle(selected: selected),
+                SelectionCheckCircle(
+                  selected: selected,
+                  // if your widget supports styling, pass color
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -230,7 +242,9 @@ class _GoalScreenState extends ConsumerState<GoalScreen> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: AppTextStyles.h4.copyWith(
-                color: AppColors.textPrimary(context),
+                color: selected && isDark
+                    ? Colors.white
+                    : AppColors.textPrimary(context),
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
@@ -240,12 +254,24 @@ class _GoalScreenState extends ConsumerState<GoalScreen> {
       ),
     );
   }
-
   Widget _tipBox(AppLocalizations l10n) {
+    final bool isDark = !AppColors.isLight(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       decoration: BoxDecoration(
-        color: AppColors.selectedFillColor(context),
+        color: AppColors.greetingCardColor(context),
+        gradient: isDark
+            ? LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            AppColors.primaryBlue.withValues(alpha: 0.10),
+            AppColors.primaryPurple.withValues(alpha: 0.10),
+          ],
+        )
+            : null,
+        boxShadow: isDark ? AppColors.homeCardShadow(context) : null,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

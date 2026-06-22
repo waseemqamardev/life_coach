@@ -2570,4 +2570,146 @@ class AppLocalizationsRu extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'Ваш общий уровень риска составляет $label ($score%). Просмотрите разбивку ниже, чтобы понять, что влияет на этот рейтинг.';
   }
+
+  @override
+  String get urgencyNoRushSub => 'Не торопитесь, изучите и сравните варианты.';
+
+  @override
+  String get urgencyNoRushTag => 'Гибкие сроки';
+
+  @override
+  String get urgencyModerateSub =>
+      'Примите решение в ближайшие несколько недель.';
+
+  @override
+  String get urgencyModerateTag => 'Несколько недель';
+
+  @override
+  String get urgencyUrgentSub =>
+      'Вам нужно принять решение в течение нескольких дней.';
+
+  @override
+  String get urgencyUrgentTag => 'В течение нескольких дней';
+
+  @override
+  String get urgencyCriticalSub => 'Требуются немедленные действия.';
+
+  @override
+  String get urgencyCriticalTag => 'Срочно';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'Срочность влияет на то, какие факторы ИИ учитывает в первую очередь: быстрые решения и четкие сигналы.';
+
+  @override
+  String get budgetRange1 => '1-5 тыс. \$';
+
+  @override
+  String get budgetRange2 => '5-20 тыс. \$';
+
+  @override
+  String get budgetRange3 => '20-50 тыс. \$';
+
+  @override
+  String get budgetRange4 => '50 тыс. \$ +';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'Ваш бюджет помогает ИИ оценивать варианты и рекомендовать наиболее экономичные решения.';
+
+  @override
+  String get riskToleranceLowSub =>
+      'Предпочтение стабильным, предсказуемым результатам.';
+
+  @override
+  String get riskToleranceLowTag => 'Стабильно и безопасно';
+
+  @override
+  String get riskToleranceModerateSub =>
+      'Принятие сбалансированных компромиссов.';
+
+  @override
+  String get riskToleranceModerateTag => 'Сбалансированный риск';
+
+  @override
+  String get riskToleranceHighSub => 'Готовность к риску ради большей выгоды.';
+
+  @override
+  String get riskToleranceHighTag => 'Ориентировано на рост';
+
+  @override
+  String get riskToleranceVeryHighSub =>
+      'Комфорт при высокой неопределенности.';
+
+  @override
+  String get riskToleranceVeryHighTag => 'Максимальная выгода';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'Толерантность к риску помогает ИИ сопоставить потенциальную выгоду и возможные потери.';
+
+  @override
+  String get experienceBeginnerSub =>
+      'Новичок в этой сфере; все еще накапливает знания.';
+
+  @override
+  String get experienceBeginnerTag => 'Лучшее для обучения';
+
+  @override
+  String get experienceIntermediateSub =>
+      'Есть некоторый опыт и понимание контекста.';
+
+  @override
+  String get experienceIntermediateTag => 'Сбалансированные варианты';
+
+  @override
+  String get experienceAdvancedSub => 'Хорошая база в этой области.';
+
+  @override
+  String get experienceAdvancedTag => 'Ориентировано на рост';
+
+  @override
+  String get experienceExpertSub => 'Глубокие знания и доказанный опыт.';
+
+  @override
+  String get experienceExpertTag => 'Максимальный результат';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'Ваш уровень опыта помогает ИИ настроить сложность и глубину рекомендаций.';
+
+  @override
+  String get timeVeryLimitedSub => 'Доступно всего несколько часов в неделю.';
+
+  @override
+  String get timeVeryLimitedTag => 'Минимум часов';
+
+  @override
+  String get timeLimitedSub => 'Свободно время по вечерам или выходным.';
+
+  @override
+  String get timeLimitedTag => 'Частичная занятость';
+
+  @override
+  String get timeModerateAvailSub =>
+      'Стабильное количество времени каждую неделю.';
+
+  @override
+  String get timeModerateAvailTag => 'Регулярная занятость';
+
+  @override
+  String get timeHighAvailSub => 'Может уделять много часов в неделю.';
+
+  @override
+  String get timeHighAvailTag => 'Высокая доступность';
+
+  @override
+  String get timeVeryHighSub => 'Сейчас это может быть вашим главным фокусом.';
+
+  @override
+  String get timeVeryHighTag => 'Полная концентрация';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'Ваше свободное время помогает ИИ предлагать реалистичные планы, которых вы сможете придерживаться.';
 }

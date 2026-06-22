@@ -45,12 +45,14 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
   String _impact = 'Medium';
   int? _selectedRangeIndex;
 
-  static const List<_BudgetRange> _budgetRanges = <_BudgetRange>[
-    _BudgetRange(label: r'$1K-$5K', amount: 5000),
-    _BudgetRange(label: r'$5K-$20K', amount: 20000),
-    _BudgetRange(label: r'$20K-$50K', amount: 50000),
-    _BudgetRange(label: r'$50K+', amount: 75000),
-  ];
+  List<_BudgetRange> _getBudgetRanges(AppLocalizations l10n) {
+    return <_BudgetRange>[
+      _BudgetRange(label: l10n.budgetRange1, amount: 5000),
+      _BudgetRange(label: l10n.budgetRange2, amount: 20000),
+      _BudgetRange(label: l10n.budgetRange3, amount: 50000),
+      _BudgetRange(label: l10n.budgetRange4, amount: 75000),
+    ];
+  }
 
   static List<BoxShadow> get _cardShadow => <BoxShadow>[
         BoxShadow(
@@ -97,8 +99,9 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
   }
 
   int? _indexForAmount(double amount) {
-    for (int i = 0; i < _budgetRanges.length; i++) {
-      if (_budgetRanges[i].amount == amount) {
+    const List<double> amounts = <double>[5000, 20000, 50000, 75000];
+    for (int i = 0; i < amounts.length; i++) {
+      if (amounts[i] == amount) {
         return i;
       }
     }
@@ -106,9 +109,10 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
   }
 
   void _selectRange(int index) {
+    const List<double> amounts = <double>[5000, 20000, 50000, 75000];
     setState(() {
       _selectedRangeIndex = index;
-      _budget.text = _formatBudget(_budgetRanges[index].amount);
+      _budget.text = _formatBudget(amounts[index]);
     });
   }
 
@@ -224,6 +228,7 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
   }
 
   Widget _budgetInputCard(AppLocalizations l10n) {
+    final List<_BudgetRange> ranges = _getBudgetRanges(l10n);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -343,13 +348,13 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
           ),
           const SizedBox(height: 12),
           Row(
-            children: List<Widget>.generate(_budgetRanges.length, (int index) {
-              final _BudgetRange range = _budgetRanges[index];
+            children: List<Widget>.generate(ranges.length, (int index) {
+              final _BudgetRange range = ranges[index];
               final bool selected = _selectedRangeIndex == index;
               return Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    right: index == _budgetRanges.length - 1 ? 0 : 8,
+                    right: index == ranges.length - 1 ? 8 : 8,
                   ),
                   child: GestureDetector(
                     onTap: () => _selectRange(index),
@@ -396,14 +401,21 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
     required String icon,
   }) {
     final bool selected = _impact == value;
+    final bool isDark = !AppColors.isLight(context);
+
     return Expanded(
       child: GestureDetector(
         onTap: () => setState(() => _impact = value),
         child: Container(
           height: 120,
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: AppColors.optionCardColor(context, selected: selected),
+            gradient: selected && isDark
+                ? AppColors.primaryTwoGradient
+                : null,
+            color: selected && isDark
+                ? null
+                : AppColors.optionCardColor(context, selected: selected),
             borderRadius: BorderRadius.circular(12),
             boxShadow: _cardShadow,
           ),
@@ -419,26 +431,40 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
                     width: 24,
                     height: 24,
                     fit: BoxFit.contain,
+                    color: selected && isDark ? Colors.white : null,
                   ),
-                  SelectionCheckCircle(selected: selected),
+                  SelectionCheckCircle(
+                    selected: selected,
+                    borderColor: selected && isDark
+                        ? Colors.white
+                        : AppColors.primaryBlue,
+                  ),
                 ],
               ),
+
               const Spacer(),
+
               Text(
                 label,
                 style: AppTextStyles.bodySmall.copyWith(
-                  color: AppColors.textPrimary(context),
+                  color: selected && isDark
+                      ? Colors.white
+                      : AppColors.textPrimary(context),
                   fontWeight: FontWeight.w600,
                   fontSize: 12,
                 ),
               ),
+
               const SizedBox(height: 4),
+
               Text(
                 sub,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.caption.copyWith(
-                  color: AppColors.textMuted(context),
+                  color: selected && isDark
+                      ? Colors.white.withValues(alpha: 0.85)
+                      : AppColors.textMuted(context),
                   fontSize: 9,
                   height: 1.2,
                 ),
@@ -451,11 +477,25 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
   }
 
   Widget _whyThisMattersBox(AppLocalizations l10n) {
+    final bool isDark = !AppColors.isLight(context);
+
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       decoration: BoxDecoration(
-        color: AppColors.selectedFillColor(context),
+        color: AppColors.greetingCardColor(context),
+        gradient: isDark
+            ? LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            AppColors.primaryBlue.withValues(alpha: 0.10),
+            AppColors.primaryPurple.withValues(alpha: 0.10),
+          ],
+        )
+            : null,
+        boxShadow: isDark ? AppColors.homeCardShadow(context) : null,
         borderRadius: BorderRadius.circular(12),
+
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -470,6 +510,7 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   l10n.whyThisMatters,
@@ -479,12 +520,13 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
                     fontSize: 14,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
-                  l10n.budgetWhyMatters,
+                  l10n.budgetWhyMattersDesc,
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
-                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 10,
                     height: 1.5,
                   ),
                 ),
@@ -495,4 +537,5 @@ class _BudgetScreenState extends ConsumerState<BudgetScreen> {
       ),
     );
   }
+
 }

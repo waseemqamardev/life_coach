@@ -24,7 +24,6 @@ class PersonalInformationScreen extends ConsumerStatefulWidget {
 
 class _PersonalInformationScreenState
     extends ConsumerState<PersonalInformationScreen> {
-  static const Color _titleBlue = Color(0xFF022088);
 
   late final TextEditingController _nameCtrl;
   late final TextEditingController _emailCtrl;
@@ -236,7 +235,7 @@ class _PersonalInformationScreenState
                         Text(
                           _titleLeading(l10n.personalInformation),
                           style: AppTextStyles.h3.copyWith(
-                            color: _titleBlue,
+                            color: AppColors.appBarTitleColor(context),
                             fontWeight: FontWeight.w600,
                             fontSize: 17,
                           ),
@@ -262,9 +261,9 @@ class _PersonalInformationScreenState
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.more_vert_rounded,
-                      color: _titleBlue,
+                      color: AppColors.appBarTitleColor(context),
                       size: 20,
                     ),
                     padding: EdgeInsets.zero,
@@ -360,14 +359,12 @@ class _ProfilePhotoCard extends StatelessWidget {
   final String? photoPath;
   final VoidCallback onChangePhoto;
 
-  static const Color _cardFill = Color(0xFFEEEDFD);
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 13, 16, 15),
       decoration: BoxDecoration(
-        color: _cardFill,
+        color: AppColors.greetingCardColor(context),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -406,8 +403,6 @@ class _PersonalInfoField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
   });
 
-  static const Color _titleBlue = Color(0xFF022088);
-
   final String label;
   final TextEditingController controller;
   final FocusNode focusNode;
@@ -423,7 +418,7 @@ class _PersonalInfoField extends StatelessWidget {
         Text(
           label,
           style: AppTextStyles.h4.copyWith(
-            color: _titleBlue,
+            color: AppColors.appBarTitleColor(context),
             fontWeight: FontWeight.w600,
             fontSize: 12,
           ),

@@ -2528,4 +2528,140 @@ class AppLocalizationsAr extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'مستوى المخاطرة الإجمالي لديك هو $label ($score%). قم بمراجعة التفاصيل أدناه لفهم الأسباب التي تؤدي إلى هذه النتيجة.';
   }
+
+  @override
+  String get urgencyNoRushSub => 'خذ وقتك في البحث ومقارنة الخيارات.';
+
+  @override
+  String get urgencyNoRushTag => 'جدول زمني مرن';
+
+  @override
+  String get urgencyModerateSub => 'اتخذ القرار خلال الأسابيع القليلة القادمة.';
+
+  @override
+  String get urgencyModerateTag => 'بضعة أسابيع';
+
+  @override
+  String get urgencyUrgentSub => 'تحتاج إلى اتخاذ قرار خلال أيام.';
+
+  @override
+  String get urgencyUrgentTag => 'خلال أيام';
+
+  @override
+  String get urgencyCriticalSub => 'مطلوب اتخاذ إجراء فوري.';
+
+  @override
+  String get urgencyCriticalTag => 'فوري';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'يؤثر الإلحاح على العوامل التي يوليها الذكاء الاصطناعي وزناً أكبر - قرارات سريعة وإشارات أكثر وضوحاً.';
+
+  @override
+  String get budgetRange1 => '1-5 آلاف دولار';
+
+  @override
+  String get budgetRange2 => '5-20 ألف دولار';
+
+  @override
+  String get budgetRange3 => '20-50 ألف دولار';
+
+  @override
+  String get budgetRange4 => 'أكثر من 50 ألف دولار';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'تساعد ميزانيتك الذكاء الاصطناعي في تقييم الخيارات والتوصية بحلول فعالة من حيث التكلفة.';
+
+  @override
+  String get riskToleranceLowSub => 'تفضيل نتائج مستقرة وقابلة للتنبؤ.';
+
+  @override
+  String get riskToleranceLowTag => 'مستقر وآمن';
+
+  @override
+  String get riskToleranceModerateSub => 'قبول مقايضات متوازنة.';
+
+  @override
+  String get riskToleranceModerateTag => 'مخاطرة متوازنة';
+
+  @override
+  String get riskToleranceHighSub =>
+      'الانفتاح على تقلبات أكبر لتحقيق عوائد أكبر.';
+
+  @override
+  String get riskToleranceHighTag => 'تركيز على النمو';
+
+  @override
+  String get riskToleranceVeryHighSub => 'الارتياح التام مع عدم اليقين الكبير.';
+
+  @override
+  String get riskToleranceVeryHighTag => 'أقصى عائد محتمل';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'تساعد القدرة على تحمل المخاطر الذكاء الاصطناعي في تحقيق التوازن بين المكافآت المحتملة والسلبيات الممكنة.';
+
+  @override
+  String get experienceBeginnerSub =>
+      'جديد في هذا المجال؛ لا يزال يبني المعرفة.';
+
+  @override
+  String get experienceBeginnerTag => 'الأفضل للتعلم';
+
+  @override
+  String get experienceIntermediateSub => 'لديه بعض الخبرة والسياق ذي الصلة.';
+
+  @override
+  String get experienceIntermediateTag => 'خيارات متوازنة';
+
+  @override
+  String get experienceAdvancedSub => 'خلفية قوية في هذا المجال.';
+
+  @override
+  String get experienceAdvancedTag => 'تركيز على النمو';
+
+  @override
+  String get experienceExpertSub => 'خبرة عميقة وسجل نجاح مثبت.';
+
+  @override
+  String get experienceExpertTag => 'أقصى النتائج';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'يساعد مستوى خبرتك الذكاء الاصطناعي في تخصيص مدى تعقيد التوصيات وعمقها.';
+
+  @override
+  String get timeVeryLimitedSub => 'تتوفر بضع ساعات فقط في الأسبوع.';
+
+  @override
+  String get timeVeryLimitedTag => 'الحد الأدنى من الساعات';
+
+  @override
+  String get timeLimitedSub => 'بعض الأمسيات أو عطلات نهاية الأسبوع مجانية.';
+
+  @override
+  String get timeLimitedTag => 'تركيز جزئي';
+
+  @override
+  String get timeModerateAvailSub => 'مقدار ثابت من الوقت كل أسبوع.';
+
+  @override
+  String get timeModerateAvailTag => 'التزام منتظم';
+
+  @override
+  String get timeHighAvailSub => 'يمكن تخصيص ساعات أسبوعية كبيرة.';
+
+  @override
+  String get timeHighAvailTag => 'توفر قوي';
+
+  @override
+  String get timeVeryHighSub => 'يمكن أن يكون هذا هو تركيزك الأساسي الآن.';
+
+  @override
+  String get timeVeryHighTag => 'تركيز كامل';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'يساعدك توفر الوقت الذكاء الاصطناعي في التوصية بخطط واقعية يمكنك الالتزام بها.';
 }

@@ -1113,7 +1113,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutBody.
   ///
   /// In en, this message translates to:
-  /// **'Life Coach helps you set goals, build habits, and make smarter decisions with AI-powered planning and clear action steps.'**
+  /// **'Life Coach helps you set goals, build habits, and make smarter decisions with AI-powered planning and clear action steps. By analyzing your problems, preferences, and goals, the app constructs custom advice, detailed outcome predictions, risk scores, and pros-and-cons sheets. Our mission is to guide you step-by-step through life\'s most complex challenges, providing clarity, confidence, and structure whenever you need to make critical choices.'**
   String get aboutBody;
 
   /// No description provided for @personalInformation.
@@ -4871,6 +4871,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your overall risk level is {label} ({score}%). Review the breakdown below to understand what drives this score.'**
   String decisionTextRiskInterpretation(String label, int score);
+
+  /// No description provided for @urgencyNoRushSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Take time to research and compare options.'**
+  String get urgencyNoRushSub;
+
+  /// No description provided for @urgencyNoRushTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Flexible timeline'**
+  String get urgencyNoRushTag;
+
+  /// No description provided for @urgencyModerateSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Decide within the next few weeks.'**
+  String get urgencyModerateSub;
+
+  /// No description provided for @urgencyModerateTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Few Weeks'**
+  String get urgencyModerateTag;
+
+  /// No description provided for @urgencyUrgentSub.
+  ///
+  /// In en, this message translates to:
+  /// **'You need a decision within days.'**
+  String get urgencyUrgentSub;
+
+  /// No description provided for @urgencyUrgentTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Within days'**
+  String get urgencyUrgentTag;
+
+  /// No description provided for @urgencyCriticalSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Immediate action is required.'**
+  String get urgencyCriticalSub;
+
+  /// No description provided for @urgencyCriticalTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Immediate'**
+  String get urgencyCriticalTag;
+
+  /// No description provided for @urgencyWhyMattersDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgency affects which factors AI weights more heavily-quick decisions and clearer signals.'**
+  String get urgencyWhyMattersDesc;
+
+  /// No description provided for @budgetRange1.
+  ///
+  /// In en, this message translates to:
+  /// **'\$1K-\$5K'**
+  String get budgetRange1;
+
+  /// No description provided for @budgetRange2.
+  ///
+  /// In en, this message translates to:
+  /// **'\$5K-\$20K'**
+  String get budgetRange2;
+
+  /// No description provided for @budgetRange3.
+  ///
+  /// In en, this message translates to:
+  /// **'\$20K-\$50K'**
+  String get budgetRange3;
+
+  /// No description provided for @budgetRange4.
+  ///
+  /// In en, this message translates to:
+  /// **'\$50K+'**
+  String get budgetRange4;
+
+  /// No description provided for @budgetWhyMattersDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your budget helps AI evaluate options & recommend cost-effective solutions for you.'**
+  String get budgetWhyMattersDesc;
+
+  /// No description provided for @riskToleranceLowSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Prefer stable, predictable outcomes.'**
+  String get riskToleranceLowSub;
+
+  /// No description provided for @riskToleranceLowTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Stable & safe'**
+  String get riskToleranceLowTag;
+
+  /// No description provided for @riskToleranceModerateSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept balanced trade-offs.'**
+  String get riskToleranceModerateSub;
+
+  /// No description provided for @riskToleranceModerateTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced risk'**
+  String get riskToleranceModerateTag;
+
+  /// No description provided for @riskToleranceHighSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Open to bigger swings for upside.'**
+  String get riskToleranceHighSub;
+
+  /// No description provided for @riskToleranceHighTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth focused'**
+  String get riskToleranceHighTag;
+
+  /// No description provided for @riskToleranceVeryHighSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Comfortable with major uncertainty.'**
+  String get riskToleranceVeryHighSub;
+
+  /// No description provided for @riskToleranceVeryHighTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum upside'**
+  String get riskToleranceVeryHighTag;
+
+  /// No description provided for @riskWhyMattersDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Risk tolerance helps AI balance potential rewards against possible downsides.'**
+  String get riskWhyMattersDesc;
+
+  /// No description provided for @experienceBeginnerSub.
+  ///
+  /// In en, this message translates to:
+  /// **'New to this area; still building knowledge.'**
+  String get experienceBeginnerSub;
+
+  /// No description provided for @experienceBeginnerTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Best for learning'**
+  String get experienceBeginnerTag;
+
+  /// No description provided for @experienceIntermediateSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Some relevant experience and context.'**
+  String get experienceIntermediateSub;
+
+  /// No description provided for @experienceIntermediateTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced options'**
+  String get experienceIntermediateTag;
+
+  /// No description provided for @experienceAdvancedSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong background in this domain.'**
+  String get experienceAdvancedSub;
+
+  /// No description provided for @experienceAdvancedTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth focused'**
+  String get experienceAdvancedTag;
+
+  /// No description provided for @experienceExpertSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep expertise and proven track record.'**
+  String get experienceExpertSub;
+
+  /// No description provided for @experienceExpertTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum outcomes'**
+  String get experienceExpertTag;
+
+  /// No description provided for @experienceWhyMattersDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your experience level helps AI personalize the complexity and depth of recommendations.'**
+  String get experienceWhyMattersDesc;
+
+  /// No description provided for @timeVeryLimitedSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Only a few hours per week available.'**
+  String get timeVeryLimitedSub;
+
+  /// No description provided for @timeVeryLimitedTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimal hours'**
+  String get timeVeryLimitedTag;
+
+  /// No description provided for @timeLimitedSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Some evenings or weekends free.'**
+  String get timeLimitedSub;
+
+  /// No description provided for @timeLimitedTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Part-time focus'**
+  String get timeLimitedTag;
+
+  /// No description provided for @timeModerateAvailSub.
+  ///
+  /// In en, this message translates to:
+  /// **'A steady amount of time each week.'**
+  String get timeModerateAvailSub;
+
+  /// No description provided for @timeModerateAvailTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular commitment'**
+  String get timeModerateAvailTag;
+
+  /// No description provided for @timeHighAvailSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Can dedicate significant weekly hours.'**
+  String get timeHighAvailSub;
+
+  /// No description provided for @timeHighAvailTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong availability'**
+  String get timeHighAvailTag;
+
+  /// No description provided for @timeVeryHighSub.
+  ///
+  /// In en, this message translates to:
+  /// **'This can be your primary focus now.'**
+  String get timeVeryHighSub;
+
+  /// No description provided for @timeVeryHighTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Full focus'**
+  String get timeVeryHighTag;
+
+  /// No description provided for @timeWhyMattersDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your time availability helps AI recommend realistic plans you can stick to.'**
+  String get timeWhyMattersDesc;
 }
 
 class _AppLocalizationsDelegate

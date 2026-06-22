@@ -15,7 +15,7 @@ import '../../../shared/widgets/selection_check_circle.dart';
 import '../../../shared/widgets/step_indicator.dart';
 import '../../../shared/widgets/widgets.dart';
 
-class TimeAvailabilityScreen extends ConsumerStatefulWidget {
+  class TimeAvailabilityScreen extends ConsumerStatefulWidget {
   const TimeAvailabilityScreen({super.key});
 
   @override
@@ -39,34 +39,41 @@ class _TimeAvailabilityScreenState
         ),
       ];
 
-  static const List<({String name, String sub, String tag})> _options =
-      <({String name, String sub, String tag})>[
-    (
-      name: 'Very Limited',
-      sub: 'Only a few hours per week available.',
-      tag: 'Minimal hours',
-    ),
-    (
-      name: 'Limited',
-      sub: 'Some evenings or weekends free.',
-      tag: 'Part-time focus',
-    ),
-    (
-      name: 'Moderate',
-      sub: 'A steady amount of time each week.',
-      tag: 'Regular commitment',
-    ),
-    (
-      name: 'High',
-      sub: 'Can dedicate significant weekly hours.',
-      tag: 'Strong availability',
-    ),
-    (
-      name: 'Very High',
-      sub: 'This can be your primary focus now.',
-      tag: 'Full focus',
-    ),
-  ];
+  List<({String name, String sub, String tag, String value})> _getOptions(
+      AppLocalizations l10n) {
+    return <({String name, String sub, String tag, String value})>[
+      (
+        name: l10n.timeVeryLimited,
+        sub: l10n.timeVeryLimitedSub,
+        tag: l10n.timeVeryLimitedTag,
+        value: 'Very Limited',
+      ),
+      (
+        name: l10n.timeLimited,
+        sub: l10n.timeLimitedSub,
+        tag: l10n.timeLimitedTag,
+        value: 'Limited',
+      ),
+      (
+        name: l10n.timeModerateAvail,
+        sub: l10n.timeModerateAvailSub,
+        tag: l10n.timeModerateAvailTag,
+        value: 'Moderate',
+      ),
+      (
+        name: l10n.timeHighAvail,
+        sub: l10n.timeHighAvailSub,
+        tag: l10n.timeHighAvailTag,
+        value: 'High',
+      ),
+      (
+        name: l10n.timeVeryHigh,
+        sub: l10n.timeVeryHighSub,
+        tag: l10n.timeVeryHighTag,
+        value: 'Very High',
+      ),
+    ];
+  }
 
   @override
   void initState() {
@@ -76,8 +83,13 @@ class _TimeAvailabilityScreenState
           ref.read(draftDecisionProvider)?.timeAvailability;
       if (existing != null &&
           existing.isNotEmpty &&
-          _options.any((({String name, String sub, String tag}) o) =>
-              o.name == existing)) {
+          <String>[
+            'Very Limited',
+            'Limited',
+            'Moderate',
+            'High',
+            'Very High'
+          ].contains(existing)) {
         setState(() => _selected = existing);
       }
     });
@@ -93,6 +105,8 @@ class _TimeAvailabilityScreenState
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final List<({String name, String sub, String tag, String value})> options =
+        _getOptions(l10n);
     return AppScreen(
       titleLeading: l10n.stepAnalyze,
       titleAccent: l10n.problemWord,
@@ -137,9 +151,9 @@ class _TimeAvailabilityScreenState
             ),
           ),
           const SizedBox(height: 16),
-          for (final ({String name, String sub, String tag}) option
-              in _options) ...<Widget>[
-            _optionCard(option: option, selected: _selected == option.name),
+          for (final ({String name, String sub, String tag, String value}) option
+              in options) ...<Widget>[
+            _optionCard(option: option, selected: _selected == option.value),
             const SizedBox(height: 10),
           ],
           const SizedBox(height: 10),
@@ -158,15 +172,22 @@ class _TimeAvailabilityScreenState
   }
 
   Widget _optionCard({
-    required ({String name, String sub, String tag}) option,
+    required ({String name, String sub, String tag, String value}) option,
     required bool selected,
   }) {
+    final bool isDark = !AppColors.isLight(context);
+
     return GestureDetector(
-      onTap: () => setState(() => _selected = option.name),
+      onTap: () => setState(() => _selected = option.value),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.optionCardColor(context, selected: selected),
+          gradient: selected && isDark
+              ? AppColors.primaryTwoGradient
+              : null,
+          color: selected && isDark
+              ? null
+              : AppColors.optionCardColor(context, selected: selected),
           borderRadius: BorderRadius.circular(12),
           boxShadow: _cardShadow,
         ),
@@ -176,12 +197,16 @@ class _TimeAvailabilityScreenState
             Container(
               width: 36,
               height: 36,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE5E7EB),
+              decoration: BoxDecoration(
+                color: selected && isDark
+                    ? Colors.white.withValues(alpha: 0.20)
+                    : const Color(0xFFE5E7EB),
                 shape: BoxShape.circle,
               ),
             ),
+
             const SizedBox(width: 12),
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,36 +214,48 @@ class _TimeAvailabilityScreenState
                   Text(
                     option.name,
                     style: AppTextStyles.h4.copyWith(
-                      color: AppColors.textPrimary(context),
+                      color: selected && isDark
+                          ? Colors.white
+                          : AppColors.textPrimary(context),
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
                   ),
+
                   const SizedBox(height: 4),
+
                   Text(
                     option.sub,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textMuted(context),
+                      color: selected && isDark
+                          ? Colors.white.withValues(alpha: 0.85)
+                          : AppColors.textMuted(context),
                       fontSize: 11,
                       height: 1.4,
                     ),
                   ),
+
                   const SizedBox(height: 6),
+
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
                       vertical: 3,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE8F5E9),
+                      color: selected && isDark
+                          ? Colors.white.withValues(alpha: 0.25)
+                          : const Color(0xFFE8F5E9),
                       borderRadius: BorderRadius.circular(23),
                     ),
                     child: Text(
                       option.tag,
                       style: AppTextStyles.caption.copyWith(
-                        color: const Color(0xFF388E3C),
+                        color: selected && isDark
+                            ? Colors.white
+                            : const Color(0xFF388E3C),
                         fontWeight: FontWeight.w500,
                         fontSize: 9,
                       ),
@@ -227,10 +264,14 @@ class _TimeAvailabilityScreenState
                 ],
               ),
             ),
+
             const SizedBox(width: 8),
+
             SelectionCheckCircle(
               selected: selected,
-              borderColor: AppColors.primaryBlue,
+              borderColor: selected && isDark
+                  ? Colors.white
+                  : AppColors.primaryBlue,
             ),
           ],
         ),
@@ -239,10 +280,24 @@ class _TimeAvailabilityScreenState
   }
 
   Widget _whyThisMattersBox(AppLocalizations l10n) {
+    final bool isDark = !AppColors.isLight(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       decoration: BoxDecoration(
-        color: AppColors.selectedFillColor(context),
+        color: AppColors.greetingCardColor(context),
+
+        gradient: isDark
+            ? LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            AppColors.primaryBlue.withValues(alpha: 0.10),
+            AppColors.primaryPurple.withValues(alpha: 0.10),
+          ],
+        )
+            : null,
+        boxShadow: isDark ? AppColors.homeCardShadow(context) : null,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -270,7 +325,7 @@ class _TimeAvailabilityScreenState
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Your time availability helps AI recommend realistic plans you can stick to.',
+                  l10n.timeWhyMattersDesc,
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,

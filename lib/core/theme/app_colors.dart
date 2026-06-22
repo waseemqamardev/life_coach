@@ -118,7 +118,7 @@ class AppColors {
       Theme.of(context).brightness == Brightness.light;
 
   static Color selectedFillColor(BuildContext context) =>
-      greetingCardColor(context);
+      isLight(context) ? const Color(0xFFEEEDFD) : const Color(0xFF221C53);
 
   static Color surfaceBackground(BuildContext context) =>
       isLight(context) ? lightSurface : darkSurface;

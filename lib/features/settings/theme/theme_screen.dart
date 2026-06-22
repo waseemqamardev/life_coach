@@ -115,8 +115,6 @@ class _ThemeScreenState extends ConsumerState<ThemeScreen> {
 class _ThemeAppBar extends StatelessWidget {
   const _ThemeAppBar({required this.l10n, required this.onBack});
 
-  static const Color _titleBlue = Color(0xFF022088);
-
   final AppLocalizations l10n;
   final VoidCallback onBack;
 
@@ -134,7 +132,7 @@ class _ThemeAppBar extends StatelessWidget {
                 Text(
                   '${l10n.appTheme.split(' ').first} ',
                   style: AppTextStyles.h3.copyWith(
-                    color: _titleBlue,
+                    color: AppColors.appBarTitleColor(context),
                     fontWeight: FontWeight.w600,
                     fontSize: 17,
                   ),
@@ -160,9 +158,9 @@ class _ThemeAppBar extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.more_vert_rounded,
-              color: _titleBlue,
+              color: AppColors.appBarTitleColor(context),
               size: 20,
             ),
             padding: EdgeInsets.zero,
@@ -181,8 +179,6 @@ class _ThemeOptionCard extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
   });
-
-  static const Color _selectedFill = Color(0xFFEEEDFD);
 
   final String title;
   final String subtitle;

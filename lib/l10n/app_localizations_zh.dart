@@ -2440,4 +2440,133 @@ class AppLocalizationsZh extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return '您的总体风险级别为 $label ($score%)。查看下面的细分，了解是什么驱动了这个分数。';
   }
+
+  @override
+  String get urgencyNoRushSub => '花时间进行研究并比较不同的选择。';
+
+  @override
+  String get urgencyNoRushTag => '灵活的时间表';
+
+  @override
+  String get urgencyModerateSub => '在接下来的几周内做出决定。';
+
+  @override
+  String get urgencyModerateTag => '几周内';
+
+  @override
+  String get urgencyUrgentSub => '您需要在几天内做出决定。';
+
+  @override
+  String get urgencyUrgentTag => '几天内';
+
+  @override
+  String get urgencyCriticalSub => '需要立即采取行动。';
+
+  @override
+  String get urgencyCriticalTag => '立即';
+
+  @override
+  String get urgencyWhyMattersDesc => '紧急程度会影响AI对哪些因素赋予更高权重——快速决策与更清晰的信号。';
+
+  @override
+  String get budgetRange1 => '1千-5千美元';
+
+  @override
+  String get budgetRange2 => '5千-2万美元';
+
+  @override
+  String get budgetRange3 => '2万-5万美元';
+
+  @override
+  String get budgetRange4 => '5万美元以上';
+
+  @override
+  String get budgetWhyMattersDesc => '您的预算可帮助AI评估各种选择，并为您推荐最具成本效益的解决方案。';
+
+  @override
+  String get riskToleranceLowSub => '更倾向于稳定、可预测的结果。';
+
+  @override
+  String get riskToleranceLowTag => '稳定与安全';
+
+  @override
+  String get riskToleranceModerateSub => '可以接受平衡的折中方案。';
+
+  @override
+  String get riskToleranceModerateTag => '平衡风险';
+
+  @override
+  String get riskToleranceHighSub => '愿意承担更大波动以追求更高回报。';
+
+  @override
+  String get riskToleranceHighTag => '成长导向';
+
+  @override
+  String get riskToleranceVeryHighSub => '能够坦然面对极大的不确定性。';
+
+  @override
+  String get riskToleranceVeryHighTag => '最大回报';
+
+  @override
+  String get riskWhyMattersDesc => '风险承受能力可帮助AI在潜在回报与可能面临的弊端之间取得平衡。';
+
+  @override
+  String get experienceBeginnerSub => '这一领域的新手；仍在积累知识。';
+
+  @override
+  String get experienceBeginnerTag => '最适合学习';
+
+  @override
+  String get experienceIntermediateSub => '有一些相关的经验和背景知识。';
+
+  @override
+  String get experienceIntermediateTag => '均衡的选择';
+
+  @override
+  String get experienceAdvancedSub => '在此领域拥有扎实的背景。';
+
+  @override
+  String get experienceAdvancedTag => '成长导向';
+
+  @override
+  String get experienceExpertSub => '拥有深厚的专业知识和成熟的过往业绩。';
+
+  @override
+  String get experienceExpertTag => '最大化成效';
+
+  @override
+  String get experienceWhyMattersDesc => '您的经验水平有助于AI针对个性化的复杂度和深度生成定制的建议。';
+
+  @override
+  String get timeVeryLimitedSub => '每周只有几个小时可用。';
+
+  @override
+  String get timeVeryLimitedTag => '极少时间';
+
+  @override
+  String get timeLimitedSub => '部分晚上或周末有空闲。';
+
+  @override
+  String get timeLimitedTag => '兼职精力';
+
+  @override
+  String get timeModerateAvailSub => '每周都有稳定的一段时间。';
+
+  @override
+  String get timeModerateAvailTag => '定期投入';
+
+  @override
+  String get timeHighAvailSub => '每周可投入大量时间。';
+
+  @override
+  String get timeHighAvailTag => '时间充足';
+
+  @override
+  String get timeVeryHighSub => '这可以成为您当前的主要精力所在。';
+
+  @override
+  String get timeVeryHighTag => '全身心投入';
+
+  @override
+  String get timeWhyMattersDesc => '您的时间可用性有助于AI推荐切合实际且易于坚持的计划。';
 }

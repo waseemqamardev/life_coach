@@ -464,7 +464,9 @@ class _StartAnalysisCard extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment.centerRight,
+              alignment: Directionality.of(context) == TextDirection.rtl
+                  ? Alignment.centerLeft
+                  : Alignment.centerRight,
               child: Container(
                 width: 32,
                 height: 32,
@@ -473,15 +475,25 @@ class _StartAnalysisCard extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: AppColors.primaryTwoGradient,
                 ),
-                child: Image.asset(
-                  Assets.iconsForwardArrow,
-                  width: 16,
-                  height: 16,
-                  color: Colors.white,
-                  errorBuilder: (_, __, ___) => Icon(
-                    Icons.arrow_forward_rounded,
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.identity()
+                    ..scale(
+                      Directionality.of(context) == TextDirection.rtl ? -1.0 : 1.0,
+                      1.0,
+                    ),
+                  child: Image.asset(
+                    Assets.iconsForwardArrow,
+                    width: 16,
+                    height: 16,
                     color: Colors.white,
-                    size: 18,
+                    errorBuilder: (_, __, ___) => Icon(
+                      Directionality.of(context) == TextDirection.rtl
+                          ? Icons.arrow_back_rounded
+                          : Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                      size: 18,
+                    ),
                   ),
                 ),
               ),

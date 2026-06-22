@@ -520,7 +520,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutBody =>
-      'Life Coach helps you set goals, build habits, and make smarter decisions with AI-powered planning and clear action steps.';
+      'Life Coach helps you set goals, build habits, and make smarter decisions with AI-powered planning and clear action steps. By analyzing your problems, preferences, and goals, the app constructs custom advice, detailed outcome predictions, risk scores, and pros-and-cons sheets. Our mission is to guide you step-by-step through life\'s most complex challenges, providing clarity, confidence, and structure whenever you need to make critical choices.';
 
   @override
   String get personalInformation => 'Personal Information';
@@ -2543,4 +2543,140 @@ class AppLocalizationsEn extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'Your overall risk level is $label ($score%). Review the breakdown below to understand what drives this score.';
   }
+
+  @override
+  String get urgencyNoRushSub => 'Take time to research and compare options.';
+
+  @override
+  String get urgencyNoRushTag => 'Flexible timeline';
+
+  @override
+  String get urgencyModerateSub => 'Decide within the next few weeks.';
+
+  @override
+  String get urgencyModerateTag => 'Few Weeks';
+
+  @override
+  String get urgencyUrgentSub => 'You need a decision within days.';
+
+  @override
+  String get urgencyUrgentTag => 'Within days';
+
+  @override
+  String get urgencyCriticalSub => 'Immediate action is required.';
+
+  @override
+  String get urgencyCriticalTag => 'Immediate';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'Urgency affects which factors AI weights more heavily-quick decisions and clearer signals.';
+
+  @override
+  String get budgetRange1 => '\$1K-\$5K';
+
+  @override
+  String get budgetRange2 => '\$5K-\$20K';
+
+  @override
+  String get budgetRange3 => '\$20K-\$50K';
+
+  @override
+  String get budgetRange4 => '\$50K+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'Your budget helps AI evaluate options & recommend cost-effective solutions for you.';
+
+  @override
+  String get riskToleranceLowSub => 'Prefer stable, predictable outcomes.';
+
+  @override
+  String get riskToleranceLowTag => 'Stable & safe';
+
+  @override
+  String get riskToleranceModerateSub => 'Accept balanced trade-offs.';
+
+  @override
+  String get riskToleranceModerateTag => 'Balanced risk';
+
+  @override
+  String get riskToleranceHighSub => 'Open to bigger swings for upside.';
+
+  @override
+  String get riskToleranceHighTag => 'Growth focused';
+
+  @override
+  String get riskToleranceVeryHighSub => 'Comfortable with major uncertainty.';
+
+  @override
+  String get riskToleranceVeryHighTag => 'Maximum upside';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'Risk tolerance helps AI balance potential rewards against possible downsides.';
+
+  @override
+  String get experienceBeginnerSub =>
+      'New to this area; still building knowledge.';
+
+  @override
+  String get experienceBeginnerTag => 'Best for learning';
+
+  @override
+  String get experienceIntermediateSub =>
+      'Some relevant experience and context.';
+
+  @override
+  String get experienceIntermediateTag => 'Balanced options';
+
+  @override
+  String get experienceAdvancedSub => 'Strong background in this domain.';
+
+  @override
+  String get experienceAdvancedTag => 'Growth focused';
+
+  @override
+  String get experienceExpertSub => 'Deep expertise and proven track record.';
+
+  @override
+  String get experienceExpertTag => 'Maximum outcomes';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'Your experience level helps AI personalize the complexity and depth of recommendations.';
+
+  @override
+  String get timeVeryLimitedSub => 'Only a few hours per week available.';
+
+  @override
+  String get timeVeryLimitedTag => 'Minimal hours';
+
+  @override
+  String get timeLimitedSub => 'Some evenings or weekends free.';
+
+  @override
+  String get timeLimitedTag => 'Part-time focus';
+
+  @override
+  String get timeModerateAvailSub => 'A steady amount of time each week.';
+
+  @override
+  String get timeModerateAvailTag => 'Regular commitment';
+
+  @override
+  String get timeHighAvailSub => 'Can dedicate significant weekly hours.';
+
+  @override
+  String get timeHighAvailTag => 'Strong availability';
+
+  @override
+  String get timeVeryHighSub => 'This can be your primary focus now.';
+
+  @override
+  String get timeVeryHighTag => 'Full focus';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'Your time availability helps AI recommend realistic plans you can stick to.';
 }

@@ -2554,4 +2554,144 @@ class AppLocalizationsUr extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'آپ کے خطرے کی مجموعی سطح $label ($score%) ہے۔ یہ سمجھنے کے لیے کہ اس اسکور کو کیا بناتا ہے ذیل میں بریک ڈاؤن کا جائزہ لیں۔';
   }
+
+  @override
+  String get urgencyNoRushSub =>
+      'تحقیق اور اختیارات کا موازنہ کرنے کے لیے وقت لیں۔';
+
+  @override
+  String get urgencyNoRushTag => 'لچکدار ٹائم لائن';
+
+  @override
+  String get urgencyModerateSub => 'اگلے چند ہفتوں میں فیصلہ کریں۔';
+
+  @override
+  String get urgencyModerateTag => 'چند ہفتے';
+
+  @override
+  String get urgencyUrgentSub => 'آپ کو چند دنوں میں فیصلے کی ضرورت ہے۔';
+
+  @override
+  String get urgencyUrgentTag => 'چند دنوں میں';
+
+  @override
+  String get urgencyCriticalSub => 'فوری کارروائی کی ضرورت ہے۔';
+
+  @override
+  String get urgencyCriticalTag => 'فوری';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'عجلت اس بات پر اثر انداز ہوتی ہے کہ AI کن عوامل کو زیادہ وزن دیتا ہے - تیز فیصلے اور واضح اشارے۔';
+
+  @override
+  String get budgetRange1 => '\$1K-\$5K';
+
+  @override
+  String get budgetRange2 => '\$5K-\$20K';
+
+  @override
+  String get budgetRange3 => '\$20K-\$50K';
+
+  @override
+  String get budgetRange4 => '\$50K+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'آپ کا بجٹ AI کو اختیارات کا جائزہ لینے اور آپ کے لیے سستی حل تجویز کرنے میں مدد کرتا ہے۔';
+
+  @override
+  String get riskToleranceLowSub =>
+      'مستحکم اور قابل پیش گوئی نتائج کو ترجیح دیں۔';
+
+  @override
+  String get riskToleranceLowTag => 'مستحکم اور محفوظ';
+
+  @override
+  String get riskToleranceModerateSub => 'متوازن سمجھوتوں کو قبول کریں۔';
+
+  @override
+  String get riskToleranceModerateTag => 'متوازن خطرہ';
+
+  @override
+  String get riskToleranceHighSub =>
+      'زیادہ فائدے کے لیے بڑے خطرات لینے کے لیے تیار رہیں۔';
+
+  @override
+  String get riskToleranceHighTag => 'ترقی پر توجہ';
+
+  @override
+  String get riskToleranceVeryHighSub =>
+      'بڑی غیر یقینی صورتحال میں بھی پرسکون رہیں۔';
+
+  @override
+  String get riskToleranceVeryHighTag => 'زیادہ سے زیادہ فائدہ';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'خطرہ مول لینے کی صلاحیت AI کو ممکنہ فوائد اور ممکنہ نقصانات میں توازن پیدا کرنے میں مدد کرتی ہے۔';
+
+  @override
+  String get experienceBeginnerSub =>
+      'اس شعبے میں نئے ہیں؛ ابھی معلومات حاصل کر رہے ہیں۔';
+
+  @override
+  String get experienceBeginnerTag => 'سیکھنے کے لیے بہترین';
+
+  @override
+  String get experienceIntermediateSub => 'کچھ متعلقہ تجربہ اور پس منظر ہے۔';
+
+  @override
+  String get experienceIntermediateTag => 'متوازن اختیارات';
+
+  @override
+  String get experienceAdvancedSub => 'اس شعبے میں مضبوط پس منظر ہے۔';
+
+  @override
+  String get experienceAdvancedTag => 'ترقی پر توجہ';
+
+  @override
+  String get experienceExpertSub =>
+      'گہرا تجربہ اور بہترین کارکردگی کا ریکارڈ ہے۔';
+
+  @override
+  String get experienceExpertTag => 'بہترین نتائج';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'آپ کا تجربہ کار ہونا AI کو تجاویز کی پیچیدگی اور گہرائی کو آپ کے مطابق بنانے میں مدد دیتا ہے۔';
+
+  @override
+  String get timeVeryLimitedSub => 'ہفتے میں صرف چند گھنٹے دستیاب ہیں۔';
+
+  @override
+  String get timeVeryLimitedTag => 'کم سے کم گھنٹے';
+
+  @override
+  String get timeLimitedSub => 'کچھ شامیں یا ہفتہ اتوار فارغ ہیں۔';
+
+  @override
+  String get timeLimitedTag => 'جز وقتی توجہ';
+
+  @override
+  String get timeModerateAvailSub => 'ہر ہفتے مناسب وقت دستیاب ہے۔';
+
+  @override
+  String get timeModerateAvailTag => 'باقاعدہ عزم';
+
+  @override
+  String get timeHighAvailSub => 'ہفتہ وار اہم وقت دے سکتے ہیں۔';
+
+  @override
+  String get timeHighAvailTag => 'بہتر دستیابی';
+
+  @override
+  String get timeVeryHighSub => 'یہ اس وقت آپ کی اولین ترجیح ہو سکتی ہے۔';
+
+  @override
+  String get timeVeryHighTag => 'مکمل توجہ';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'آپ کے پاس وقت کی دستیابی AI کو ایسے حقیقت پسندانہ منصوبے تجویز کرنے میں مدد کرتی ہے جن پر آپ قائم رہ سکیں۔';
 }

@@ -2559,4 +2559,144 @@ class AppLocalizationsBn extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'আপনার সামগ্রিক ঝুঁকির স্তর হল $label ($score%)। এই স্কোরটি কী করে তা বোঝার জন্য নীচের ব্রেকডাউনটি পর্যালোচনা করুন।';
   }
+
+  @override
+  String get urgencyNoRushSub => 'গবেষণা এবং বিকল্প তুলনা করার জন্য সময় নিন।';
+
+  @override
+  String get urgencyNoRushTag => 'নমনীয় সময়রেখা';
+
+  @override
+  String get urgencyModerateSub =>
+      'পরবর্তী কয়েক সপ্তাহের মধ্যে সিদ্ধান্ত নিন।';
+
+  @override
+  String get urgencyModerateTag => 'কয়েক সপ্তাহ';
+
+  @override
+  String get urgencyUrgentSub => 'কয়েক দিনের মধ্যে আপনার সিদ্ধান্ত প্রয়োজন।';
+
+  @override
+  String get urgencyUrgentTag => 'কয়েক দিনের মধ্যে';
+
+  @override
+  String get urgencyCriticalSub => 'অবিলম্বে ব্যবস্থা নেওয়া প্রয়োজন।';
+
+  @override
+  String get urgencyCriticalTag => 'অবিলম্ব';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'জরুরীতা প্রভাবিত করে যে AI কোন বিষয়গুলিকে বেশি গুরুত্ব দেয় - দ্রুত সিদ্ধান্ত এবং স্পষ্ট সংকেত।';
+
+  @override
+  String get budgetRange1 => '\$1K-\$5K';
+
+  @override
+  String get budgetRange2 => '\$5K-\$20K';
+
+  @override
+  String get budgetRange3 => '\$20K-\$50K';
+
+  @override
+  String get budgetRange4 => '\$50K+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'আপনার বাজেট AI কে বিকল্পগুলি মূল্যায়ন করতে এবং আপনার জন্য সাশ্রয়ী সমাধানের সুপারিশ করতে সহায়তা করে।';
+
+  @override
+  String get riskToleranceLowSub => 'স্থিতিশীল, অনুমানযোগ্য ফলাফল পছন্দ করেন।';
+
+  @override
+  String get riskToleranceLowTag => 'স্থিতিশীল এবং নিরাপদ';
+
+  @override
+  String get riskToleranceModerateSub => 'ভারসাম্যপূর্ণ আপস গ্রহণ করতে পারেন।';
+
+  @override
+  String get riskToleranceModerateTag => 'ভারসাম্যপূর্ণ ঝুঁকি';
+
+  @override
+  String get riskToleranceHighSub => 'অধিক লাভের জন্য বড় ঝুঁকি নিতে প্রস্তুত।';
+
+  @override
+  String get riskToleranceHighTag => 'উন্নতি ভিত্তিক';
+
+  @override
+  String get riskToleranceVeryHighSub =>
+      'উচ্চ অনিশ্চয়তার মধ্যেও স্বাচ্ছন্দ্য বোধ করেন।';
+
+  @override
+  String get riskToleranceVeryHighTag => 'সর্বোচ্চ লাভ';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'ঝুঁকি সহনশীলতা AI কে সম্ভাব্য লাভের সাথে সম্ভাব্য ক্ষতির ভারসাম্য বজায় রাখতে সহায়তা করে।';
+
+  @override
+  String get experienceBeginnerSub =>
+      'এই ক্ষেত্রে নতুন; এখনও জ্ঞান অর্জন করছেন।';
+
+  @override
+  String get experienceBeginnerTag => 'শেখার জন্য সেরা';
+
+  @override
+  String get experienceIntermediateSub =>
+      'কিছু প্রাসঙ্গিক অভিজ্ঞতা এবং ধারণা আছে।';
+
+  @override
+  String get experienceIntermediateTag => 'ভারসাম্যপূর্ণ বিকল্প';
+
+  @override
+  String get experienceAdvancedSub => 'এই ক্ষেত্রে ভালো অভিজ্ঞতা রয়েছে।';
+
+  @override
+  String get experienceAdvancedTag => 'উন্নতি ভিত্তিক';
+
+  @override
+  String get experienceExpertSub => 'গভীর দক্ষতা এবং প্রমাণিত রেকর্ড রয়েছে।';
+
+  @override
+  String get experienceExpertTag => 'সর্বোচ্চ ফলাফল';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'আপনার অভিজ্ঞতার স্তর AI কে সুপারিশের জটিলতা ও গভীরতা আপনার উপযোগী করতে সাহায্য করে।';
+
+  @override
+  String get timeVeryLimitedSub =>
+      'প্রতি সপ্তাহে মাত্র কয়েক ঘন্টা সময় পাওয়া যাবে।';
+
+  @override
+  String get timeVeryLimitedTag => 'ন্যূনতম ঘন্টা';
+
+  @override
+  String get timeLimitedSub => 'কিছু সন্ধ্যা বা সপ্তাহান্ত অবসর আছে।';
+
+  @override
+  String get timeLimitedTag => 'খন্ডকালীন ফোকাস';
+
+  @override
+  String get timeModerateAvailSub =>
+      'প্রতি সপ্তাহে একটি নির্দিষ্ট সময় দিতে পারবেন।';
+
+  @override
+  String get timeModerateAvailTag => 'নিয়মিত প্রতিশ্রুতি';
+
+  @override
+  String get timeHighAvailSub => 'সাপ্তাহিক উল্লেখযোগ্য সময় দিতে পারবেন।';
+
+  @override
+  String get timeHighAvailTag => 'উচ্চ প্রাপ্যতা';
+
+  @override
+  String get timeVeryHighSub => 'এটি এখন আপনার প্রধান ফোকাস হতে পারে।';
+
+  @override
+  String get timeVeryHighTag => 'সম্পূর্ণ ফোকাস';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'আপনার সময়ের প্রাপ্যতা AI কে বাস্তবসম্মত পরিকল্পনার সুপারিশ করতে সাহায্য করে যা আপনি ধরে রাখতে পারেন।';
 }

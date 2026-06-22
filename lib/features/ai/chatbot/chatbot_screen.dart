@@ -484,14 +484,12 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
               // Microphone button
               _buildIconButton(
                 icon: Assets.iconsAiVoice,
-                isDark: isDark,
                 onTap: () {},
               ),
               const SizedBox(width: 4),
               // Attachment button
               _buildIconButton(
                 icon: Assets.iconsAiAttach,
-                isDark: isDark,
                 onTap: () {},
               ),
               const SizedBox(width: 6),
@@ -542,72 +540,83 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
 
   Widget _buildIconButton({
     required String icon,
-    required bool isDark,
     required VoidCallback onTap,
   }) {
+    final bool isDark = !AppColors.isLight(context);
+    final bool isRtl = Directionality.of(context) == TextDirection.rtl;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: 32,
         height: 32,
         decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF1B2347) : const Color(0xffEEEDFD),
+          color: isDark
+              ? const Color(0xFF1B2347)
+              : const Color(0xffEEEDFD),
           shape: BoxShape.circle,
         ),
         child: Center(
-          child: Image.asset(
-            icon,
-            width: 16,
-            height: 16,
-            fit: BoxFit.contain,
-            color: isDark ? Colors.white : null,
-            colorBlendMode: isDark ? BlendMode.srcIn : null,
+          child: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.identity()
+              ..scale(isRtl ? -1.0 : 1.0, 1.0),
+            child: Image.asset(
+              icon,
+              width: 16,
+              height: 16,
+              fit: BoxFit.contain,
+              color: isDark ? Colors.white : null,
+              colorBlendMode: isDark ? BlendMode.srcIn : null,
+            ),
           ),
         ),
       ),
     );
   }
-
   Widget _buildSendButton(bool isDark) {
-    final Widget sendIcon = Image.asset(
-      Assets.iconsAiSend,
-      width: 16,
-      height: 16,
-      fit: BoxFit.contain,
-      color: _sendButtonActive
-          ? (isDark ? Colors.white : null)
-          : (isDark ? Colors.white.withValues(alpha: 0.45) : null),
-      colorBlendMode: isDark ? BlendMode.srcIn : null,
+    final bool isRtl = Directionality.of(context) == TextDirection.rtl;
+
+    final Widget sendIcon = Transform(
+      alignment: Alignment.center,
+      transform: Matrix4.identity()
+        ..scale(isRtl ? -1.0 : 1.0, 1.0),
+      child: Image.asset(
+        Assets.iconsAiSend,
+        width: 16,
+        height: 16,
+        fit: BoxFit.contain,
+        color: _sendButtonActive
+            ? (isDark ? Colors.white : null)
+            : (isDark ? Colors.white.withValues(alpha: 0.45) : null),
+        colorBlendMode: isDark ? BlendMode.srcIn : null,
+      ),
+    );
+
+    final Widget button = Container(
+      width: 32,
+      height: 32,
+      decoration: BoxDecoration(
+        color: _sendButtonActive
+            ? (isDark
+            ? AppColors.primaryPurple
+            : AppColors.selectedFillColor(context))
+            : (isDark
+            ? Colors.white.withValues(alpha: 0.08)
+            : const Color(0xffF9F9FB)),
+        shape: BoxShape.circle,
+      ),
+      child: Center(child: sendIcon),
     );
 
     if (_sendButtonActive) {
       return GestureDetector(
         onTap: _sendMessage,
-        child: Container(
-          width: 32,
-          height: 32,
-          decoration: BoxDecoration(
-            color: isDark
-                ? AppColors.primaryPurple
-                : AppColors.selectedFillColor(context),
-            shape: BoxShape.circle,
-          ),
-          child: Center(child: sendIcon),
-        ),
+        child: button,
       );
     }
 
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        color: isDark
-            ? Colors.white.withValues(alpha: 0.08)
-            : const Color(0xffF9F9FB),
-        shape: BoxShape.circle,
-      ),
-      child: Center(child: sendIcon),
-    );
+    return button;
   }
 }
 

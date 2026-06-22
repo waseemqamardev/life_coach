@@ -2558,4 +2558,142 @@ class AppLocalizationsHi extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'आपका समग्र जोखिम स्तर $label ($score%) है। यह समझने के लिए कि यह स्कोर किस कारण से संचालित होता है, नीचे दिए गए विश्लेषण की समीक्षा करें।';
   }
+
+  @override
+  String get urgencyNoRushSub =>
+      'शोध करने और विकल्पों की तुलना करने के लिए समय लें।';
+
+  @override
+  String get urgencyNoRushTag => 'लचीली समयसीमा';
+
+  @override
+  String get urgencyModerateSub => 'अगले कुछ हफ्तों के भीतर निर्णय लें।';
+
+  @override
+  String get urgencyModerateTag => 'कुछ सप्ताह';
+
+  @override
+  String get urgencyUrgentSub =>
+      'आपको कुछ दिनों के भीतर निर्णय की आवश्यकता है।';
+
+  @override
+  String get urgencyUrgentTag => 'कुछ दिनों में';
+
+  @override
+  String get urgencyCriticalSub => 'तत्काल कार्रवाई की आवश्यकता है।';
+
+  @override
+  String get urgencyCriticalTag => 'तत्काल';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'शीघ्रता इस बात को प्रभावित करती है कि AI किन कारकों को अधिक महत्व देता है - त्वरित निर्णय और स्पष्ट संकेत।';
+
+  @override
+  String get budgetRange1 => '\$1K-\$5K';
+
+  @override
+  String get budgetRange2 => '\$5K-\$20K';
+
+  @override
+  String get budgetRange3 => '\$20K-\$50K';
+
+  @override
+  String get budgetRange4 => '\$50K+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'आपका बजट AI को विकल्पों का मूल्यांकन करने और आपके लिए लागत प्रभावी समाधान सुझाने में मदद करता है।';
+
+  @override
+  String get riskToleranceLowSub => 'स्थिर, अनुमानित परिणाम पसंद करते हैं।';
+
+  @override
+  String get riskToleranceLowTag => 'स्थिर और सुरक्षित';
+
+  @override
+  String get riskToleranceModerateSub => 'संतुलित समझौतों को स्वीकार करते हैं।';
+
+  @override
+  String get riskToleranceModerateTag => 'संतुलित जोखिम';
+
+  @override
+  String get riskToleranceHighSub =>
+      'अधिक लाभ के लिए बड़ा जोखिम लेने को तैयार।';
+
+  @override
+  String get riskToleranceHighTag => 'विकास पर ध्यान';
+
+  @override
+  String get riskToleranceVeryHighSub => 'बड़ी अनिश्चितता के साथ सहज।';
+
+  @override
+  String get riskToleranceVeryHighTag => 'अधिकतम लाभ';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'जोखिम सहनशीलता AI को संभावित लाभ और संभावित नुकसान के बीच संतुलन बनाने में मदद करती है।';
+
+  @override
+  String get experienceBeginnerSub =>
+      'इस क्षेत्र में नए हैं; अभी ज्ञान बढ़ा रहे हैं।';
+
+  @override
+  String get experienceBeginnerTag => 'सीखने के लिए सर्वोत्तम';
+
+  @override
+  String get experienceIntermediateSub => 'कुछ प्रासंगिक अनुभव और संदर्भ है।';
+
+  @override
+  String get experienceIntermediateTag => 'संतुलित विकल्प';
+
+  @override
+  String get experienceAdvancedSub => 'इस क्षेत्र में मजबूत पृष्ठभूमि है।';
+
+  @override
+  String get experienceAdvancedTag => 'विकास पर ध्यान';
+
+  @override
+  String get experienceExpertSub => 'गहरा अनुभव और प्रमाणित रिकॉर्ड है।';
+
+  @override
+  String get experienceExpertTag => 'अधिकतम परिणाम';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'आपका अनुभव स्तर AI को सिफारिशों की जटिलता और गहराई को आपके अनुरूप बनाने में मदद करता है।';
+
+  @override
+  String get timeVeryLimitedSub => 'प्रति सप्ताह केवल कुछ घंटे उपलब्ध हैं।';
+
+  @override
+  String get timeVeryLimitedTag => 'न्यूनतम घंटे';
+
+  @override
+  String get timeLimitedSub => 'कुछ शामें या सप्ताहांत खाली हैं।';
+
+  @override
+  String get timeLimitedTag => 'अंशकालिक ध्यान';
+
+  @override
+  String get timeModerateAvailSub => 'हर सप्ताह एक निश्चित समय।';
+
+  @override
+  String get timeModerateAvailTag => 'नियमित प्रतिबद्धता';
+
+  @override
+  String get timeHighAvailSub => 'साप्ताहिक रूप से महत्वपूर्ण समय दे सकते हैं।';
+
+  @override
+  String get timeHighAvailTag => 'मजबूत उपलब्धता';
+
+  @override
+  String get timeVeryHighSub => 'यह अभी आपका प्राथमिक ध्यान हो सकता है।';
+
+  @override
+  String get timeVeryHighTag => 'पूर्ण ध्यान';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'आपकी समय की उपलब्धता AI को यथार्थवादी योजनाओं की सिफारिश करने में मदद करती है जिनका आप पालन कर सकें।';
 }

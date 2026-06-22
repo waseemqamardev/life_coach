@@ -2565,4 +2565,145 @@ class AppLocalizationsTr extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'Genel risk düzeyiniz $label (%$score) şeklindedir. Bu puanı neyin tetiklediğini anlamak için aşağıdaki dökümü inceleyin.';
   }
+
+  @override
+  String get urgencyNoRushSub =>
+      'Araştırmak ve seçenekleri karşılaştırmak için zaman ayırın.';
+
+  @override
+  String get urgencyNoRushTag => 'Esnek zaman çizelgesi';
+
+  @override
+  String get urgencyModerateSub =>
+      'Önümüzdeki birkaç hafta içinde karar verin.';
+
+  @override
+  String get urgencyModerateTag => 'Birkaç Hafta';
+
+  @override
+  String get urgencyUrgentSub => 'Günler içinde bir karara ihtiyacınız var.';
+
+  @override
+  String get urgencyUrgentTag => 'Günler içinde';
+
+  @override
+  String get urgencyCriticalSub => 'Acil eylem gereklidir.';
+
+  @override
+  String get urgencyCriticalTag => 'Hemen';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'Aciliyet, yapay zekanın hangi faktörlere daha çok ağırlık vereceğini etkiler - hızlı kararlar ve daha net sinyaller.';
+
+  @override
+  String get budgetRange1 => '\$1K-\$5K';
+
+  @override
+  String get budgetRange2 => '\$5K-\$20K';
+
+  @override
+  String get budgetRange3 => '\$20K-\$50K';
+
+  @override
+  String get budgetRange4 => '\$50K+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'Bütçeniz, yapay zekanın seçenekleri değerlendirmesine ve sizin için maliyet etkin çözümler önermesine yardımcı olur.';
+
+  @override
+  String get riskToleranceLowSub =>
+      'İstikrarlı ve öngörülebilir sonuçları tercih edin.';
+
+  @override
+  String get riskToleranceLowTag => 'İstikrarlı ve güvenli';
+
+  @override
+  String get riskToleranceModerateSub => 'Dengeli ödünleri kabul edin.';
+
+  @override
+  String get riskToleranceModerateTag => 'Dengeli risk';
+
+  @override
+  String get riskToleranceHighSub =>
+      'Büyüme için daha büyük dalgalanmalara açık olun.';
+
+  @override
+  String get riskToleranceHighTag => 'Büyüme odaklı';
+
+  @override
+  String get riskToleranceVeryHighSub =>
+      'Büyük belirsizliklerde rahat hissedin.';
+
+  @override
+  String get riskToleranceVeryHighTag => 'Maksimum kazanç';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'Risk toleransı, yapay zekanın potansiyel ödüller ile olası dezavantajları dengelemesine yardımcı olur.';
+
+  @override
+  String get experienceBeginnerSub =>
+      'Bu alanda yeni; hala bilgi birikimi oluşturuyor.';
+
+  @override
+  String get experienceBeginnerTag => 'Öğrenmek için en iyisi';
+
+  @override
+  String get experienceIntermediateSub => 'İlgili deneyim ve bağlama sahip.';
+
+  @override
+  String get experienceIntermediateTag => 'Dengeli seçenekler';
+
+  @override
+  String get experienceAdvancedSub => 'Bu alanda güçlü geçmişe sahip.';
+
+  @override
+  String get experienceAdvancedTag => 'Büyüme odaklı';
+
+  @override
+  String get experienceExpertSub =>
+      'Derin uzmanlık ve kanıtlanmış başarı geçmişi.';
+
+  @override
+  String get experienceExpertTag => 'Maksimum sonuçlar';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'Deneyim seviyeniz, yapay zekanın önerilerin karmaşıklığını ve derinliğini kişiselleştirmesine yardımcı olur.';
+
+  @override
+  String get timeVeryLimitedSub => 'Haftada sadece birkaç saat uygun.';
+
+  @override
+  String get timeVeryLimitedTag => 'Minimum saat';
+
+  @override
+  String get timeLimitedSub => 'Bazı akşamlar veya hafta sonları boş.';
+
+  @override
+  String get timeLimitedTag => 'Yarı zamanlı odak';
+
+  @override
+  String get timeModerateAvailSub => 'Her hafta düzenli bir süre.';
+
+  @override
+  String get timeModerateAvailTag => 'Düzenli taahhüt';
+
+  @override
+  String get timeHighAvailSub => 'Haftalık önemli miktarda saat ayırabilir.';
+
+  @override
+  String get timeHighAvailTag => 'Güçlü uygunluk';
+
+  @override
+  String get timeVeryHighSub => 'Bu şu anki birincil odağınız olabilir.';
+
+  @override
+  String get timeVeryHighTag => 'Tam odaklanma';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'Zaman uygunluğunuz, yapay zekanın bağlı kalabileceğiniz gerçekçi planlar önermesine yardımcı olur.';
 }

@@ -37,29 +37,35 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
         ),
       ];
 
-  static const List<({String name, String sub, String tag})> _options =
-      <({String name, String sub, String tag})>[
-    (
-      name: 'Low',
-      sub: 'Prefer stable, predictable outcomes.',
-      tag: 'Stable & safe',
-    ),
-    (
-      name: 'Moderate',
-      sub: 'Accept balanced trade-offs.',
-      tag: 'Balanced risk',
-    ),
-    (
-      name: 'High',
-      sub: 'Open to bigger swings for upside.',
-      tag: 'Growth focused',
-    ),
-    (
-      name: 'Very High',
-      sub: 'Comfortable with major uncertainty.',
-      tag: 'Maximum upside',
-    ),
-  ];
+  List<({String name, String sub, String tag, String value})> _getOptions(
+      AppLocalizations l10n) {
+    return <({String name, String sub, String tag, String value})>[
+      (
+        name: l10n.riskToleranceLow,
+        sub: l10n.riskToleranceLowSub,
+        tag: l10n.riskToleranceLowTag,
+        value: 'Low',
+      ),
+      (
+        name: l10n.riskToleranceModerate,
+        sub: l10n.riskToleranceModerateSub,
+        tag: l10n.riskToleranceModerateTag,
+        value: 'Moderate',
+      ),
+      (
+        name: l10n.riskToleranceHigh,
+        sub: l10n.riskToleranceHighSub,
+        tag: l10n.riskToleranceHighTag,
+        value: 'High',
+      ),
+      (
+        name: l10n.riskToleranceVeryHigh,
+        sub: l10n.riskToleranceVeryHighSub,
+        tag: l10n.riskToleranceVeryHighTag,
+        value: 'Very High',
+      ),
+    ];
+  }
 
   @override
   void initState() {
@@ -68,8 +74,7 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
       final String? existing = ref.read(draftDecisionProvider)?.riskTolerance;
       if (existing != null &&
           existing.isNotEmpty &&
-          _options.any((({String name, String sub, String tag}) o) =>
-              o.name == existing)) {
+          <String>['Low', 'Moderate', 'High', 'Very High'].contains(existing)) {
         setState(() => _selected = existing);
       }
     });
@@ -85,6 +90,8 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final List<({String name, String sub, String tag, String value})> options =
+        _getOptions(l10n);
     return AppScreen(
       titleLeading: l10n.stepAnalyze,
       titleAccent: l10n.problemWord,
@@ -129,9 +136,9 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          for (final ({String name, String sub, String tag}) option
-              in _options) ...<Widget>[
-            _optionCard(option: option, selected: _selected == option.name),
+          for (final ({String name, String sub, String tag, String value}) option
+              in options) ...<Widget>[
+            _optionCard(option: option, selected: _selected == option.value),
             const SizedBox(height: 10),
           ],
           const SizedBox(height: 10),
@@ -150,15 +157,22 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
   }
 
   Widget _optionCard({
-    required ({String name, String sub, String tag}) option,
+    required ({String name, String sub, String tag, String value}) option,
     required bool selected,
   }) {
+    final bool isDark = !AppColors.isLight(context);
+
     return GestureDetector(
-      onTap: () => setState(() => _selected = option.name),
+      onTap: () => setState(() => _selected = option.value),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.optionCardColor(context, selected: selected),
+          gradient: selected && isDark
+              ? AppColors.primaryTwoGradient
+              : null,
+          color: selected && isDark
+              ? null
+              : AppColors.optionCardColor(context, selected: selected),
           borderRadius: BorderRadius.circular(12),
           boxShadow: _cardShadow,
         ),
@@ -168,12 +182,16 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
             Container(
               width: 36,
               height: 36,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE5E7EB),
+              decoration: BoxDecoration(
+                color: selected && isDark
+                    ? Colors.white.withValues(alpha: 0.20)
+                    : const Color(0xFFE5E7EB),
                 shape: BoxShape.circle,
               ),
             ),
+
             const SizedBox(width: 12),
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,36 +199,48 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
                   Text(
                     option.name,
                     style: AppTextStyles.h4.copyWith(
-                      color: AppColors.textPrimary(context),
+                      color: selected && isDark
+                          ? Colors.white
+                          : AppColors.textPrimary(context),
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
                   ),
+
                   const SizedBox(height: 4),
+
                   Text(
                     option.sub,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textMuted(context),
+                      color: selected && isDark
+                          ? Colors.white.withValues(alpha: 0.85)
+                          : AppColors.textMuted(context),
                       fontSize: 11,
                       height: 1.4,
                     ),
                   ),
+
                   const SizedBox(height: 6),
+
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
                       vertical: 3,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE8F5E9),
+                      color: selected && isDark
+                          ? Colors.white.withValues(alpha: 0.25)
+                          : const Color(0xFFE8F5E9),
                       borderRadius: BorderRadius.circular(23),
                     ),
                     child: Text(
                       option.tag,
                       style: AppTextStyles.caption.copyWith(
-                        color: const Color(0xFF388E3C),
+                        color: selected && isDark
+                            ? Colors.white
+                            : const Color(0xFF388E3C),
                         fontWeight: FontWeight.w500,
                         fontSize: 9,
                       ),
@@ -219,10 +249,14 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
                 ],
               ),
             ),
+
             const SizedBox(width: 8),
+
             SelectionCheckCircle(
               selected: selected,
-              borderColor: AppColors.primaryBlue,
+              borderColor: selected && isDark
+                  ? Colors.white
+                  : AppColors.primaryBlue,
             ),
           ],
         ),
@@ -231,10 +265,24 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
   }
 
   Widget _whyThisMattersBox(AppLocalizations l10n) {
+    final bool isDark = !AppColors.isLight(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       decoration: BoxDecoration(
-        color: AppColors.selectedFillColor(context),
+        color: AppColors.greetingCardColor(context),
+
+        gradient: isDark
+            ? LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            AppColors.primaryBlue.withValues(alpha: 0.10),
+            AppColors.primaryPurple.withValues(alpha: 0.10),
+          ],
+        )
+            : null,
+        boxShadow: isDark ? AppColors.homeCardShadow(context) : null,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -262,7 +310,7 @@ class _RiskScreenState extends ConsumerState<RiskScreen> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Risk tolerance helps AI balance potential rewards against possible downsides.',
+                  l10n.riskWhyMattersDesc,
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,

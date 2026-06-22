@@ -10,9 +10,6 @@ import '../../../shared/widgets/rtl_aware.dart';
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
 
-  static const Color _titleBlue = Color(0xFF022088);
-  static const Color _heroFill = Color(0xFFEEEDFD);
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -37,7 +34,7 @@ class AboutScreen extends StatelessWidget {
                         Text(
                           '${l10n.aboutUsLeading} ',
                           style: AppTextStyles.h3.copyWith(
-                            color: _titleBlue,
+                            color: AppColors.appBarTitleColor(context),
                             fontWeight: FontWeight.w600,
                             fontSize: 17,
                           ),
@@ -63,9 +60,9 @@ class AboutScreen extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.more_vert_rounded,
-                      color: _titleBlue,
+                      color: AppColors.appBarTitleColor(context),
                       size: 20,
                     ),
                     padding: EdgeInsets.zero,
@@ -90,7 +87,7 @@ class AboutScreen extends StatelessWidget {
                         vertical: 12,
                       ),
                       decoration: BoxDecoration(
-                        color: _heroFill,
+                        color: AppColors.greetingCardColor(context),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -104,7 +101,7 @@ class AboutScreen extends StatelessWidget {
                               errorBuilder: (_, __, ___) => Container(
                                 width: 67,
                                 height: 66,
-                                color: _heroFill,
+                                color: AppColors.greetingCardColor(context),
                                 child: const Icon(
                                   Icons.smart_toy_outlined,
                                   color: AppColors.primaryPurple,

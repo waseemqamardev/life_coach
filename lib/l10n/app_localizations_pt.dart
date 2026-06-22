@@ -2568,4 +2568,146 @@ class AppLocalizationsPt extends AppLocalizations {
   String decisionTextRiskInterpretation(String label, int score) {
     return 'Seu nível de risco geral é $label ($score%). Revise o detalhamento abaixo para entender o que impulsiona essa pontuação.';
   }
+
+  @override
+  String get urgencyNoRushSub =>
+      'Reserve um tempo para pesquisar e comparar as opções.';
+
+  @override
+  String get urgencyNoRushTag => 'Cronograma flexível';
+
+  @override
+  String get urgencyModerateSub => 'Decida nas próximas semanas.';
+
+  @override
+  String get urgencyModerateTag => 'Poucas semanas';
+
+  @override
+  String get urgencyUrgentSub => 'Você precisa de uma decisão em poucos dias.';
+
+  @override
+  String get urgencyUrgentTag => 'Dentro de dias';
+
+  @override
+  String get urgencyCriticalSub => 'Ação imediata é necessária.';
+
+  @override
+  String get urgencyCriticalTag => 'Imediato';
+
+  @override
+  String get urgencyWhyMattersDesc =>
+      'A urgência afeta quais fatores a IA pondera mais: decisões rápidas e sinais mais claros.';
+
+  @override
+  String get budgetRange1 => '\$1K-\$5K';
+
+  @override
+  String get budgetRange2 => '\$5K-\$20K';
+
+  @override
+  String get budgetRange3 => '\$20K-\$50K';
+
+  @override
+  String get budgetRange4 => '\$50K+';
+
+  @override
+  String get budgetWhyMattersDesc =>
+      'Seu orçamento ajuda a IA a avaliar opções e recomendar soluções econômicas para você.';
+
+  @override
+  String get riskToleranceLowSub =>
+      'Prefere resultados estáveis e previsíveis.';
+
+  @override
+  String get riskToleranceLowTag => 'Estável e seguro';
+
+  @override
+  String get riskToleranceModerateSub => 'Aceita compensações equilibradas.';
+
+  @override
+  String get riskToleranceModerateTag => 'Risco equilibrado';
+
+  @override
+  String get riskToleranceHighSub =>
+      'Aberto a maiores oscilações para obter ganhos.';
+
+  @override
+  String get riskToleranceHighTag => 'Foco em crescimento';
+
+  @override
+  String get riskToleranceVeryHighSub => 'Confortável com grande incerteza.';
+
+  @override
+  String get riskToleranceVeryHighTag => 'Máximo potencial';
+
+  @override
+  String get riskWhyMattersDesc =>
+      'A tolerância ao risco ajuda a IA a equilibrar recompensas potenciais contra possíveis desvantagens.';
+
+  @override
+  String get experienceBeginnerSub =>
+      'Novo nesta área; ainda construindo conhecimento.';
+
+  @override
+  String get experienceBeginnerTag => 'Melhor para aprender';
+
+  @override
+  String get experienceIntermediateSub =>
+      'Alguma experiência e contexto relevantes.';
+
+  @override
+  String get experienceIntermediateTag => 'Opções equilibradas';
+
+  @override
+  String get experienceAdvancedSub => 'Sólido histórico neste domínio.';
+
+  @override
+  String get experienceAdvancedTag => 'Foco em crescimento';
+
+  @override
+  String get experienceExpertSub =>
+      'Profunda experiência e histórico comprovado.';
+
+  @override
+  String get experienceExpertTag => 'Resultados máximos';
+
+  @override
+  String get experienceWhyMattersDesc =>
+      'Seu nível de experiência ajuda a IA a personalizar a complexidade e profundidade das recomendações.';
+
+  @override
+  String get timeVeryLimitedSub =>
+      'Apenas algumas horas por semana disponíveis.';
+
+  @override
+  String get timeVeryLimitedTag => 'Horas mínimas';
+
+  @override
+  String get timeLimitedSub => 'Algumas noites ou fins de semana livres.';
+
+  @override
+  String get timeLimitedTag => 'Foco em meio período';
+
+  @override
+  String get timeModerateAvailSub =>
+      'Uma quantidade constante de tempo a cada semana.';
+
+  @override
+  String get timeModerateAvailTag => 'Compromisso regular';
+
+  @override
+  String get timeHighAvailSub => 'Pode dedicar horas semanais significativas.';
+
+  @override
+  String get timeHighAvailTag => 'Forte disponibilidade';
+
+  @override
+  String get timeVeryHighSub => 'Isso pode ser seu foco principal agora.';
+
+  @override
+  String get timeVeryHighTag => 'Foco total';
+
+  @override
+  String get timeWhyMattersDesc =>
+      'Sua disponibilidade de tempo ajuda a IA a recomendar planos realistas que você possa seguir.';
 }

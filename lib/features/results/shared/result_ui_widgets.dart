@@ -274,7 +274,7 @@ class ResultHeroCard extends StatelessWidget {
                               style: AppTextStyles.bodySmall.copyWith(
                                 color: AppColors.success,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 9,
+                                fontSize: 12,
                               ),
                             ),
                           ),
@@ -303,7 +303,7 @@ class ResultHeroCard extends StatelessWidget {
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,
-                    fontSize: 10,
+                    fontSize: 12,
                     height: 1.5,
                   ),
                 ),
@@ -315,7 +315,7 @@ class ResultHeroCard extends StatelessWidget {
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.success,
                     fontWeight: FontWeight.w600,
-                    fontSize: 10,
+                    fontSize: 12,
                   ),
                 ),
               ),
@@ -631,6 +631,7 @@ class ActionPlanTimeline extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             for (int i = 0; i < steps.length; i++) ...<Widget>[
               _StepCircle(
@@ -902,7 +903,7 @@ class _SummaryScoreCard extends StatelessWidget {
             style: AppTextStyles.bodySmall.copyWith(
               color: AppColors.textMuted(context),
               fontWeight: FontWeight.w500,
-              fontSize: 9,
+              fontSize: 12,
             ),
           ),
           const SizedBox(height: 3),
@@ -914,7 +915,7 @@ class _SummaryScoreCard extends StatelessWidget {
             style: AppTextStyles.bodySmall.copyWith(
               color: levelColor,
               fontWeight: FontWeight.w700,
-              fontSize: 11,
+              fontSize: 12,
             ),
           ),
           const SizedBox(height: 2),
@@ -926,7 +927,7 @@ class _SummaryScoreCard extends StatelessWidget {
             style: AppTextStyles.bodySmall.copyWith(
               color: AppColors.textMuted(context),
               fontWeight: FontWeight.w500,
-              fontSize: 9,
+              fontSize: 12,
             ),
           ),
         ],
@@ -976,7 +977,7 @@ class _ActionStepCard extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColors.cardColor(context),
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: ResultUi.cardShadow(context),
       ),
       child: IntrinsicHeight(
@@ -989,7 +990,7 @@ class _ActionStepCard extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: step.iconBg,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: step.iconAsset != null
                   ? Image.asset(
@@ -1028,7 +1029,7 @@ class _ActionStepCard extends StatelessWidget {
                     style: AppTextStyles.bodySmall.copyWith(
                       color: AppColors.textMuted(context),
                       fontWeight: FontWeight.w500,
-                      fontSize: 10,
+                      fontSize: 12,
                       height: 1.45,
                     ),
                   ),
@@ -1058,7 +1059,7 @@ class _ActionStepCard extends StatelessWidget {
                     style: AppTextStyles.bodySmall.copyWith(
                       color: step.badgeColor,
                       fontWeight: FontWeight.w600,
-                      fontSize: 9,
+                      fontSize: 12,
                     ),
                   ),
                 ),

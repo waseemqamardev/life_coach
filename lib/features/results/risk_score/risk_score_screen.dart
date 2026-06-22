@@ -225,7 +225,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                         style: AppTextStyles.bodySmall.copyWith(
                           color: badgeColor,
                           fontWeight: FontWeight.w600,
-                          fontSize: 9,
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -251,7 +251,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,
-                    fontSize: 10,
+                    fontSize: 12,
                     height: 1.5,
                   ),
                 ),
@@ -263,7 +263,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.success,
                     fontWeight: FontWeight.w600,
-                    fontSize: 10,
+                    fontSize: 12,
                   ),
                 ),
               ),
@@ -319,7 +319,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                     style: AppTextStyles.bodySmall.copyWith(
                       color: AppColors.textPrimary(context),
                       fontWeight: FontWeight.w500,
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -349,7 +349,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                         style: AppTextStyles.bodySmall.copyWith(
                           color: item.color,
                           fontWeight: FontWeight.w700,
-                          fontSize: 10,
+                          fontSize: 12,
                         ),
                       ),
                       TextSpan(
@@ -357,7 +357,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                         style: AppTextStyles.bodySmall.copyWith(
                           color: AppColors.textMuted(context),
                           fontWeight: FontWeight.w500,
-                          fontSize: 10,
+                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -381,7 +381,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColors.cardColor(context),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: AppColors.cardShadowList(context),
       ),
       child: Row(
@@ -411,8 +411,8 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                   l10n.riskInterpretation,
                   style: AppTextStyles.h4.copyWith(
                     color: AppColors.textPrimary(context),
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -421,7 +421,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,
-                    fontSize: 10,
+                    fontSize: 12,
                     height: 1.55,
                   ),
                 ),
@@ -440,7 +440,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
       padding: const EdgeInsets.fromLTRB(12, 16, 12, 16),
       decoration: BoxDecoration(
         color: AppColors.cardColor(context),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: AppColors.cardShadowList(context),
       ),
       child: Column(

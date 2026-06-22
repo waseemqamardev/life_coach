@@ -69,6 +69,12 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Life Coach needs photo access so you can choose a profile picture.</string>
 
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Life Coach uses the microphone for speech-to-text input in the chatbot.</string>
+
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Life Coach uses speech recognition to convert voice to text in the chatbot.</string>
+
 	<!-- =====================================================================
 	     PRIVACY USAGE DESCRIPTIONS
 	     =====================================================================

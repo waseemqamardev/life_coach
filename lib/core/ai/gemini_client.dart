@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:google_generative_ai/google_generative_ai.dart';
 
@@ -71,6 +73,7 @@ class GeminiClient {
     required String userMessage,
     required List<({bool isUser, String text})> priorMessages,
     required Locale locale,
+    String? attachedImagePath,
   }) async {
     _ensureApiKey();
     final List<Content> history = priorMessages
@@ -91,8 +94,21 @@ class GeminiClient {
               Content.system(ChatPrompt.systemInstruction(locale: locale)),
         );
         final ChatSession session = model.startChat(history: history);
+        
+        final List<Part> parts = <Part>[TextPart(userMessage)];
+        if (attachedImagePath != null) {
+          final File file = File(attachedImagePath);
+          if (await file.exists()) {
+            final Uint8List bytes = await file.readAsBytes();
+            final String mimeType = attachedImagePath.toLowerCase().endsWith('.png')
+                ? 'image/png'
+                : 'image/jpeg';
+            parts.add(DataPart(mimeType, bytes));
+          }
+        }
+
         final GenerateContentResponse response = await session
-            .sendMessage(Content.text(userMessage))
+            .sendMessage(Content('user', parts))
             .timeout(_timeout);
         final String? text = response.text?.trim();
         if (text == null || text.isEmpty) {

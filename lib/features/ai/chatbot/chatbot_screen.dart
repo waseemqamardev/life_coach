@@ -1,15 +1,18 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/ai/gemini_client.dart';
 import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/services/image_picker_service.dart';
 import '../../../generated/assets.dart';
 import '../../../shared/widgets/rtl_aware.dart';
 import '../../../providers/providers.dart';
@@ -19,11 +22,13 @@ class ChatMessage {
   final String text;
   final bool isUser;
   final DateTime timestamp;
+  final String? imagePath;
 
   ChatMessage({
     required this.text,
     required this.isUser,
     required this.timestamp,
+    this.imagePath,
   });
 }
 
@@ -42,6 +47,10 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
   bool _isTyping = false;
   bool _sendButtonActive = false;
 
+  stt.SpeechToText? _speech;
+  bool _isListening = false;
+  File? _selectedImage;
+
   @override
   void initState() {
     super.initState();
@@ -58,7 +67,7 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
   }
 
   void _onTextChanged() {
-    final bool active = _textController.text.trim().isNotEmpty;
+    final bool active = _textController.text.trim().isNotEmpty || _selectedImage != null;
     if (active != _sendButtonActive) {
       setState(() {
         _sendButtonActive = active;
@@ -66,14 +75,82 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
     }
   }
 
+  Future<void> _initSpeech() async {
+    _speech ??= stt.SpeechToText();
+  }
+
+  Future<void> _toggleListening() async {
+    await _initSpeech();
+    if (_isListening) {
+      await _speech!.stop();
+      setState(() {
+        _isListening = false;
+      });
+    } else {
+      final bool available = await _speech!.initialize(
+        onStatus: (String status) {
+          if (status == 'notListening' || status == 'done') {
+            setState(() {
+              _isListening = false;
+            });
+          }
+        },
+        onError: (val) {
+          setState(() {
+            _isListening = false;
+          });
+        },
+      );
+      if (available) {
+        setState(() {
+          _isListening = true;
+        });
+        _speech!.listen(
+          onResult: (val) => setState(() {
+            _textController.text = val.recognizedWords;
+            _onTextChanged();
+          }),
+        );
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Speech recognition is not available or permission denied.')),
+          );
+        }
+      }
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final File? picked = await ImagePickerService.instance.pickProfileImage(
+      context,
+      allowRemove: false,
+    );
+    if (picked != null) {
+      setState(() {
+        _selectedImage = picked;
+        _sendButtonActive = true;
+      });
+    }
+  }
+
+  void _removeSelectedImage() {
+    setState(() {
+      _selectedImage = null;
+      _onTextChanged();
+    });
+  }
+
   Future<void> _sendMessage() async {
     final String text = _textController.text.trim();
-    if (text.isEmpty || _isTyping) return;
+    final String? imagePath = _selectedImage?.path;
+    if ((text.isEmpty && imagePath == null) || _isTyping) return;
 
     _textController.clear();
     setState(() {
+      _selectedImage = null;
       _messages.insert(
-          0, ChatMessage(text: text, isUser: true, timestamp: DateTime.now()));
+          0, ChatMessage(text: text, isUser: true, timestamp: DateTime.now(), imagePath: imagePath));
       _isTyping = true;
     });
 
@@ -86,10 +163,13 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
           .map((ChatMessage m) => (isUser: m.isUser, text: m.text))
           .toList();
 
+      final String queryText = text.isEmpty ? "Analyze this image" : text;
+
       final String aiResponse = await GeminiClient.instance.chat(
-        userMessage: text,
+        userMessage: queryText,
         priorMessages: prior,
         locale: ref.read(localeProvider),
+        attachedImagePath: imagePath,
       );
 
       if (!mounted) return;
@@ -135,7 +215,6 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor(context),
-      // bottomNavigationBar: const AppBottomNav(currentIndex: 1),
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,
@@ -353,14 +432,33 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
                     bottomRight: Radius.circular(12),
                   ),
                 ),
-                child: Text(
-                  message.text,
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: isDark ? Colors.white : AppColors.textMuted(context),
-                    fontSize: 14,
-                    height: 1.4,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    if (message.imagePath != null) ...<Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          File(message.imagePath!),
+                          fit: BoxFit.cover,
+                          cacheHeight: 180,
+                          width: double.infinity,
+                        ),
+                      ),
+                      if (message.text.isNotEmpty) const SizedBox(height: 8),
+                    ],
+                    if (message.text.isNotEmpty)
+                      Text(
+                        message.text,
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: isDark ? Colors.white : AppColors.textMuted(context),
+                          fontSize: 14,
+                          height: 1.4,
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),
@@ -479,58 +577,71 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // Microphone button
-              _buildIconButton(
-                icon: Assets.iconsAiVoice,
-                onTap: () {},
-              ),
-              const SizedBox(width: 4),
-              // Attachment button
-              _buildIconButton(
-                icon: Assets.iconsAiAttach,
-                onTap: () {},
-              ),
-              const SizedBox(width: 6),
-              // Text Field
-              Expanded(
-                child: TextField(
-                  controller: _textController,
-                  focusNode: _focusNode,
-                  textInputAction: TextInputAction.send,
-                  onSubmitted: (_) => _sendMessage(),
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: isDark ? Colors.white : AppColors.textPrimary(context),
-                    fontSize: 14,
+              if (_selectedImage != null) ...<Widget>[
+                _buildImagePreview(),
+                const SizedBox(height: 8),
+              ],
+              Row(
+                children: <Widget>[
+                  // Microphone button
+                  _buildIconButton(
+                    icon: Assets.iconsAiVoice,
+                    onTap: _toggleListening,
+                    isActive: _isListening,
                   ),
-                  decoration: InputDecoration(
-                    hintText: l10n.chatbotInputHint,
-                    hintStyle: AppTextStyles.bodyMedium.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: isDark
-                          ? AppColors.darkTextSecondary
-                          : AppColors.textMuted(context),
-                      fontSize: 14,
-                    ),
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    focusedErrorBorder: InputBorder.none,
-                    isDense: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 8,
+                  const SizedBox(width: 4),
+                  // Attachment button
+                  _buildIconButton(
+                    icon: Assets.iconsAiAttach,
+                    onTap: _pickImage,
+                  ),
+                  const SizedBox(width: 6),
+                  // Text Field
+                  Expanded(
+                    child: TextField(
+                      controller: _textController,
+                      focusNode: _focusNode,
+                      textInputAction: TextInputAction.send,
+                      onSubmitted: (_) => _sendMessage(),
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: isDark ? Colors.white : AppColors.textPrimary(context),
+                        fontSize: 14,
+                      ),
+                      decoration: InputDecoration(
+                        hintText: _isListening
+                            ? "Listening... Speak now!"
+                            : l10n.chatbotInputHint,
+                        hintStyle: AppTextStyles.bodyMedium.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: isDark
+                              ? AppColors.darkTextSecondary
+                              : AppColors.textMuted(context),
+                          fontSize: 14,
+                        ),
+                        border: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        focusedErrorBorder: InputBorder.none,
+                        isDense: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                        ),
+                      ),
+                      minLines: 1,
+                      maxLines: 4,
                     ),
                   ),
-                  minLines: 1,
-                  maxLines: 4,
-                ),
+                  const SizedBox(width: 8),
+                  // Send Button
+                  _buildSendButton(isDark),
+                ],
               ),
-              const SizedBox(width: 8),
-              // Send Button
-              _buildSendButton(isDark),
             ],
           ),
         ),
@@ -538,22 +649,63 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
     );
   }
 
+  Widget _buildImagePreview() {
+    return Stack(
+      children: <Widget>[
+        Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            image: DecorationImage(
+              image: FileImage(_selectedImage!),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          top: -4,
+          right: -4,
+          child: GestureDetector(
+            onTap: _removeSelectedImage,
+            child: Container(
+              padding: const EdgeInsets.all(2),
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.close,
+                size: 14,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildIconButton({
     required String icon,
     required VoidCallback onTap,
+    bool isActive = false,
   }) {
     final bool isDark = !AppColors.isLight(context);
     final bool isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         width: 32,
         height: 32,
         decoration: BoxDecoration(
-          color: isDark
-              ? const Color(0xFF1B2347)
-              : const Color(0xffEEEDFD),
+          color: isActive
+              ? Colors.red
+              : (isDark
+                  ? const Color(0xFF1B2347)
+                  : const Color(0xffEEEDFD)),
           shape: BoxShape.circle,
         ),
         child: Center(
@@ -566,8 +718,8 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
               width: 16,
               height: 16,
               fit: BoxFit.contain,
-              color: isDark ? Colors.white : null,
-              colorBlendMode: isDark ? BlendMode.srcIn : null,
+              color: (isActive || isDark) ? Colors.white : null,
+              colorBlendMode: (isActive || isDark) ? BlendMode.srcIn : null,
             ),
           ),
         ),

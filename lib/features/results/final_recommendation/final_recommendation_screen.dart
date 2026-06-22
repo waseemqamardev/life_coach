@@ -229,7 +229,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
             style: AppTextStyles.bodySmall.copyWith(
               color: AppColors.textMuted(context),
               fontWeight: FontWeight.w500,
-              fontSize: 9,
+              fontSize: 10,
             ),
           ),
         ],
@@ -257,7 +257,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
       decoration: BoxDecoration(
         color: AppColors.cardColor(context),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: AppColors.cardShadowList(context),
       ),
       child: IntrinsicHeight(
@@ -266,8 +266,8 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
           children: <Widget>[
         
               Image.asset(Assets.imagesPurpleBulb,
-              width: 44,
-                height: 44,
+              width: 50,
+                height: 50,
                 fit: BoxFit.contain,
               ),
             const SizedBox(width: 12),
@@ -285,7 +285,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
                         style: AppTextStyles.h4.copyWith(
                           color: AppColors.textPrimary(context),
                           fontWeight: FontWeight.w700,
-                          fontSize: 13,
+                          fontSize: 15,
                         ),
                       ),
                       Container(
@@ -302,7 +302,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
                           style: AppTextStyles.bodySmall.copyWith(
                             color: riskColor,
                             fontWeight: FontWeight.w600,
-                            fontSize: 8,
+                            fontSize: 10,
                           ),
                         ),
                       ),
@@ -316,7 +316,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
                     style: AppTextStyles.bodySmall.copyWith(
                       color: AppColors.textMuted(context),
                       fontWeight: FontWeight.w500,
-                      fontSize: 10,
+                      fontSize: 14,
                       height: 1.45,
                     ),
                   ),
@@ -335,7 +335,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
                         style: AppTextStyles.bodySmall.copyWith(
                           color: AppColors.textMuted(context),
                           fontWeight: FontWeight.w500,
-                          fontSize: 9,
+                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -345,7 +345,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
             ),
             Center(
               child: RtlChevronIcon(
-                size: 24,
+                size: 26,
                 color: AppColors.textMuted(context),
               ),
             ),
@@ -394,7 +394,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
                   style: AppTextStyles.h4.copyWith(
                     color: AppColors.textPrimary(context),
                     fontWeight: FontWeight.w700,
-                    fontSize: 13,
+                    fontSize: 15,
                   ),
                 ),
               ),
@@ -429,7 +429,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
                     style: AppTextStyles.bodySmall.copyWith(
                       color: AppColors.textPrimary(context),
                       fontWeight: FontWeight.w500,
-                      fontSize: 10,
+                      fontSize: 12,
                       height: 1.5,
                     ),
                   ),

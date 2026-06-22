@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/l10n/l10n_extensions.dart';
@@ -227,17 +230,49 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
     );
   }
-
   void _shareApp() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(context.l10n.shareAppMessage)),
+    const String appLink =
+        'https://play.google.com/store/apps/details?id=com.lifecoach.habits.goalplanner.focus';
+
+    const String shareMessage =
+        '🚀 Life Coach - AI Goal Planner\n\n'
+        'Plan your life, track habits, and achieve goals using Gemini AI.\n\n'
+        'Download now:\n$appLink';
+
+    SharePlus.instance.share(
+      ShareParams(
+        text: shareMessage,
+        subject: 'Life Coach - AI Goal Planner',
+      ),
     );
   }
 
-  void _rateApp() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(context.l10n.rateAppThanks)),
-    );
+
+
+  Future<void> _rateApp() async {
+    final InAppReview inAppReview = InAppReview.instance;
+    try {
+      if (await inAppReview.isAvailable()) {
+        await inAppReview.requestReview();
+      } else {
+        // Fallback to Play Store if in-app review is not available
+        final Uri appLink = Uri.parse(
+            'https://play.google.com/store/apps/details?id=com.lifecoach.habits.goalplanner.focus'
+        );
+        if (await canLaunchUrl(appLink)) {
+          await launchUrl(
+            appLink,
+            mode: LaunchMode.externalApplication,
+          );
+        }
+      }
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(context.l10n.rateAppThanks)),
+        );
+      }
+    }
   }
 
   Future<void> _confirmLogout() async {

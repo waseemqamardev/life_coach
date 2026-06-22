@@ -7,12 +7,14 @@ import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/utils/decision_text.dart';
+import '../../core/services/firebase_service.dart';
 import '../../data/models/decision.dart';
 import '../../generated/assets.dart';
 import '../../l10n/app_localizations.dart';
 import '../../providers/providers.dart';
 import '../../shared/widgets/bottom_nav.dart';
 import '../../shared/widgets/rtl_aware.dart';
+import '../../shared/widgets/version_update_dialog.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -28,8 +30,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         ref.read(decisionsProvider.notifier).refresh();
+        _checkVersionUpdate();
       }
     });
+  }
+
+  Future<void> _checkVersionUpdate() async {
+    final VersionUpdateInfo updateInfo =
+        await AppFirebaseService.instance.checkVersionUpdate();
+    if (!mounted) return;
+    if (updateInfo.type != UpdateType.none) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: updateInfo.type != UpdateType.force,
+        builder: (BuildContext dialogContext) => VersionUpdateDialog(
+          latestVersion: updateInfo.latestVersion,
+          updateUrl: updateInfo.updateUrl,
+          releaseNotes: updateInfo.releaseNotes,
+          forceUpdate: updateInfo.type == UpdateType.force,
+        ),
+      );
+    }
   }
 
   @override
@@ -71,7 +92,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
               child: _HomeHeader(
-                isDark: Theme.of(context).brightness == Brightness.dark,                l10n: l10n,
+                isDark: Theme.of(context).brightness == Brightness.dark,
+                l10n: l10n,
                 appTitle: l10n.aiNavigator,
                 onSettings: () => context.push(AppRoutes.settings),
               ),
@@ -193,7 +215,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           padding: const EdgeInsets.only(bottom: 12),
                           child: _RecentInsightCard(
                             title: d.title,
-                            description: DecisionText.insightDescription(d, l10n),
+                            description:
+                                DecisionText.insightDescription(d, l10n),
                             timeAgo: _timeAgo(d.createdAt),
                             riskLabel: highRisk ? l10n.highRisk : l10n.lowRisk,
                             riskColor: AppColors.riskBadgeForeground(
@@ -234,10 +257,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 }
 
 class _HomeHeader extends StatelessWidget {
-  const _HomeHeader({required this.appTitle, required this.onSettings,
-    required this.isDark, required this.l10n
-
-  });
+  const _HomeHeader(
+      {required this.appTitle,
+      required this.onSettings,
+      required this.isDark,
+      required this.l10n});
 
   final String appTitle;
   final VoidCallback onSettings;
@@ -315,7 +339,7 @@ class _HomeHeader extends StatelessWidget {
             width: 24,
             height: 24,
             fit: BoxFit.cover,
-            color: isDark?Colors.white:null,
+            color: isDark ? Colors.white : null,
           ),
         )
       ],
@@ -443,7 +467,9 @@ class _StartAnalysisCard extends StatelessWidget {
                     title,
                     style: AppTextStyles.h4.copyWith(
                       fontSize: 14,
-                      color: isDark ? Colors.white : AppColors.textPrimary(context),
+                      color: isDark
+                          ? Colors.white
+                          : AppColors.textPrimary(context),
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -479,7 +505,9 @@ class _StartAnalysisCard extends StatelessWidget {
                   alignment: Alignment.center,
                   transform: Matrix4.identity()
                     ..scale(
-                      Directionality.of(context) == TextDirection.rtl ? -1.0 : 1.0,
+                      Directionality.of(context) == TextDirection.rtl
+                          ? -1.0
+                          : 1.0,
                       1.0,
                     ),
                   child: Image.asset(
@@ -677,7 +705,8 @@ class _RecentInsightsEmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
               style: AppTextStyles.bodySmall.copyWith(
                 fontSize: 12,
-                color: isDark ? Color(0xffD9D9D9) : AppColors.textMuted(context),
+                color:
+                    isDark ? Color(0xffD9D9D9) : AppColors.textMuted(context),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -771,7 +800,7 @@ class _RecentInsightCard extends StatelessWidget {
                             style: AppTextStyles.caption.copyWith(
                               color: riskColor,
                               fontWeight: FontWeight.w500,
-                              fontSize: 8,
+                              fontSize: 12,
                             ),
                           ),
                         ),
@@ -807,7 +836,7 @@ class _RecentInsightCard extends StatelessWidget {
                           timeAgo,
                           style: AppTextStyles.caption.copyWith(
                               color: AppColors.textMuted(context),
-                              fontSize: 10),
+                              fontSize: 12),
                         ),
                       ],
                     ),
@@ -815,7 +844,7 @@ class _RecentInsightCard extends StatelessWidget {
                 ),
               ),
               Center(
-                child:                 RtlChevronIcon(
+                child: RtlChevronIcon(
                   size: 24,
                   color: AppColors.textMuted(context),
                 ),

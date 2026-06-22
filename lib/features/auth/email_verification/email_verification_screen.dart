@@ -82,7 +82,12 @@ class _EmailVerificationScreenState
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              AuthBackButton(onTap: _signOut),
+              Align(
+                alignment: Directionality.of(context) == TextDirection.rtl
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
+                child: AuthBackButton(onTap: () => context.pop()),
+              ),
               AuthSectionLabel(label: l10n.emailVerificationTitle),
             ],
           ),

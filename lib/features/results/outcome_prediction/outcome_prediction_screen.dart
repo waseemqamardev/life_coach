@@ -304,7 +304,7 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
                               style: AppTextStyles.bodySmall.copyWith(
                                 color: AppColors.success,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 9,
+                                fontSize: 12,
                               ),
                             ),
                           ),
@@ -333,7 +333,7 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,
-                    fontSize: 10,
+                    fontSize: 12,
                     height: 1.5,
                   ),
                 ),
@@ -345,7 +345,7 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.success,
                     fontWeight: FontWeight.w600,
-                    fontSize: 10,
+                    fontSize: 12,
                   ),
                 ),
               ),
@@ -385,12 +385,12 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
                 const SizedBox(height: 2),
                 Text(
                   description,
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,
-                    fontSize: 10,
+                    fontSize: 12,
                     height: 1.5,
                   ),
                 ),
@@ -456,7 +456,7 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
                 style: AppTextStyles.bodySmall.copyWith(
                   color: AppColors.textPrimary(context),
                   fontWeight: FontWeight.w700,
-                  fontSize: 12,
+                  fontSize: 14,
                 ),
               ),
             ],
@@ -467,7 +467,7 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
             style: AppTextStyles.bodySmall.copyWith(
               color: titleColor,
               fontWeight: FontWeight.w600,
-              fontSize: 9,
+              fontSize: 12,
             ),
           ),
           const SizedBox(height: 4),
@@ -475,6 +475,92 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
       ),
     );
   }
+
+
+  // Widget _confidenceBreakdownRow({
+  //   required ({
+  //     String label,
+  //     String? asset,
+  //     IconData icon,
+  //     Color color,
+  //     Color bg,
+  //     int percent,
+  //   }) item,
+  //   required int percent,
+  // }) {
+  //   final double progress = percent / 100;
+  //
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 4),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         _SquareIconBadge(
+  //           size: 34,
+  //           background: item.bg,
+  //           child: item.asset != null
+  //               ? Image.asset(
+  //             item.asset!,
+  //             width: 18,
+  //             height: 18,
+  //             fit: BoxFit.contain,
+  //             errorBuilder: (_, __, ___) => Icon(
+  //               item.icon,
+  //               color: item.color,
+  //               size: 16,
+  //             ),
+  //           )
+  //               : Icon(item.icon, color: item.color, size: 16),
+  //         ),
+  //         const SizedBox(width: 12),
+  //         SizedBox(
+  //           width: 80,
+  //           child: Text(
+  //             item.label,
+  //             maxLines: 2,
+  //             style: AppTextStyles.bodySmall.copyWith(
+  //               color: AppColors.textPrimary(context),
+  //               fontWeight: FontWeight.w500,
+  //               fontSize: 14,
+  //             ),
+  //           ),
+  //         ),
+  //         const SizedBox(width: 12),
+  //         Expanded(
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               ClipRRect(
+  //                 borderRadius: BorderRadius.circular(100),
+  //                 child: SizedBox(
+  //                   height: 4,
+  //                   child: LinearProgressIndicator(
+  //                     value: progress,
+  //                     backgroundColor: const Color(0xFFE8E8E8),
+  //                     valueColor: AlwaysStoppedAnimation<Color>(item.color),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Align(
+  //                 alignment: Alignment.centerRight,
+  //                 child: Text(
+  //                   '$percent%',
+  //                   style: AppTextStyles.bodySmall.copyWith(
+  //                     color: item.color,
+  //                     fontWeight: FontWeight.w700,
+  //                     fontSize: 14,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+
 
   Widget _outcomeFactorRow({
     required ({
@@ -487,12 +573,12 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
       double progress,
     }) item,
   }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 2),
-          child: _SquareIconBadge(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _SquareIconBadge(
             size: 34,
             background: item.bg,
             child: item.asset != null
@@ -509,63 +595,54 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
                   )
                 : Icon(item.icon, color: item.color, size: 16),
           ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(
-                height: 5,
+          const SizedBox(width: 12),
+          SizedBox(
+            width: 80,
+            child: Text(
+              item.label,
+              maxLines: 2,
+              style: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.textPrimary(context),
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width:88,
-                    child: Text(
-                      item.label,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.textPrimary(context),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        height: 1.3,
-                      ),
+            ),
+          ),
+          const SizedBox(width: 12),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: SizedBox(
+                    height: 4,
+                    child: LinearProgressIndicator(
+                      value: item.progress,
+                      backgroundColor: const Color(0xFFE8E8E8),
+                      valueColor: AlwaysStoppedAnimation<Color>(item.color),
                     ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: SizedBox(
-                        height: 4,
-                        child: LinearProgressIndicator(
-                          value: item.progress,
-                          backgroundColor: const Color(0xFFE8E8E8),
-                          valueColor: AlwaysStoppedAnimation<Color>(item.color),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  item.status,
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: item.color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 10,
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    item.status,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: item.color,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+
+
+        ],
+      ),
     );
   }
 }

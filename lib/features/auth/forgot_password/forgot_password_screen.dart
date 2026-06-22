@@ -63,7 +63,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Align(
-              alignment: Alignment.centerLeft,
+              alignment: Directionality.of(context) == TextDirection.rtl
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
               child: AuthBackButton(onTap: () => context.pop()),
             ),
             const SizedBox(height: 4),

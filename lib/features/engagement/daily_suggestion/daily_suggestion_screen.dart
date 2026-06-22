@@ -128,14 +128,14 @@ class _InsightsAppBar extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(8, 4, 4, 0),
       child: Row(
         children: <Widget>[
-          RtlBackIconButton(
-            onPressed: () {
-              if (context.canPop()) {
-                context.pop();
-              }
-            },
-            size: 22,
-          ),
+          // RtlBackIconButton(
+          //   onPressed: () {
+          //     if (context.canPop()) {
+          //       context.pop();
+          //     }
+          //   },
+          //   size: 22,
+          // ),
           Expanded(
             child: Text(
               title,

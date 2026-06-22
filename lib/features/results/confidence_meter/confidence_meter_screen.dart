@@ -288,7 +288,7 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
                               style: AppTextStyles.bodySmall.copyWith(
                                 color: AppColors.success,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 9,
+                                fontSize: 12,
                               ),
                             ),
                           ),
@@ -318,7 +318,7 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textMuted(context),
                     fontWeight: FontWeight.w500,
-                    fontSize: 10,
+                    fontSize: 12,
                     height: 1.5,
                   ),
                 ),
@@ -326,11 +326,11 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 10),
                 child: Text(
-                  l10n.confidence,
+                  l10n.fitScore,
                   style: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.success,
                     fontWeight: FontWeight.w600,
-                    fontSize: 10,
+                    fontSize: 12,
                   ),
                 ),
               ),
@@ -354,52 +354,47 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
   }) {
     final double progress = percent / 100;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        _SquareIconBadge(
-          size: 34,
-          background: item.bg,
-          child: item.asset != null
-              ? Image.asset(
-                  item.asset!,
-                  width: 18,
-                  height: 18,
-                  fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => Icon(
-                    item.icon,
-                    color: item.color,
-                    size: 16,
-                  ),
-                )
-              : Icon(item.icon, color: item.color, size: 16),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 10,),
-              Flexible(
-                flex: 2,
-                child: SizedBox(
-                  width: 78,
-                  child: Text(
-                    item.label,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textPrimary(context),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _SquareIconBadge(
+            size: 34,
+            background: item.bg,
+            child: item.asset != null
+                ? Image.asset(
+              item.asset!,
+              width: 18,
+              height: 18,
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => Icon(
+                item.icon,
+                color: item.color,
+                size: 16,
               ),
-              const SizedBox(width: 6),
-              Expanded(
-                flex: 3,
-                child: ClipRRect(
+            )
+                : Icon(item.icon, color: item.color, size: 16),
+          ),
+          const SizedBox(width: 12),
+          SizedBox(
+            width: 80,
+            child: Text(
+              item.label,
+              maxLines: 2,
+              style: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.textPrimary(context),
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: SizedBox(
                     height: 4,
@@ -410,23 +405,24 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 6),
-              Text(
-                '$percent%',
-                style: AppTextStyles.bodySmall.copyWith(
-                  color: item.color,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 10,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '$percent%',
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: item.color,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
-
   Widget _interpretationCard({
     required ({
       String range,
@@ -466,7 +462,7 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
             style: AppTextStyles.bodySmall.copyWith(
               color: item.color,
               fontWeight: FontWeight.w600,
-              fontSize: 10,
+              fontSize: 11,
             ),
           ),
           const SizedBox(height: 4),
@@ -475,7 +471,7 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
             style: AppTextStyles.bodySmall.copyWith(
               color: item.color,
               fontWeight: FontWeight.w700,
-              fontSize: 10,
+              fontSize: 12,
             ),
           ),
           const SizedBox(height: 4),
@@ -483,11 +479,12 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
             child: Text(
               item.description,
               maxLines: 4,
+              textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: AppTextStyles.bodySmall.copyWith(
                 color: AppColors.textMuted(context),
                 fontWeight: FontWeight.w500,
-                fontSize: 10,
+                fontSize: 11,
               ),
             ),
           ),

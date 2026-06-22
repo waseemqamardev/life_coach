@@ -134,16 +134,16 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
               padding: const EdgeInsets.fromLTRB(8, 4, 4, 0),
               child: Row(
                 children: <Widget>[
-                  RtlBackIconButton(
-                    onPressed: () {
-                      if (_selectionMode) {
-                        _exitSelectionMode();
-                      } else {
-                        context.pop();
-                      }
-                    },
-                    size: 22,
-                  ),
+                  // RtlBackIconButton(
+                  //   onPressed: () {
+                  //     if (_selectionMode) {
+                  //       _exitSelectionMode();
+                  //     } else {
+                  //       context.pop();
+                  //     }
+                  //   },
+                  //   size: 22,
+                  // ),
                   Expanded(
                     child: Text(
                       l10n.history,
@@ -619,7 +619,7 @@ class _HistoryDecisionCard extends StatelessWidget {
                       style: AppTextStyles.bodySmall.copyWith(
                         color: AppColors.textMuted(context),
                         fontWeight: FontWeight.w500,
-                        fontSize: 10,
+                        fontSize: 12,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -697,7 +697,7 @@ class _HistoryBadge extends StatelessWidget {
         style: AppTextStyles.bodySmall.copyWith(
           color: textColor,
           fontWeight: FontWeight.w600,
-          fontSize: 9,
+          fontSize: 12,
         ),
       ),
     );

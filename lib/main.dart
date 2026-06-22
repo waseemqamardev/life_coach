@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart' hide FirebaseService;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
 import 'core/services/storage_service.dart';
+import 'core/services/firebase_service.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -13,6 +14,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await AppFirebaseService.instance.init();
   try {
     await dotenv.load(fileName: '.env');
   } catch (_) {

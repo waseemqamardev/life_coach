@@ -23,11 +23,11 @@ class AiInsightCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color color = accentColor ?? AppColors.primaryPurple;
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: color.withOpacity(
             Theme.of(context).brightness == Brightness.light ? 0.08 : 0.14),
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.withOpacity(0.25), width: 1),
       ),
       child: Row(

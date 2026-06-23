@@ -222,7 +222,39 @@ class AuthNotifier extends StateNotifier<AuthState> {
     return user?.emailVerified ?? false;
   }
 
-  Future<void> signOut() => _service.signOut();
+  Future<void> continueAsGuest() async {
+    const String guestUid = 'guest';
+    await LocalDatabase.instance.switchUser(guestUid);
+    ProfilePhotoService.instance.setActiveUser(guestUid);
+
+    await StorageService.instance.setBool(StorageService.kIsLoggedIn, true);
+    await StorageService.instance.setString(StorageService.kLastActiveUid, guestUid);
+
+    await UserStorageScope.writeName(guestUid, 'Guest User');
+    await UserStorageScope.writeEmail(guestUid, 'guest@ailifenavigator.local');
+
+    _onUserContextChanged();
+
+    state = const AuthState(
+      isLoggedIn: true,
+      uid: guestUid,
+      name: 'Guest User',
+      email: 'guest@ailifenavigator.local',
+      isEmailVerified: true,
+      hasPasswordProvider: false,
+    );
+
+    _refreshListenable.refresh();
+  }
+
+  Future<void> signOut() async {
+    if (state.uid == 'guest') {
+      await _syncLoggedOut();
+      _refreshListenable.refresh();
+    } else {
+      await _service.signOut();
+    }
+  }
 
   Future<void> changePassword(
     String currentPassword,

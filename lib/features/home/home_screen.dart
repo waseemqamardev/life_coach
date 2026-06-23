@@ -30,28 +30,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         ref.read(decisionsProvider.notifier).refresh();
-        _checkVersionUpdate();
+        // _checkVersionUpdate();
       }
     });
   }
 
-  Future<void> _checkVersionUpdate() async {
-    final VersionUpdateInfo updateInfo =
-        await AppFirebaseService.instance.checkVersionUpdate();
-    if (!mounted) return;
-    if (updateInfo.type != UpdateType.none) {
-      showDialog<void>(
-        context: context,
-        barrierDismissible: updateInfo.type != UpdateType.force,
-        builder: (BuildContext dialogContext) => VersionUpdateDialog(
-          latestVersion: updateInfo.latestVersion,
-          updateUrl: updateInfo.updateUrl,
-          releaseNotes: updateInfo.releaseNotes,
-          forceUpdate: updateInfo.type == UpdateType.force,
-        ),
-      );
-    }
-  }
+  // Future<void> _checkVersionUpdate() async {
+  //   final VersionUpdateInfo updateInfo =
+  //       await AppFirebaseService.instance.checkVersionUpdate();
+  //   if (!mounted) return;
+  //   if (updateInfo.type != UpdateType.none) {
+  //     showDialog<void>(
+  //       context: context,
+  //       barrierDismissible: updateInfo.type != UpdateType.force,
+  //       builder: (BuildContext dialogContext) => VersionUpdateDialog(
+  //         latestVersion: updateInfo.latestVersion,
+  //         updateUrl: updateInfo.updateUrl,
+  //         releaseNotes: updateInfo.releaseNotes,
+  //         forceUpdate: false,
+  //       ),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -295,7 +295,7 @@ class _HomeHeader extends StatelessWidget {
                             fontSize: 24,
                             fontWeight: FontWeight.w800,
                             letterSpacing: -0.5,
-                            color: AppColors.primaryPurple,
+                            color: Colors.white,
                             height: 1.15,
                           ),
                         ),
@@ -433,7 +433,7 @@ class _StartAnalysisCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: isDark ? Color(0xff211C75) : Colors.white,
+          color: isDark ? const Color(0xff211C75) : Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: isDark ? null : AppColors.homeCardShadow(context),
         ),
@@ -479,7 +479,7 @@ class _StartAnalysisCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.bodySmall.copyWith(
-                      fontSize: 10,
+                      fontSize: 12,
                       color: isDark
                           ? const Color(0xffD9D9D9)
                           : AppColors.textMuted(context),
@@ -706,7 +706,7 @@ class _RecentInsightsEmptyState extends StatelessWidget {
               style: AppTextStyles.bodySmall.copyWith(
                 fontSize: 12,
                 color:
-                    isDark ? Color(0xffD9D9D9) : AppColors.textMuted(context),
+                    isDark ? const Color(0xffD9D9D9) : AppColors.textMuted(context),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -715,7 +715,7 @@ class _RecentInsightsEmptyState extends StatelessWidget {
               child: Text(
                 actionLabel,
                 style: AppTextStyles.h4.copyWith(
-                  color: isDark ? Color(0xffD9D9D9) : AppColors.primaryBlue,
+                  color: isDark ? const Color(0xffD9D9D9) : AppColors.primaryBlue,
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),

@@ -370,7 +370,8 @@ class _LanguageRow extends StatelessWidget {
                 : null,
           ),
           child: ListTile(
-            contentPadding: const EdgeInsetsDirectional.fromSTEB(14, 4, 14, 4),
+            dense: false,
+            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 2, 10, 2),
             leading: ClipOval(
               child: Image.asset(
                 iconAsset,

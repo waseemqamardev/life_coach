@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../core/l10n/l10n_extensions.dart';
 
 class VersionUpdateDialog extends StatelessWidget {
   final String latestVersion;
@@ -44,11 +45,11 @@ class VersionUpdateDialog extends StatelessWidget {
             color: isDark ? AppColors.darkCard : Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: isDark ? Border.all(color: AppColors.darkBorder) : null,
-            boxShadow: <BoxShadow>[
+            boxShadow: const <BoxShadow>[
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 20,
-                offset: const Offset(0, 10),
+                offset: Offset(0, 10),
               ),
             ],
           ),
@@ -76,7 +77,7 @@ class VersionUpdateDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 18),
                 Text(
-                  'Update Available!',
+                  context.l10n.updateAvailable,
                   style: AppTextStyles.h3.copyWith(
                     fontWeight: FontWeight.w700,
                     color: AppColors.textPrimary(context),
@@ -84,7 +85,7 @@ class VersionUpdateDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'A new version ($latestVersion) is ready to install.',
+                  context.l10n.updateVersionReady(latestVersion),
                   textAlign: TextAlign.center,
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: AppColors.textMuted(context),
@@ -138,7 +139,7 @@ class VersionUpdateDialog extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            'Later',
+                            context.l10n.later,
                             style: AppTextStyles.bodyMedium.copyWith(
                               fontWeight: FontWeight.w600,
                               color: AppColors.textMuted(context),
@@ -165,7 +166,7 @@ class VersionUpdateDialog extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            'Update Now',
+                            context.l10n.updateNow,
                             style: AppTextStyles.bodyMedium.copyWith(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,

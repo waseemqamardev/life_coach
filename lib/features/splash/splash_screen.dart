@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../core/l10n/l10n_extensions.dart';
+import '../../core/services/screen_tracker_mixin.dart';
 import '../../l10n/app_localizations.dart';
 import '../../core/services/storage_service.dart';
 import '../../core/theme/app_colors.dart';
@@ -30,7 +31,9 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, ScreenTrackerMixin {
+  @override
+  String get screenName => 'SplashScreen';
   static const Duration _entranceDuration = Duration(milliseconds: 2400);
   static const Duration _ambientDuration = Duration(milliseconds: 3200);
 
@@ -231,7 +234,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           fontSize: 24,
                           fontWeight: FontWeight.w500,
                           letterSpacing: -0.2,
-                          color: isDark ? Colors.white : AppColors.primaryPurple,
+                          color:
+                              isDark ? Colors.white : AppColors.primaryPurple,
                         ),
                       ),
                     ),
@@ -291,9 +295,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 }
 
 class _SplashTitle extends StatelessWidget {
-  const _SplashTitle({
-    required this.isDark, required this.l10n
-  });
+  const _SplashTitle({required this.isDark, required this.l10n});
 
   final bool isDark;
   final AppLocalizations l10n;
@@ -455,12 +457,10 @@ class _AnimatedTopGlow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String leftOrb = isDark
-        ? Assets.iconsLeftCircleDark
-        : Assets.iconsLeftCircleLight;
-    final String rightOrb = isDark
-        ? Assets.imagesDarkCircle
-        : Assets.imagesCircleLight;
+    final String leftOrb =
+        isDark ? Assets.iconsLeftCircleDark : Assets.iconsLeftCircleLight;
+    final String rightOrb =
+        isDark ? Assets.imagesDarkCircle : Assets.imagesCircleLight;
 
     return Stack(
       children: <Widget>[

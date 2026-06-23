@@ -21,8 +21,8 @@ class AppEnv {
 
   /// Fallback models if the primary model is unavailable for this API key.
   static const List<String> geminiModelFallbacks = <String>[
-    'gemini-2.0-flash-001',
-    'gemini-2.0-flash-lite',
+    'gemini-2.5-pro',
+    'gemini-2.0-flash',
     'gemini-1.5-flash',
   ];
 

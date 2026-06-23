@@ -30,6 +30,7 @@ class _AiLifeNavigatorAppState extends ConsumerState<AiLifeNavigatorApp> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(userSessionTrackerProvider);
     final ThemeMode mode = ref.watch(themeModeProvider);
     final Locale locale = ref.watch(localeProvider);
     final bool isRtl = SupportedLanguage.isRtl(locale);
@@ -50,7 +51,7 @@ class _AiLifeNavigatorAppState extends ConsumerState<AiLifeNavigatorApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       onGenerateTitle: (BuildContext context) =>
-          AppLocalizations.of(context)!.appTitle,
+          AppLocalizations.of(context).appTitle,
       routerConfig: _router!,
       builder: (BuildContext context, Widget? child) {
         final Brightness brightness = Theme.of(context).brightness;

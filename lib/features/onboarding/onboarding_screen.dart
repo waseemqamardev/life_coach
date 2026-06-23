@@ -57,10 +57,10 @@ class _OnboardingMetrics {
         ((referenceWidth * 0.036) / textScaleFactor.clamp(1.0, 1.25))
             .clamp(12.0, 14.0);
     featureTitleFontSize =
-        ((referenceWidth * 0.036) / textScaleFactor.clamp(1.0, 1.2))
+        ((referenceWidth * 0.056) / textScaleFactor.clamp(1.0, 1.2))
             .clamp(13.0, 14.0);
     featureDescFontSize =
-        ((referenceWidth * 0.031) / textScaleFactor.clamp(1.0, 1.2))
+        ((referenceWidth * 0.041) / textScaleFactor.clamp(1.0, 1.2))
             .clamp(11.0, 12.0);
 
     featureMaxWidth = (referenceWidth * 0.72).clamp(248.0, 340.0);
@@ -506,6 +506,7 @@ class _OnboardingTitle extends StatelessWidget {
           Text(
             titleLeading,
             style: baseStyle.copyWith(
+
               color: isDark ? Colors.white : const Color(0xFF022088),
             ),
           ),

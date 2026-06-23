@@ -10,22 +10,24 @@ import 'app_providers.dart';
 import 'auth_providers.dart';
 export 'auth_providers.dart';
 
-void _invalidateUserScopedProviders(Ref ref) {
-  ref.read(draftDecisionProvider.notifier).clear();
-  ref.read(compareSelectionProvider.notifier).clear();
-  ref.invalidate(decisionsProvider);
-  ref.read(clarifyingQuestionsProvider.notifier).reset();
-  ref.invalidate(chatSessionsProvider);
-  ref.invalidate(insightsProvider);
-  ref.invalidate(analysisWorkflowProvider);
-}
-
-void _refreshUserDecisions(Ref ref) {
-  ref.read(decisionsProvider.notifier).refresh();
-}
-
 final Provider<String?> activeUserIdProvider = Provider<String?>((Ref ref) {
   return ref.watch(authProvider.select((AuthState s) => s.uid));
+});
+
+final Provider<void> userSessionTrackerProvider = Provider<void>((Ref ref) {
+  ref.listen<String?>(activeUserIdProvider, (String? previous, String? next) {
+    if (previous != next) {
+      ref.read(draftDecisionProvider.notifier).clear();
+      ref.read(compareSelectionProvider.notifier).clear();
+      ref.invalidate(decisionsProvider);
+      ref.read(clarifyingQuestionsProvider.notifier).reset();
+      ref.invalidate(chatSessionsProvider);
+      ref.invalidate(insightsProvider);
+      ref.invalidate(analysisWorkflowProvider);
+    } else {
+      ref.read(decisionsProvider.notifier).refresh();
+    }
+  });
 });
 
 final StateNotifierProvider<AuthNotifier, AuthState> authProvider =
@@ -33,8 +35,8 @@ final StateNotifierProvider<AuthNotifier, AuthState> authProvider =
   (Ref ref) => AuthNotifier(
     ref.watch(authServiceProvider),
     ref.watch(authRefreshListenableProvider),
-    () => _invalidateUserScopedProviders(ref),
-    () => _refreshUserDecisions(ref),
+    () {},
+    () {},
   ),
 );
 

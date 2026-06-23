@@ -180,7 +180,11 @@ class GeminiClient {
     final String msg = error.toString().toLowerCase();
     return msg.contains('not found') ||
         msg.contains('no longer available') ||
-        msg.contains('404');
+        msg.contains('404') ||
+        msg.contains('503') ||
+        msg.contains('unavailable') ||
+        msg.contains('demand') ||
+        msg.contains('overloaded');
   }
 
   bool _isRateLimited(Object error) {

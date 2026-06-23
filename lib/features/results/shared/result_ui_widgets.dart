@@ -411,16 +411,24 @@ class _RecommendedChoiceCardState extends State<RecommendedChoiceCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    ShaderMask(
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Text(
+                      widget.headerLabel,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13,
+                        color: Colors.white,
+                      ),
+                    )
+                        : ShaderMask(
                       shaderCallback: (Rect bounds) {
-                        return AppColors.primaryTwoGradient
-                            .createShader(bounds);
+                        return AppColors.primaryTwoGradient.createShader(bounds);
                       },
                       child: Text(
                         widget.headerLabel,
                         style: AppTextStyles.bodySmall.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 12,
+                          fontSize: 13,
                           color: Colors.white,
                         ),
                       ),
@@ -436,8 +444,8 @@ class _RecommendedChoiceCardState extends State<RecommendedChoiceCard> {
                           overflow: _expanded ? null : TextOverflow.ellipsis,
                           style: AppTextStyles.h4.copyWith(
                             color: AppColors.textPrimary(context),
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
                           ),
                         ),
                        const SizedBox(width: 2,),

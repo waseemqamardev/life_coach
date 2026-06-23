@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../auth/auth_guard.dart';
 import '../constants/app_constants.dart';
+import '../services/screen_tracker_widget.dart';
 import '../../features/advanced/business_idea/business_idea_screen.dart';
 import '../../features/advanced/career_advisor/career_advisor_screen.dart';
 import '../../features/advanced/client_selection/client_selection_screen.dart';
@@ -72,8 +73,21 @@ import '../../features/results/report_export/report_export_screen.dart';
 
 GoRouter buildRouter({Listenable? refreshListenable}) {
   GoRoute r(String path, Widget Function(BuildContext, GoRouterState) builder) =>
-      GoRoute(path: path, pageBuilder: (BuildContext c, GoRouterState s) =>
-          NoTransitionPage<void>(child: builder(c, s)));
+      GoRoute(
+        path: path,
+        pageBuilder: (BuildContext c, GoRouterState s) =>
+            NoTransitionPage<void>(
+          child: path == AppRoutes.splash
+              ? builder(c, s)
+              : TrackedScreen(
+                  key: ValueKey<String>(path),
+                  screenName: path.replaceAll('/', '').isEmpty
+                      ? 'Home'
+                      : path.replaceAll('/', ''),
+                  child: builder(c, s),
+                ),
+        ),
+      );
 
   return GoRouter(
     initialLocation: AppRoutes.splash,
@@ -133,7 +147,12 @@ GoRouter buildRouter({Listenable? refreshListenable}) {
         path: '${AppRoutes.decisionDetail}/:id',
         pageBuilder: (BuildContext c, GoRouterState s) =>
             NoTransitionPage<void>(
-                child: DecisionDetailScreen(id: s.pathParameters['id']!)),
+          child: TrackedScreen(
+            key: ValueKey<String>('${AppRoutes.decisionDetail}/${s.pathParameters['id']}'),
+            screenName: 'decisionDetail',
+            child: DecisionDetailScreen(id: s.pathParameters['id']!),
+          ),
+        ),
       ),
       r(AppRoutes.compareDecisions, (_, __) => const CompareScreen()),
 

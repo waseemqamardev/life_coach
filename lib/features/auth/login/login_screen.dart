@@ -219,6 +219,35 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             // Apple and Facebook sign-in are disabled for now.
             // AuthGoogleSignInButton(label: 'Apple', onTap: null),
             // AuthGoogleSignInButton(label: 'Facebook', onTap: null),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: _isSubmitting
+                  ? null
+                  : () async {
+                      setState(() => _isSubmitting = true);
+                      try {
+                        await ref.read(authProvider.notifier).continueAsGuest();
+                        if (mounted) {
+                          context.go(AppRoutes.home);
+                        }
+                      } catch (e) {
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString())),
+                          );
+                        }
+                      } finally {
+                        if (mounted) setState(() => _isSubmitting = false);
+                      }
+                    },
+              child: Text(
+                'Continue as Guest',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.primaryPurple,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             const SizedBox(height: 28),
             AuthFooterLink(
               leading: '${l10n.dontHaveAccount} ',

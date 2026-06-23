@@ -140,9 +140,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         StorageService.instance.getBool(StorageService.kOnboardingSeen);
     final bool languageChosen =
         StorageService.instance.getBool(StorageService.kLanguageChosen);
+    final bool isGuest =
+        StorageService.instance.getBool(StorageService.kIsLoggedIn) &&
+            StorageService.instance.getString(StorageService.kLastActiveUid) == 'guest';
     final User? user = FirebaseAuth.instance.currentUser;
-    final bool loggedIn = user != null;
-    final bool needsEmailVerification = loggedIn &&
+    final bool loggedIn = user != null || isGuest;
+    final bool needsEmailVerification = user != null &&
         AuthRepository.hasPasswordProvider(user) &&
         !user.emailVerified;
 

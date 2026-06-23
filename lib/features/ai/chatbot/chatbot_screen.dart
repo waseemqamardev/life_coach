@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:ai_life_navigator/shared/widgets/exit_alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -207,57 +209,80 @@ class _ChatbotScreenState extends ConsumerState<ChatbotScreen> {
       }
     });
   }
+  DateTime? _lastPressedAt;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldColor(context),
-      body: SafeArea(
-        child: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            // Bottom decorative wave background
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: IgnorePointer(
-                child: SizedBox(
-                  height: 120,
-                  width: double.infinity,
-                  child: Image.asset(
-                    isDark
-                        ? Assets.imagesBackGroundWaveDark
-                        : Assets.imagesBackGroundWaveLight,
-                    fit: BoxFit.fill,
-                    alignment: Alignment.bottomCenter,
-                    filterQuality: FilterQuality.high,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) return;
+        final DateTime now = DateTime.now();
+        if (_lastPressedAt == null ||
+            now.difference(_lastPressedAt!) > const Duration(seconds: 2)) {
+          _lastPressedAt = now;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.pressBackAgainToExit),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          return;
+        }
+        final bool shouldExit = await showExitAlertDialog(context);
+        if (shouldExit) {
+          await SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.scaffoldColor(context),
+        body: SafeArea(
+          child: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              // Bottom decorative wave background
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: IgnorePointer(
+                  child: SizedBox(
+                    height: 120,
+                    width: double.infinity,
+                    child: Image.asset(
+                      isDark
+                          ? Assets.imagesBackGroundWaveDark
+                          : Assets.imagesBackGroundWaveLight,
+                      fit: BoxFit.fill,
+                      alignment: Alignment.bottomCenter,
+                      filterQuality: FilterQuality.high,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            // Core screen column
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                // Custom Navigation Header
-                _buildHeader(context, l10n, isDark),
+              // Core screen column
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  // Custom Navigation Header
+                  _buildHeader(context, l10n, isDark),
 
-                // Main content: either start state or message listing
-                Expanded(
-                  child: _messages.isEmpty
-                      ? _buildStartState(l10n, isDark)
-                      : _buildMessageList(isDark),
-                ),
+                  // Main content: either start state or message listing
+                  Expanded(
+                    child: _messages.isEmpty
+                        ? _buildStartState(l10n, isDark)
+                        : _buildMessageList(isDark),
+                  ),
 
-                _buildInputSection(l10n, isDark),
-              ],
-            ),
-          ],
+                  _buildInputSection(l10n, isDark),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

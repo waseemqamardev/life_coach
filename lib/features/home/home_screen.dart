@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +16,7 @@ import '../../providers/providers.dart';
 import '../../shared/widgets/bottom_nav.dart';
 import '../../shared/widgets/rtl_aware.dart';
 import '../../shared/widgets/version_update_dialog.dart';
+import '../../shared/widgets/exit_alert_dialog.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +26,8 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  DateTime? _lastPressedAt;
+
   @override
   void initState() {
     super.initState();
@@ -77,13 +81,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final int activePlans =
         decisions.where((Decision d) => d.actionPlan.isNotEmpty).length;
 
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: AppColors.scaffoldColor(context),
-      bottomNavigationBar: AppBottomNav.forScaffold(
-        context,
-        currentIndex: 0,
-      ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) return;
+        final DateTime now = DateTime.now();
+        if (_lastPressedAt == null ||
+            now.difference(_lastPressedAt!) > const Duration(seconds: 2)) {
+          _lastPressedAt = now;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.pressBackAgainToExit),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          return;
+        }
+        final bool shouldExit = await showExitAlertDialog(context);
+        if (shouldExit) {
+          await SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        backgroundColor: AppColors.scaffoldColor(context),
+        bottomNavigationBar: AppBottomNav.forScaffold(
+          context,
+          currentIndex: 0,
+        ),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -241,7 +266,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ],
         ),
       ),
-    );
+    ),);
   }
 
   static String _timeAgo(DateTime date) {

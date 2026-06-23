@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import '../../../shared/widgets/exit_alert_dialog.dart';
 
 import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
@@ -12,20 +14,48 @@ import '../../../shared/widgets/insights_hero_card.dart';
 import '../../../shared/widgets/widgets.dart';
 import '../../../shared/widgets/rtl_aware.dart';
 
-class DailySuggestionScreen extends StatelessWidget {
+class DailySuggestionScreen extends StatefulWidget {
   const DailySuggestionScreen({super.key});
+
+  @override
+  State<DailySuggestionScreen> createState() => _DailySuggestionScreenState();
+}
+
+class _DailySuggestionScreenState extends State<DailySuggestionScreen> {
+  DateTime? _lastPressedAt;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: AppColors.scaffoldColor(context),
-      bottomNavigationBar: AppBottomNav.forScaffold(
-        context,
-        currentIndex: 2,
-      ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) return;
+        final DateTime now = DateTime.now();
+        if (_lastPressedAt == null ||
+            now.difference(_lastPressedAt!) > const Duration(seconds: 2)) {
+          _lastPressedAt = now;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.pressBackAgainToExit),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          return;
+        }
+        final bool shouldExit = await showExitAlertDialog(context);
+        if (shouldExit) {
+          await SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        backgroundColor: AppColors.scaffoldColor(context),
+        bottomNavigationBar: AppBottomNav.forScaffold(
+          context,
+          currentIndex: 2,
+        ),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -111,7 +141,7 @@ class DailySuggestionScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),);
   }
 }
 

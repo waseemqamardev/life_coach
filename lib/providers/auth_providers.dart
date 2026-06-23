@@ -114,6 +114,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> _onAuthUserChanged(User? user) async {
     if (user == null) {
+      if (state.uid == 'guest') return;
       await _syncLoggedOut();
     } else {
       await _syncUser(user);

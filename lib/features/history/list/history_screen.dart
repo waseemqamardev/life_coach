@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import '../../../shared/widgets/exit_alert_dialog.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/l10n/l10n_extensions.dart';
@@ -26,6 +28,7 @@ class HistoryScreen extends ConsumerStatefulWidget {
 }
 
 class _HistoryScreenState extends ConsumerState<HistoryScreen> {
+  DateTime? _lastPressedAt;
   static const Color _scoreGreen = Color(0xFF16A34A);
 
   final TextEditingController _searchCtrl = TextEditingController();
@@ -119,13 +122,34 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
     final int lowRiskCount =
         all.where((Decision d) => d.riskScore <= 35).length;
 
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: AppColors.scaffoldColor(context),
-      bottomNavigationBar: AppBottomNav.forScaffold(
-        context,
-        currentIndex: widget.navIndex,
-      ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) return;
+        final DateTime now = DateTime.now();
+        if (_lastPressedAt == null ||
+            now.difference(_lastPressedAt!) > const Duration(seconds: 2)) {
+          _lastPressedAt = now;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.pressBackAgainToExit),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          return;
+        }
+        final bool shouldExit = await showExitAlertDialog(context);
+        if (shouldExit) {
+          await SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        backgroundColor: AppColors.scaffoldColor(context),
+        bottomNavigationBar: AppBottomNav.forScaffold(
+          context,
+          currentIndex: widget.navIndex,
+        ),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -466,7 +490,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
           ],
         ),
       ),
-    );
+    ),);
   }
 }
 

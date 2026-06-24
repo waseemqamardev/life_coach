@@ -413,31 +413,31 @@ class _RecommendedChoiceCardState extends State<RecommendedChoiceCard> {
                   children: <Widget>[
                     Theme.of(context).brightness == Brightness.dark
                         ? Text(
-                      widget.headerLabel,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13,
-                        color: Colors.white,
-                      ),
-                    )
+                            widget.headerLabel,
+                            style: AppTextStyles.bodySmall.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
+                              color: Colors.white,
+                            ),
+                          )
                         : ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return AppColors.primaryTwoGradient.createShader(bounds);
-                      },
-                      child: Text(
-                        widget.headerLabel,
-                        style: AppTextStyles.bodySmall.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                            shaderCallback: (Rect bounds) {
+                              return AppColors.primaryTwoGradient
+                                  .createShader(bounds);
+                            },
+                            child: Text(
+                              widget.headerLabel,
+                              style: AppTextStyles.bodySmall.copyWith(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                     const SizedBox(height: 2),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-
                         Text(
                           widget.recommendation,
                           maxLines: _expanded ? null : 2,
@@ -448,7 +448,9 @@ class _RecommendedChoiceCardState extends State<RecommendedChoiceCard> {
                             fontSize: 14,
                           ),
                         ),
-                       const SizedBox(width: 2,),
+                        const SizedBox(
+                          width: 2,
+                        ),
                         GestureDetector(
                           onTap: _onArrowTap,
                           child: AnimatedRotation(
@@ -636,7 +638,7 @@ class ActionPlanTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -648,7 +650,7 @@ class ActionPlanTimeline extends StatelessWidget {
               ),
               if (i < steps.length - 1)
                 SizedBox(
-                  height: 88,
+                  height: 70,
                   width: 24,
                   child: CustomPaint(
                     painter: _DashedLinePainter(
@@ -667,9 +669,7 @@ class ActionPlanTimeline extends StatelessWidget {
               for (int i = 0; i < steps.length; i++) ...<Widget>[
                 _ActionStepCard(
                   step: steps[i],
-                  onTap: onStepTap == null
-                      ? null
-                      : () => onStepTap!(steps[i]),
+                  onTap: onStepTap == null ? null : () => onStepTap!(steps[i]),
                 ),
                 if (i < steps.length - 1) const SizedBox(height: 12),
               ],
@@ -878,69 +878,69 @@ class _SummaryScoreCard extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
-      padding: const EdgeInsets.fromLTRB(10, 12, 8, 12),
-      decoration: BoxDecoration(
-        color: AppColors.cardColor(context),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: ResultUi.cardShadow(context),
+        padding: const EdgeInsets.fromLTRB(10, 12, 8, 12),
+        decoration: BoxDecoration(
+          color: AppColors.cardColor(context),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: ResultUi.cardShadow(context),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: 38,
+              height: 38,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: iconBg,
+                shape: BoxShape.circle,
+              ),
+              child: Image.asset(
+                iconAsset,
+                width: 22,
+                height: 22,
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.textMuted(context),
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(height: 3),
+            Text(
+              level,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.bodySmall.copyWith(
+                color: levelColor,
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              value,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.textMuted(context),
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            width: 38,
-            height: 38,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: iconBg,
-              shape: BoxShape.circle,
-            ),
-            child: Image.asset(
-              iconAsset,
-              width: 22,
-              height: 22,
-              fit: BoxFit.contain,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.bodySmall.copyWith(
-              color: AppColors.textMuted(context),
-              fontWeight: FontWeight.w500,
-              fontSize: 12,
-            ),
-          ),
-          const SizedBox(height: 3),
-          Text(
-            level,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.bodySmall.copyWith(
-              color: levelColor,
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            value,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.bodySmall.copyWith(
-              color: AppColors.textMuted(context),
-              fontWeight: FontWeight.w500,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    ),
     );
   }
 }
@@ -982,101 +982,101 @@ class _ActionStepCard extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.cardColor(context),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: ResultUi.cardShadow(context),
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              width: 44,
-              height: 44,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: step.iconBg,
-                borderRadius: BorderRadius.circular(12),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppColors.cardColor(context),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: ResultUi.cardShadow(context),
+        ),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                width: 44,
+                height: 44,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: step.iconBg,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: step.iconAsset != null
+                    ? Image.asset(
+                        step.iconAsset!,
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => Icon(
+                          step.icon,
+                          color: step.color,
+                          size: 18,
+                        ),
+                      )
+                    : Icon(step.icon, color: step.color, size: 18),
               ),
-              child: step.iconAsset != null
-                  ? Image.asset(
-                      step.iconAsset!,
-                      width: 32,
-                      height: 32,
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => Icon(
-                        step.icon,
-                        color: step.color,
-                        size: 18,
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      step.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.h4.copyWith(
+                        color: AppColors.textPrimary(context),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
                       ),
-                    )
-                  : Icon(step.icon, color: step.color, size: 18),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    step.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.h4.copyWith(
-                      color: AppColors.textPrimary(context),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
                     ),
+                    const SizedBox(height: 4),
+                    Text(
+                      step.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textMuted(context),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        height: 1.45,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  RtlChevronIcon(
+                    color: AppColors.textMuted(context),
+                    size: 18,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    step.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textMuted(context),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                      height: 1.45,
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: step.badgeBg,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Text(
+                      step.badge,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: step.badgeColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                RtlChevronIcon(
-                  color: AppColors.textMuted(context),
-                  size: 18,
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: step.badgeBg,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Text(
-                    step.badge,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: step.badgeColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 }

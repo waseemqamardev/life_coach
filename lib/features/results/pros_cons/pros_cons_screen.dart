@@ -136,7 +136,7 @@ class _ProsConsListCard extends StatelessWidget {
                     size: 10,
                   ),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 6),
                 Expanded(
                   child: Text(
                     items[i],
@@ -150,7 +150,7 @@ class _ProsConsListCard extends StatelessWidget {
                 ),
               ],
             ),
-            if (i < items.length - 1) const SizedBox(height: 12),
+            if (i < items.length - 1) const SizedBox(height: 6),
           ],
         ],
       ),

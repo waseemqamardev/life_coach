@@ -611,32 +611,35 @@ class _OutcomePredictionScreenState extends ConsumerState<OutcomePredictionScree
           const SizedBox(width: 12),
 
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: SizedBox(
-                    height: 4,
-                    child: LinearProgressIndicator(
-                      value: item.progress,
-                      backgroundColor: const Color(0xFFE8E8E8),
-                      valueColor: AlwaysStoppedAnimation<Color>(item.color),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: SizedBox(
+                      height: 4,
+                      child: LinearProgressIndicator(
+                        value: item.progress,
+                        backgroundColor: const Color(0xFFE8E8E8),
+                        valueColor: AlwaysStoppedAnimation<Color>(item.color),
+                      ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    item.status,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: item.color,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      item.status,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: item.color,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 

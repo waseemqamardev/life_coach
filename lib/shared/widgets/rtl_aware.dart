@@ -67,14 +67,16 @@ class RtlBackIconButton extends StatelessWidget {
 
 /// List/disclosure chevron — auto-mirrors in RTL via Material icon.
 class RtlChevronIcon extends StatelessWidget {
-  const RtlChevronIcon({super.key, this.color, this.size = 22});
+  const RtlChevronIcon({super.key, this.color, this.size = 12});
 
   final Color? color;
   final double size;
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.chevron_right_rounded, color: color, size: size);
+    return Image.asset(Assets.iconsArrowAi, color: color, height: size,width: size,
+    fit: BoxFit.contain,
+    );
   }
 }
 

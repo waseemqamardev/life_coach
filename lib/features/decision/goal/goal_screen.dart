@@ -278,7 +278,7 @@ class _GoalScreenState extends ConsumerState<GoalScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Image.asset(
-            Assets.imagesHomeScreenLogo,
+            isDark?  Assets.imagesDarkHomeLogo:   Assets.imagesHomeScreenLogo,
             fit: BoxFit.contain,
             width: 79,
             height: 70,

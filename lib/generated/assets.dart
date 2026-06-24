@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String aiLifeNavigator = '.env';
   static const String fontsInterBold = 'assets/fonts/Inter-Bold.ttf';
   static const String fontsInterMedium = 'assets/fonts/Inter-Medium.ttf';
   static const String fontsInterRegular = 'assets/fonts/Inter-Regular.ttf';
@@ -36,7 +37,9 @@ class Assets {
   static const String iconsAiShare = 'assets/icons/ai_share.png';
   static const String iconsAiTheme = 'assets/icons/ai_theme.png';
   static const String iconsAiVoice = 'assets/icons/ai_voice.png';
+  static const String iconsArrowAi = 'assets/icons/arrow_ai.png';
   static const String iconsArrowBack = 'assets/icons/arrow_back.png';
+  static const String iconsArrowBackAi = 'assets/icons/arrow_back_ai.png';
   static const String iconsBangladesh = 'assets/icons/bangladesh.png';
   static const String iconsBestOverall = 'assets/icons/Best_overall.png';
   static const String iconsBudget = 'assets/icons/budget.png';

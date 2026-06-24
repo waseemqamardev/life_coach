@@ -276,99 +276,98 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
 
   Widget _riskBreakdownRow({
     required ({String label, String? asset, IconData icon, Color color, Color bg})
-        item,
+    item,
     required int score,
   }) {
     final double progress = score / 100;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 2),
-          child: _SquareIconBadge(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _SquareIconBadge(
             size: 34,
             background: item.bg,
             child: item.asset != null
                 ? Image.asset(
-                    item.asset!,
-                    width: 18,
-                    height: 18,
-                    fit: BoxFit.contain,
-                    errorBuilder: (_, __, ___) => Icon(
-                      item.icon,
-                      color: item.color,
-                      size: 16,
-                    ),
-                  )
+              item.asset!,
+              width: 18,
+              height: 18,
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => Icon(
+                item.icon,
+                color: item.color,
+                size: 16,
+              ),
+            )
                 : Icon(item.icon, color: item.color, size: 16),
           ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-            const  SizedBox(height: 15,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    item.label,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textPrimary(context),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: SizedBox(
-                        height: 4,
-                        child: LinearProgressIndicator(
-                          value: progress,
-                          backgroundColor: const Color(0xFFE8E8E8),
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(item.color),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+          const SizedBox(width: 12),
+          SizedBox(
+            width: 100,
+            child: Text(
+              item.label,
+              maxLines: 2,
+              style: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.textPrimary(context),
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: RichText(
-                  text: TextSpan(
-                    children: <InlineSpan>[
-                      TextSpan(
-                        text: '$score',
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: item.color,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                        ),
-                      ),
-                      TextSpan(
-                        text: '/100',
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textMuted(context),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          const SizedBox(width: 12,),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20,),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: SizedBox(
+                    height: 4,
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      backgroundColor: const Color(0xFFE8E8E8),
+                      valueColor: AlwaysStoppedAnimation<Color>(item.color),
+                    ),
                   ),
                 ),
-              ),
-            ],
+
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: RichText(
+                    text: TextSpan(
+                      children: <InlineSpan>[
+                        TextSpan(
+                          text: '$score',
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: item.color,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '/100',
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.textMuted(context),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
+
+
   }
 
   Widget _interpretationCard(
@@ -474,7 +473,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                     size: 10,
                   ),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 6),
                 Expanded(
                   child: Text(
                     tips[i],
@@ -487,7 +486,7 @@ class _RiskScoreScreenState extends ConsumerState<RiskScoreScreen> {
                 ),
               ],
             ),
-            if (i < tips.length - 1) const SizedBox(height: 12),
+            if (i < tips.length - 1) const SizedBox(height: 6),
           ],
         ],
       ),

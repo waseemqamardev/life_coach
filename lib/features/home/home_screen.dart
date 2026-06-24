@@ -8,14 +8,12 @@ import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/utils/decision_text.dart';
-import '../../core/services/firebase_service.dart';
 import '../../data/models/decision.dart';
 import '../../generated/assets.dart';
 import '../../l10n/app_localizations.dart';
 import '../../providers/providers.dart';
 import '../../shared/widgets/bottom_nav.dart';
 import '../../shared/widgets/rtl_aware.dart';
-import '../../shared/widgets/version_update_dialog.dart';
 import '../../shared/widgets/exit_alert_dialog.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -109,164 +107,168 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           context,
           currentIndex: 0,
         ),
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
-              child: _HomeHeader(
-                isDark: Theme.of(context).brightness == Brightness.dark,
-                l10n: l10n,
-                appTitle: l10n.aiNavigator,
-                onSettings: () => context.push(AppRoutes.settings),
-              ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(
-                  20,
-                  8,
-                  20,
-                  AppBottomNav.contentBottomPadding(context),
-                ),
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _GreetingCard(
-                      greeting: l10n.goodMorning(displayName),
-                      subtitle: l10n.homeSubtitle,
-                    ),
-                    const SizedBox(height: 16),
-                    _StartAnalysisCard(
-                      title: l10n.startNewAnalysis,
-                      subtitle: l10n.startAnalysisSubtitle,
-                      onTap: () => context.push(AppRoutes.startDecision),
-                    ),
-                    const SizedBox(height: 24),
-                    _SectionHeader(
-                      title: l10n.decisionOverview,
-                      viewAllLabel: l10n.viewAll,
-                      onViewAll: () => context.push(AppRoutes.history),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: _OverviewCard(
-                            label: l10n.riskScore,
-                            value: '$avgRisk%',
-                            sub: l10n.riskLevelLabel(avgRisk),
-                            color: AppColors.success,
-                            icon: Assets.iconsRiskScore,
-                          ),
-                        ),
-                        const SizedBox(width: 6),
-                        Expanded(
-                          child: _OverviewCard(
-                            label: l10n.successChance,
-                            value: '$avgSuccess%',
-                            sub: l10n.successChanceLabel(avgSuccess),
-                            color: AppColors.info,
-                            icon: Assets.iconsSuccessIcon,
-                          ),
-                        ),
-                        const SizedBox(width: 6),
-                        Expanded(
-                          child: _OverviewCard(
-                            label: l10n.activePlans,
-                            value: '$activePlans',
-                            sub: l10n.inProgress,
-                            color: AppColors.primaryPurple,
-                            icon: Assets.iconsInProgress,
-                          ),
-                        ),
-                      ],
-                    ),
-                    // ----- Quick access (hidden until assets / nav are finalized) -----
-                    // const SizedBox(height: 24),
-                    // Text('Quick Access',
-                    //     style: AppTextStyles.h4
-                    //         .copyWith(color: AppColors.textPrimary(context))),
-                    // const SizedBox(height: 12),
-                    // Row(
-                    //   children: <Widget>[
-                    //     _QuickAccessItem(
-                    //         icon: Icons.chat_bubble_outline_rounded,
-                    //         color: AppColors.primaryPurple,
-                    //         label: 'AI Chat',
-                    //         onTap: () => context.push(AppRoutes.aiQuestionFlow)),
-                    //     _QuickAccessItem(
-                    //         icon: Icons.assignment_outlined,
-                    //         color: AppColors.accentPurple,
-                    //         label: 'My Plans',
-                    //         onTap: () => context.push(AppRoutes.actionPlan)),
-                    //     _QuickAccessItem(
-                    //         icon: Icons.history_rounded,
-                    //         color: AppColors.info,
-                    //         label: 'History',
-                    //         onTap: () => context.push(AppRoutes.history)),
-                    //     _QuickAccessItem(
-                    //         icon: Icons.bookmark_border_rounded,
-                    //         color: AppColors.accentPurple,
-                    //         label: 'Saved',
-                    //         onTap: () => context.push(AppRoutes.saved)),
-                    //     _QuickAccessItem(
-                    //         icon: Icons.settings_outlined,
-                    //         color: AppColors.info,
-                    //         label: 'Settings',
-                    //         onTap: () => context.push(AppRoutes.settings)),
-                    //   ],
-                    // ),
-                    const SizedBox(height: 24),
-                    _SectionHeader(
-                      title: l10n.recentInsights,
-                      viewAllLabel: l10n.viewAll,
-                      onViewAll: () => context.push(AppRoutes.history),
-                    ),
-                    const SizedBox(height: 16),
-                    if (decisions.isEmpty)
-                      _RecentInsightsEmptyState(
-                        message: l10n.startFirstDecision,
-                        actionLabel: l10n.startNewAnalysis,
-                        onStart: () => context.push(AppRoutes.startDecision),
-                      )
-                    else
-                      ...decisions.take(2).map((Decision d) {
-                        final bool highRisk = d.riskScore >= 60;
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: _RecentInsightCard(
-                            title: d.title,
-                            description:
-                                DecisionText.insightDescription(d, l10n),
-                            timeAgo: _timeAgo(d.createdAt),
-                            riskLabel: highRisk ? l10n.highRisk : l10n.lowRisk,
-                            riskColor: AppColors.riskBadgeForeground(
-                              context,
-                              highRisk: highRisk,
-                            ),
-                            riskBg: AppColors.riskBadgeBackground(
-                              context,
-                              highRisk: highRisk,
-                            ),
-                            onTap: () {
-                              ref.read(draftDecisionProvider.notifier).start(d);
-                              context.push(AppRoutes.decisionResult);
-                            },
-                          ),
-                        );
-                      }),
-                  ],
+        body: SafeArea(
+          bottom: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
+                child: _HomeHeader(
+                  isDark: Theme.of(context).brightness == Brightness.dark,
+                  l10n: l10n,
+                  appTitle: l10n.aiNavigator,
+                  onSettings: () => context.push(AppRoutes.settings),
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.fromLTRB(
+                    20,
+                    8,
+                    20,
+                    AppBottomNav.contentBottomPadding(context),
+                  ),
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _GreetingCard(
+                        greeting: l10n.goodMorning(displayName),
+                        subtitle: l10n.homeSubtitle,
+                      ),
+                      const SizedBox(height: 16),
+                      _StartAnalysisCard(
+                        title: l10n.startNewAnalysis,
+                        subtitle: l10n.startAnalysisSubtitle,
+                        onTap: () => context.push(AppRoutes.startDecision),
+                      ),
+                      const SizedBox(height: 24),
+                      _SectionHeader(
+                        title: l10n.decisionOverview,
+                        viewAllLabel: l10n.viewAll,
+                        onViewAll: () => context.push(AppRoutes.history),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: _OverviewCard(
+                              label: l10n.riskScore,
+                              value: '$avgRisk%',
+                              sub: l10n.riskLevelLabel(avgRisk),
+                              color: AppColors.success,
+                              icon: Assets.iconsRiskScore,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: _OverviewCard(
+                              label: l10n.successChance,
+                              value: '$avgSuccess%',
+                              sub: l10n.successChanceLabel(avgSuccess),
+                              color: AppColors.info,
+                              icon: Assets.iconsSuccessIcon,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: _OverviewCard(
+                              label: l10n.activePlans,
+                              value: '$activePlans',
+                              sub: l10n.inProgress,
+                              color: AppColors.primaryPurple,
+                              icon: Assets.iconsInProgress,
+                            ),
+                          ),
+                        ],
+                      ),
+                      // ----- Quick access (hidden until assets / nav are finalized) -----
+                      // const SizedBox(height: 24),
+                      // Text('Quick Access',
+                      //     style: AppTextStyles.h4
+                      //         .copyWith(color: AppColors.textPrimary(context))),
+                      // const SizedBox(height: 12),
+                      // Row(
+                      //   children: <Widget>[
+                      //     _QuickAccessItem(
+                      //         icon: Icons.chat_bubble_outline_rounded,
+                      //         color: AppColors.primaryPurple,
+                      //         label: 'AI Chat',
+                      //         onTap: () => context.push(AppRoutes.aiQuestionFlow)),
+                      //     _QuickAccessItem(
+                      //         icon: Icons.assignment_outlined,
+                      //         color: AppColors.accentPurple,
+                      //         label: 'My Plans',
+                      //         onTap: () => context.push(AppRoutes.actionPlan)),
+                      //     _QuickAccessItem(
+                      //         icon: Icons.history_rounded,
+                      //         color: AppColors.info,
+                      //         label: 'History',
+                      //         onTap: () => context.push(AppRoutes.history)),
+                      //     _QuickAccessItem(
+                      //         icon: Icons.bookmark_border_rounded,
+                      //         color: AppColors.accentPurple,
+                      //         label: 'Saved',
+                      //         onTap: () => context.push(AppRoutes.saved)),
+                      //     _QuickAccessItem(
+                      //         icon: Icons.settings_outlined,
+                      //         color: AppColors.info,
+                      //         label: 'Settings',
+                      //         onTap: () => context.push(AppRoutes.settings)),
+                      //   ],
+                      // ),
+                      const SizedBox(height: 24),
+                      _SectionHeader(
+                        title: l10n.recentInsights,
+                        viewAllLabel: l10n.viewAll,
+                        onViewAll: () => context.push(AppRoutes.history),
+                      ),
+                      const SizedBox(height: 16),
+                      if (decisions.isEmpty)
+                        _RecentInsightsEmptyState(
+                          message: l10n.startFirstDecision,
+                          actionLabel: l10n.startNewAnalysis,
+                          onStart: () => context.push(AppRoutes.startDecision),
+                        )
+                      else
+                        ...decisions.take(2).map((Decision d) {
+                          final bool highRisk = d.riskScore >= 60;
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: _RecentInsightCard(
+                              title: d.title,
+                              description:
+                                  DecisionText.insightDescription(d, l10n),
+                              timeAgo: _timeAgo(d.createdAt),
+                              riskLabel:
+                                  highRisk ? l10n.highRisk : l10n.lowRisk,
+                              riskColor: AppColors.riskBadgeForeground(
+                                context,
+                                highRisk: highRisk,
+                              ),
+                              riskBg: AppColors.riskBadgeBackground(
+                                context,
+                                highRisk: highRisk,
+                              ),
+                              onTap: () {
+                                ref
+                                    .read(draftDecisionProvider.notifier)
+                                    .start(d);
+                                context.push(AppRoutes.decisionResult);
+                              },
+                            ),
+                          );
+                        }),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ),);
+    );
   }
 
   static String _timeAgo(DateTime date) {
@@ -456,7 +458,7 @@ class _StartAnalysisCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: isDark ? const Color(0xff211C75) : Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -499,16 +501,19 @@ class _StartAnalysisCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      fontSize: 12,
-                      color: isDark
-                          ? const Color(0xffD9D9D9)
-                          : AppColors.textMuted(context),
-                      height: 1.45,
+                  SizedBox(
+                    width: 195,
+                    child: Text(
+                      subtitle,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        fontSize: 12,
+                        color: isDark
+                            ? const Color(0xffD9D9D9)
+                            : AppColors.textMuted(context),
+                        height: 1.45,
+                      ),
                     ),
                   ),
                 ],
@@ -730,8 +735,9 @@ class _RecentInsightsEmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
               style: AppTextStyles.bodySmall.copyWith(
                 fontSize: 12,
-                color:
-                    isDark ? const Color(0xffD9D9D9) : AppColors.textMuted(context),
+                color: isDark
+                    ? const Color(0xffD9D9D9)
+                    : AppColors.textMuted(context),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -740,7 +746,8 @@ class _RecentInsightsEmptyState extends StatelessWidget {
               child: Text(
                 actionLabel,
                 style: AppTextStyles.h4.copyWith(
-                  color: isDark ? const Color(0xffD9D9D9) : AppColors.primaryBlue,
+                  color:
+                      isDark ? const Color(0xffD9D9D9) : AppColors.primaryBlue,
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),

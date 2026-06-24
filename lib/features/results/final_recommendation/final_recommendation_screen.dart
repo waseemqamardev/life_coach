@@ -400,7 +400,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           for (int i = 0; i < reasons.length; i++) ...<Widget>[
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -414,15 +414,15 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
                     color: AppColors.success,
                     shape: BoxShape.circle,
                   ),
-                  child: Center(
-                    child: const Icon(
+                  child: const Center(
+                    child: Icon(
                       Icons.check_rounded,
                       color: Colors.white,
                       size: 10,
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 6),
                 Expanded(
                   child: Text(
                     reasons[i],
@@ -436,7 +436,7 @@ class _FinalRecommendationScreenState extends ConsumerState<FinalRecommendationS
                 ),
               ],
             ),
-            if (i < reasons.length - 1) const SizedBox(height: 12),
+            if (i < reasons.length - 1) const SizedBox(height: 6),
           ],
         ],
       ),

@@ -378,7 +378,7 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
           ),
           const SizedBox(width: 12),
           SizedBox(
-            width: 80,
+            width: 84,
             child: Text(
               item.label,
               maxLines: 2,
@@ -391,32 +391,35 @@ class _ConfidenceMeterScreenState extends ConsumerState<ConfidenceMeterScreen> {
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: SizedBox(
-                    height: 4,
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      backgroundColor: const Color(0xFFE8E8E8),
-                      valueColor: AlwaysStoppedAnimation<Color>(item.color),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: SizedBox(
+                      height: 4,
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: const Color(0xFFE8E8E8),
+                        valueColor: AlwaysStoppedAnimation<Color>(item.color),
+                      ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    '$percent%',
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: item.color,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '$percent%',
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: item.color,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
